@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Book an Appointment | RCB Hospital</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- Material Symbols -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,300..700,0..1,0"
+    rel="stylesheet"
+  >
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: #f5f6f8;
+      color: #111c2d;
+      min-height: 100vh;
+    }
+
+    /* =========================
+       PAGE BACKGROUND
+    ========================= */
+
+    .page {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      padding: 40px 20px 70px;
+    }
+
+    .page::before {
+      content: "";
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      background: rgba(217, 26, 42, 0.08);
+      border-radius: 50%;
+      filter: blur(90px);
+      top: -160px;
+      right: -120px;
+      pointer-events: none;
+    }
+
+    .page::after {
+      content: "";
+      position: fixed;
+      width: 350px;
+      height: 350px;
+      background: rgba(17, 19, 21, 0.06);
+      border-radius: 50%;
+      filter: blur(80px);
+      bottom: -150px;
+      left: -100px;
+      pointer-events: none;
+    }
+
+    /* =========================
+       MAIN CONTAINER
+    ========================= */
+
+    .appointment-container {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      border: 1px solid rgba(17, 19, 21, 0.08);
+      border-radius: 28px;
+
+      box-shadow:
+        0 25px 70px rgba(17, 19, 21, 0.10);
+
+      overflow: hidden;
+
+      animation: pageReveal 0.9s ease both;
+    }
+
+    /* =========================
+       TOP HEADER
+    ========================= */
+
+    .top-bar {
+      min-height: 82px;
+      padding: 18px 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      border-bottom: 1px solid rgba(17, 19, 21, 0.08);
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #111315;
+      color: white;
+
+      border-radius: 12px;
+
+      box-shadow: 0 8px 20px rgba(17, 19, 21, 0.15);
+    }
+
+    .logo-mark .material-symbols-outlined {
+      color: #D91A2A;
+      font-size: 24px;
+    }
+
+    .hospital-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111c2d;
+    }
+
+    .hospital-subtitle {
+      font-size: 10px;
+      color: #737985;
+      margin-top: 2px;
+    }
+
+    .back-button {
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      color: #111c2d;
+      font-size: 13px;
+      font-weight: 600;
+
+      padding: 10px 15px;
+      border: 1px solid #dfe1e5;
+      border-radius: 10px;
+
+      transition: all 0.35s ease;
+    }
+
+    .back-button:hover {
+      background: #111315;
+      color: white;
+      border-color: #111315;
+      transform: translateX(-3px);
+    }
+
+    /* =========================
+       CONTENT GRID
+    ========================= */
+
+    .content {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 0;
+    }
+
+    /* =========================
+       LEFT PANEL
+    ========================= */
+
+    .intro-panel {
+      background: #111315;
+      color: white;
+      padding: 55px 45px;
+
+      position: relative;
+      overflow: hidden;
+
+      animation: slideLeft 0.9s ease both;
+    }
+
+    .intro-panel::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+
+      background: rgba(217, 26, 42, 0.13);
+      filter: blur(65px);
+
+      top: -100px;
+      left: -100px;
+    }
+
+    .intro-panel::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+
+      background: rgba(217, 26, 42, 0.08);
+      filter: blur(60px);
+
+      bottom: -100px;
+      right: -80px;
+    }
+
+    .intro-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+
+      color: #ff6975;
+
+      margin-bottom: 22px;
+    }
+
+    .section-label::before {
+      content: "";
+      width: 25px;
+      height: 1px;
+      background: #D91A2A;
+    }
+
+    .intro-panel h1 {
+      font-size: clamp(38px, 4vw, 58px);
+      line-height: 1.05;
+      font-weight: 400;
+      letter-spacing: -2px;
+    }
+
+    .intro-panel h1 strong {
+      color: #D91A2A;
+      font-weight: 700;
+    }
+
+    .intro-text {
+      color: #b8bcc4;
+      font-size: 14px;
+      line-height: 1.8;
+      margin-top: 25px;
+      max-width: 440px;
+    }
+
+    /* =========================
+       BENEFITS
+    ========================= */
+
+    .benefits {
+      margin-top: 38px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .benefit {
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+
+      transition: transform 0.3s ease;
+    }
+
+    .benefit:hover {
+      transform: translateX(6px);
+    }
+
+    .benefit-icon {
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: rgba(217, 26, 42, 0.12);
+      color: #ff5361;
+
+      border: 1px solid rgba(217, 26, 42, 0.2);
+      border-radius: 9px;
+    }
+
+    .benefit-icon .material-symbols-outlined {
+      font-size: 18px;
+    }
+
+    .benefit h3 {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .benefit p {
+      font-size: 11px;
+      line-height: 1.5;
+      color: #969ba5;
+      margin-top: 3px;
+    }
+
+    /* =========================
+       FORM PANEL
+    ========================= */
+
+    .form-panel {
+      padding: 48px 45px;
+      background: rgba(255, 255, 255, 0.94);
+
+      animation: slideRight 0.9s ease 0.1s both;
+    }
+
+    .form-heading {
+      margin-bottom: 30px;
+    }
+
+    .form-heading span {
+      color: #D91A2A;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.8px;
+    }
+
+    .form-heading h2 {
+      font-size: 27px;
+      margin-top: 7px;
+      color: #111c2d;
+    }
+
+    .form-heading p {
+      color: #737985;
+      font-size: 12px;
+      margin-top: 7px;
+    }
+
+    /* =========================
+       FORM
+    ========================= */
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #202938;
+    }
+
+    .required {
+      color: #D91A2A;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper .material-symbols-outlined {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+
+      font-size: 19px;
+      color: #8b9099;
+
+      pointer-events: none;
+
+      transition: color 0.3s ease;
+    }
+
+    .form-control {
+      width: 100%;
+      height: 48px;
+
+      padding: 0 14px 0 43px;
+
+      border: 1px solid #dedfe3;
+      border-radius: 10px;
+
+      background: #fafafa;
+
+      outline: none;
+
+      color: #111c2d;
+      font-family: inherit;
+      font-size: 13px;
+
+      transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    .form-control:hover {
+      background: white;
+      border-color: #c7c9ce;
+    }
+
+    .form-control:focus {
+      background: white;
+      border-color: #D91A2A;
+
+      box-shadow:
+        0 0 0 3px rgba(217, 26, 42, 0.08);
+
+      transform: translateY(-1px);
+    }
+
+    .input-wrapper:focus-within .material-symbols-outlined {
+      color: #D91A2A;
+    }
+
+    textarea.form-control {
+      height: 105px;
+      padding-top: 14px;
+      resize: vertical;
+    }
+
+    /* =========================
+       SELECT
+    ========================= */
+
+    select.form-control {
+      appearance: none;
+      cursor: pointer;
+    }
+
+    .select-wrapper::after {
+      content: "expand_more";
+
+      font-family: "Material Symbols Outlined";
+      position: absolute;
+
+      right: 14px;
+      top: 50%;
+
+      transform: translateY(-50%);
+      color: #777c85;
+
+      pointer-events: none;
+    }
+
+    /* =========================
+       SUBMIT BUTTON
+    ========================= */
+
+    .submit-button {
+      width: 100%;
+      height: 54px;
+
+      margin-top: 28px;
+
+      border: none;
+      border-radius: 11px;
+
+      background: #D91A2A;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 10px 25px rgba(217, 26, 42, 0.22);
+
+      transition:
+        transform 0.35s ease,
+        background 0.35s ease,
+        box-shadow 0.35s ease;
+    }
+
+    .submit-button:hover {
+      background: #b91525;
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 15px 30px rgba(217, 26, 42, 0.30);
+    }
+
+    .submit-button:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    /* =========================
+       PRIVACY NOTE
+    ========================= */
+
+    .privacy-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+
+      margin-top: 14px;
+
+      color: #8a8e96;
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .privacy-note .material-symbols-outlined {
+      font-size: 15px;
+      color: #D91A2A;
+    }
+
+    /* =========================
+       ANIMATIONS
+    ========================= */
+
+    @keyframes pageReveal {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-35px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideRight {
+      from {
+        opacity: 0;
+        transform: translateX(35px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 850px) {
+
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .intro-panel {
+        padding: 45px 30px;
+      }
+
+      .form-panel {
+        padding: 40px 30px;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .page {
+        padding: 15px;
+      }
+
+      .top-bar {
+        padding: 15px 18px;
+      }
+
+      .hospital-subtitle {
+        display: none;
+      }
+
+      .back-button {
+        padding: 8px 10px;
+      }
+
+      .back-button span:last-child {
+        display: none;
+      }
+
+      .intro-panel {
+        padding: 38px 24px;
+      }
+
+      .intro-panel h1 {
+        font-size: 40px;
+      }
+
+      .form-panel {
+        padding: 32px 20px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .form-group.full {
+        grid-column: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <main class="appointment-container">
+
+      <!-- =========================
+           HEADER
+      ========================= -->
+
+      <header class="top-bar">
+
+        <div class="logo-area">
+
+          <div class="logo-mark">
+            <span class="material-symbols-outlined">
+              local_hospital
+            </span>
+          </div>
+
+          <div>
+            <div class="hospital-name">
+              RCB Hospital
+            </div>
+
+            <div class="hospital-subtitle">
+              Multi-Speciality & Diagnostic Centre
+            </div>
+          </div>
+
+        </div>
+
+        <button type="button" class="close-button" onclick="history.back()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+
+      </header>
+
+
+      <!-- =========================
+           MAIN CONTENT
+      ========================= -->
+
+      <div class="content">
+
+        <!-- =========================
+             LEFT INTRO
+        ========================= -->
+
+        <section class="intro-panel">
+
+          <div class="intro-content">
+
+            <div class="section-label">
+              Appointment Desk
+            </div>
+
+            <h1>
+              Your care begins with
+              <strong>a conversation.</strong>
+            </h1>
+
+            <p class="intro-text">
+              Schedule your consultation with our clinical team.
+              Please provide your details and preferred appointment
+              time so our reception team can assist you.
+            </p>
+
+
+            <!-- BENEFITS -->
+
+            <div class="benefits">
+
+              <div class="benefit">
+
+                <div class="benefit-icon">
+                  <span class="material-symbols-outlined">
+                    calendar_check
+                  </span>
+                </div>
+
+                <div>
+                  <h3>
+                    Convenient Scheduling
+                  </h3>
+
+                  <p>
+                    Choose a preferred date and time for your visit.
+                  </p>
+                </div>
+
+              </div>
+
+
+              <div class="benefit">
+
+                <div class="benefit-icon">
+                  <span class="material-symbols-outlined">
+                    medical_services
+                  </span>
+                </div>
+
+                <div>
+                  <h3>
+                    Clinical Consultation
+                  </h3>
+
+                  <p>
+                    Share your consultation requirement with our team.
+                  </p>
+                </div>
+
+              </div>
+
+
+              <div class="benefit">
+
+                <div class="benefit-icon">
+                  <span class="material-symbols-outlined">
+                    support_agent
+                  </span>
+                </div>
+
+                <div>
+                  <h3>
+                    Reception Assistance
+                  </h3>
+
+                  <p>
+                    Our reception team will assist you with your request.
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- =========================
+             RIGHT FORM
+        ========================= -->
+
+        <section class="form-panel">
+
+          <div class="form-heading">
+
+            <span>
+              Patient Information
+            </span>
+
+            <h2>
+              Book an Appointment
+            </h2>
+
+            <p>
+              Fill in the details below to submit your appointment request.
+            </p>
+
+          </div>
+
+
+          <!-- FORM -->
+
+          <form id="appointmentForm">
+
+            <div class="form-grid">
+
+
+              <!-- NAME -->
+
+              <div class="form-group">
+
+                <label for="name">
+                  Full Name <span class="required">*</span>
+                </label>
+
+                <div class="input-wrapper">
+
+                  <span class="material-symbols-outlined">
+                    person
+                  </span>
+
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="form-control"
+                    placeholder="Enter your full name"
+                    required
+                  >
+
+                </div>
+
+              </div>
+
+
+              <!-- PHONE -->
+
+              <div class="form-group">
+
+                <label for="phone">
+                  Mobile Number <span class="required">*</span>
+                </label>
+
+                <div class="input-wrapper">
+
+                  <span class="material-symbols-outlined">
+                    phone
+                  </span>
+
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    class="form-control"
+                    placeholder="Enter mobile number"
+                    required
+                  >
+
+                </div>
+
+              </div>
+
+
+              <!-- EMAIL -->
+
+              <div class="form-group">
+
+                <label for="email">
+                  Email Address
+                </label>
+
+                <div class="input-wrapper">
+
+                  <span class="material-symbols-outlined">
+                    mail
+                  </span>
+
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-control"
+                    placeholder="Enter email address"
+                  >
+
+                </div>
+
+              </div>
+
+
+              <!-- DEPARTMENT -->
+
+              <div class="form-group">
+
+                <label for="department">
+                  Consultation Type <span class="required">*</span>
+                </label>
+
+                <div class="input-wrapper select-wrapper">
+
+                  <span class="material-symbols-outlined">
+                    medical_services
+                  </span>
+
+                  <select
+                    id="department"
+                    name="department"
+                    class="form-control"
+                    required
+                  >
+
+                    <option value="" disabled selected>
+                      Select consultation type
+                    </option>
+
+                    <option>
+                      General Physician
+                    </option>
+
+                    <option>
+                      Specialist Consultation
+                    </option>
+
+                    <option>
+                      Diagnostic Testing
+                    </option>
+
+                    <option>
+                      Follow-up Consultation
+                    </option>
+
+                    <option>
+                      Other
+                    </option>
+
+                  </select>
+
+                </div>
+
+              </div>
+
+
+              <!-- DATE -->
+
+              <div class="form-group">
+
+                <label for="date">
+                  Preferred Date <span class="required">*</span>
+                </label>
+
+                <div class="input-wrapper">
+
+                  <span class="material-symbols-outlined">
+                    calendar_month
+                  </span>
+
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    class="form-control"
+                    required
+                  >
+
+                </div>
+
+              </div>
+
+
+              <!-- TIME -->
+
+              <div class="form-group">
+
+                <label for="time">
+                  Preferred Time
+                </label>
+
+                <div class="input-wrapper">
+
+                  <span class="material-symbols-outlined">
+                    schedule
+                  </span>
+
+                  <input
+                    type="time"
+                    id="time"
+                    name="time"
+                    class="form-control"
+                  >
+
+                </div>
+
+              </div>
+
+
+              <!-- MESSAGE -->
+
+              <div class="form-group full">
+
+                <label for="message">
+                  Additional Information
+                </label>
+
+                <div class="input-wrapper">
+
+                  <span class="material-symbols-outlined">
+                    description
+                  </span>
+
+                  <textarea
+                    id="message"
+                    name="message"
+                    class="form-control"
+                    placeholder="Tell us anything important about your appointment..."
+                  ></textarea>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <button
+              type="submit"
+              class="submit-button"
+            >
+
+              <span class="material-symbols-outlined">
+                calendar_check
+              </span>
+
+              Book Appointment
+
+            </button>
+
+
+            <div class="privacy-note">
+
+              <span class="material-symbols-outlined">
+                lock
+              </span>
+
+              <span>
+                Your information is submitted securely to the appointment desk.
+              </span>
+
+            </div>
+
+          </form>
+
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script>
+const appointmentForm = document.getElementById("appointmentForm");
+
+appointmentForm.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const department = document.getElementById("department").value;
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+    const message = document.getElementById("message").value.trim();
+
+    if (!name || !phone || !department || !date || !time) {
+        alert("Please fill all required fields.");
+        return;
+    }
+
+    const { data, error } = await supabaseClient
+  .from("appointments")
+  .insert([
+    {
+      full_name: name,
+      phone: phone,
+      email: email,
+      department: department,
+      appointment_date: date,
+      appointment_time: time,
+      message: message
+    }
+  ]);
+
+if (error) {
+  console.error("Supabase Error:", error);
+  alert("Appointment could not be submitted. Please try again.");
+  return;
+}
+
+alert("Appointment submitted successfully! Our team will contact you soon.");
+
+appointmentForm.reset();
+});
+</script>
+
+
+</body>
+</html>

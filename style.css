@@ -1,0 +1,501 @@
+
+    :root {
+      --font-1: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --text-size-primary: 15px;
+      --font-bold: 700;
+    }
+    
+    html, body {
+      font-family: var(--font-1);
+      overflow-x: hidden;
+      overflow-y: auto;
+      min-height: 100%;
+      height: auto;
+      color: #111c2d;
+      background-color: #f8f9fc;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    * {
+      font-family: inherit;
+    }
+    
+    .display-heading {
+      font-size: clamp(26px, 1.5492957746vw + 1.6901408451rem, 50px);
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+    }
+    
+    .body-copy {
+      font-size: var(--text-size-primary);
+      font-weight: 300;
+      line-height: 1.65;
+    }
+    
+    .font-token-bold {
+      font-weight: var(--font-bold);
+    }
+
+    /* Editorial Micro-Interactions */
+    .btn-lift {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+    }
+    .btn-lift:hover {
+      transform: translateY(-2px);
+    }
+    .btn-lift:active {
+      transform: translateY(0);
+    }
+
+    .nav-editorial-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0;
+    }
+    .nav-editorial-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background-color: #D91A2A;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-editorial-link:hover::after,
+    .nav-editorial-link.active::after {
+      width: 100%;
+    }
+
+    /* Scroll Reveals */
+    .reveal-el {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .reveal-el.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-img-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    .reveal-img-wrap img {
+      transform: scale(1.05);
+      transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+      will-change: transform;
+    }
+    .reveal-img-wrap.is-revealed img {
+      transform: scale(1.0);
+    }
+    .reveal-img-wrap:hover img {
+      transform: scale(1.035);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal-el, .reveal-img-wrap img {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .btn-lift:hover {
+        transform: none !important;
+      }
+    }
+
+
+/* ================= GALLERY CARDS ================= */
+
+.gallery-card {
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-80px) scale(0.94);
+  transition:
+    opacity 0.7s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease;
+}
+
+/* Image */
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s ease;
+}
+
+/* Hover */
+.gallery-card:hover {
+  transform: translateY(-5px) scale(1.015);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+.gallery-card:hover img {
+  transform: scale(1.08);
+  filter: brightness(1.08);
+}
+
+
+/* ================= IMAGE LABEL ================= */
+
+.gallery-label {
+  position: absolute;
+  left: 18px;
+  bottom: 16px;
+
+  padding: 7px 12px;
+
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  color: white;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  opacity: 0;
+  transform: translateY(10px);
+
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+.gallery-card:hover .gallery-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ================= OPEN ANIMATION ================= */
+
+#facilities-gallery.gallery-open {
+  opacity: 1;
+}
+
+#facilities-gallery.gallery-open .gallery-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+
+/* Individual timing */
+
+#facilities-gallery.gallery-open .gallery-card-1 {
+  transition-delay: 100ms;
+}
+
+#facilities-gallery.gallery-open .gallery-card-2 {
+  transition-delay: 220ms;
+}
+
+#facilities-gallery.gallery-open .gallery-card-3 {
+  transition-delay: 340ms;
+}
+
+#facilities-gallery.gallery-open .gallery-card-4 {
+  transition-delay: 460ms;
+}
+
+#facilities-gallery.gallery-open .gallery-card-5 {
+  transition-delay: 580ms;
+}
+
+
+/* ================= HEADER ANIMATION ================= */
+
+.gallery-header {
+  opacity: 0;
+  transform: translateY(-40px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#facilities-gallery.gallery-open .gallery-header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 640px) {
+
+  .gallery-card {
+    transform: translateY(-50px) scale(0.96);
+  }
+
+  .gallery-label {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+/* ================================
+   QUALITY BOX HOVER
+================================ */
+
+.quality-box {
+  opacity: 0;
+  background: #ffffff;
+  border: 1px solid rgba(217, 26, 42, 0.16);
+
+  transition:
+    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 1.2s ease,
+    background-color 0.45s ease,
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
+
+  will-change: transform, opacity;
+}
+
+
+/* Scroll animation */
+
+.quality-from-right {
+  transform: translateX(100px);
+}
+
+.quality-from-left {
+  transform: translateX(-100px);
+}
+
+.quality-box.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+/* ================================
+   BLACK HOVER EFFECT
+================================ */
+
+.quality-box.show:hover {
+  transform: translateY(-8px) scale(1.025);
+
+  background: #111315;
+
+  border-color: #D91A2A;
+
+  box-shadow:
+    0 18px 35px rgba(0, 0, 0, 0.25),
+    0 5px 15px rgba(217, 26, 42, 0.12);
+
+  cursor: pointer;
+}
+
+
+/* Heading/text becomes white on hover */
+
+.quality-box:hover p {
+  color: #ffffff;
+}
+
+
+/* Description becomes soft grey */
+
+.quality-box:hover p.body-copy {
+  color: #d1d5db;
+}
+
+
+/* Red number stays red */
+
+.quality-box:hover span {
+  color: #D91A2A;
+  transform: scale(1.08);
+  text-shadow: 0 4px 12px rgba(217, 26, 42, 0.25);
+}
+
+
+/* Smooth number transition */
+
+.quality-box span {
+  display: inline-block;
+
+  transition:
+    transform 0.45s ease,
+    color 0.45s ease,
+    text-shadow 0.45s ease;
+}
+
+
+/* ================= GALLERY CARDS ================= */
+
+.gallery-card {
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-80px) scale(0.94);
+  transition:
+    opacity 0.7s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease;
+}
+
+/* Image */
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s ease;
+}
+
+/* Hover */
+.gallery-card:hover {
+  transform: translateY(-5px) scale(1.015);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+.gallery-card:hover img {
+  transform: scale(1.08);
+  filter: brightness(1.08);
+}
+
+
+/* ================= IMAGE LABEL ================= */
+
+.gallery-label {
+  position: absolute;
+  left: 18px;
+  bottom: 16px;
+
+  padding: 7px 12px;
+
+  border-radius: 999px;
+
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  color: white;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  opacity: 0;
+  transform: translateY(10px);
+
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+
+.gallery-card:hover .gallery-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ================= OPEN ANIMATION ================= */
+
+#facilities-gallery.gallery-open {
+  opacity: 1;
+}
+
+#facilities-gallery.gallery-open .gallery-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+
+/* Individual timing */
+
+#facilities-gallery.gallery-open .gallery-card-1 {
+  transition-delay: 100ms;
+}
+
+#facilities-gallery.gallery-open .gallery-card-2 {
+  transition-delay: 220ms;
+}
+
+#facilities-gallery.gallery-open .gallery-card-3 {
+  transition-delay: 340ms;
+}
+
+#facilities-gallery.gallery-open .gallery-card-4 {
+  transition-delay: 460ms;
+}
+
+#facilities-gallery.gallery-open .gallery-card-5 {
+  transition-delay: 580ms;
+}
+
+
+/* ================= HEADER ANIMATION ================= */
+
+.gallery-header {
+  opacity: 0;
+  transform: translateY(-40px);
+  transition:
+    opacity 0.6s ease,
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#facilities-gallery.gallery-open .gallery-header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 640px) {
+
+  .gallery-card {
+    transform: translateY(-50px) scale(0.96);
+  }
+
+  .gallery-label {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+.close-button {
+  width: 42px;
+  height: 42px;
+  border: 1px solid #dfe1e5;
+  border-radius: 50%;
+  background: white;
+  color: #111c2d;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-button:hover {
+  background: #111315;
+  color: white;
+  border-color: #111315;
+  transform: rotate(90deg);
+}
+
+.close-button .material-symbols-outlined {
+  font-size: 22px;
+}

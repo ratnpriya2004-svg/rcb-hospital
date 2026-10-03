@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Admin Panel | RCB Hospital</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #111c2d;
+    }
+
+    .header {
+      background: #111315;
+      color: white;
+      padding: 20px 35px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header h1 {
+      font-size: 22px;
+    }
+
+    .header p {
+      color: #aaa;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .refresh-btn {
+      border: none;
+      background: #D91A2A;
+      color: white;
+      padding: 11px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .refresh-btn:hover {
+      background: #b91525;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 35px auto;
+      padding: 0 25px;
+    }
+
+    .top-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .top-section h2 {
+      font-size: 24px;
+    }
+
+    .count {
+      background: #111315;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    .table-container {
+      background: white;
+      border-radius: 14px;
+      overflow-x: auto;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1000px;
+    }
+
+    th {
+      background: #111315;
+      color: white;
+      padding: 15px;
+      text-align: left;
+      font-size: 12px;
+    }
+
+    td {
+      padding: 14px 15px;
+      border-bottom: 1px solid #eee;
+      font-size: 13px;
+    }
+
+    tr:hover td {
+      background: #fafafa;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 50px;
+      color: #777;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 50px;
+      color: #777;
+    }
+
+    .error {
+      text-align: center;
+      padding: 30px;
+      color: #D91A2A;
+    }
+
+    @media (max-width: 700px) {
+      .header {
+        padding: 18px;
+      }
+
+      .container {
+        padding: 0 15px;
+      }
+
+      .top-section {
+        align-items: flex-start;
+        gap: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+
+    <div>
+      <h1>RCB Hospital — Admin Panel</h1>
+      <p>Appointment Management Dashboard</p>
+    </div>
+
+    <button class="refresh-btn" id="refreshBtn">
+      ↻ Refresh
+    </button>
+
+  </header>
+
+
+  <!-- MAIN -->
+  <main class="container">
+
+    <div class="top-section">
+
+      <h2>Appointment Requests</h2>
+
+      <div class="count">
+        Total: <span id="appointmentCount">0</span>
+      </div>
+
+    </div>
+
+
+    <!-- TABLE -->
+    <div class="table-container">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Message</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+
+        <tbody id="appointmentTableBody">
+
+          <tr>
+            <td colspan="9" class="loading">
+              Loading appointments...
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </main>
+
+
+  <!-- SUPABASE -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="supabase.js"></script>
+
+
+  <!-- ADMIN JAVASCRIPT -->
+  <script>
+
+    const tableBody =
+      document.getElementById("appointmentTableBody");
+
+    const appointmentCount =
+      document.getElementById("appointmentCount");
+
+    const refreshBtn =
+      document.getElementById("refreshBtn");
+
+
+    // ==============================
+    // LOAD APPOINTMENTS
+    // ==============================
+
+    async function loadAppointments() {
+
+      tableBody.innerHTML = `
+        <tr>
+          <td colspan="9" class="loading">
+            Loading appointments...
+          </td>
+        </tr>
+      `;
+
+      const { data, error } = await supabase
+
+        .from("appointments")
+
+        .select("*")
+
+        .order("created_at", {
+          ascending: false
+        });
+
+
+      // ERROR
+
+      if (error) {
+
+        console.error("Supabase Error:", error);
+
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="9" class="error">
+              Failed to load appointments.
+              Check browser console.
+            </td>
+          </tr>
+        `;
+
+        return;
+      }
+
+
+      // COUNT
+
+      appointmentCount.textContent =
+        data.length;
+
+
+      // NO DATA
+
+      if (data.length === 0) {
+
+        tableBody.innerHTML = `
+          <tr>
+            <td colspan="9" class="empty">
+              No appointment requests yet.
+            </td>
+          </tr>
+        `;
+
+        return;
+      }
+
+
+      // DISPLAY DATA
+
+      tableBody.innerHTML = "";
+
+
+      data.forEach(appointment => {
+
+        const row =
+          document.createElement("tr");
+
+        row.innerHTML = `
+
+          <td>${appointment.id}</td>
+
+          <td>
+            <strong>
+              ${appointment.full_name || "-"}
+            </strong>
+          </td>
+
+          <td>
+            ${appointment.phone || "-"}
+          </td>
+
+          <td>
+            ${appointment.email || "-"}
+          </td>
+
+          <td>
+            ${appointment.department || "-"}
+          </td>
+
+          <td>
+            ${appointment.appointment_date || "-"}
+          </td>
+
+          <td>
+            ${appointment.appointment_time || "-"}
+          </td>
+
+          <td>
+            ${appointment.message || "-"}
+          </td>
+
+          <td>
+            ${appointment.created_at
+              ? new Date(appointment.created_at).toLocaleString()
+              : "-"
+            }
+          </td>
+
+        `;
+
+        tableBody.appendChild(row);
+
+      });
+
+    }
+
+
+    // ==============================
+    // REFRESH BUTTON
+    // ==============================
+
+    refreshBtn.addEventListener(
+      "click",
+      loadAppointments
+    );
+
+
+    // ==============================
+    // INITIAL LOAD
+    // ==============================
+
+    loadAppointments();
+
+  </script>
+
+</body>
+</html>
