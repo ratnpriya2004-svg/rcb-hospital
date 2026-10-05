@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | RCB Hospital</title>
+   <link rel="stylesheet" href="../style.css">
+    
+</head>
+<body>
+<div class="dashboard">
+    <!-- =========================================
+         SIDEBAR
+    ========================================== -->
+
+    <aside class="sidebar">
+
+        <div>
+
+            <!-- BRAND -->
+
+            <div class="brand">
+
+                <div class="brand-mark">
+                    +
+                </div>
+
+                <div class="brand-name">
+
+                    <strong>
+                        RCB HOSPITAL
+                    </strong>
+
+                    <span>
+                        ADMINISTRATION
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- NAVIGATION -->
+
+            <nav class="navigation">
+
+                <div class="nav-title">
+                    Main Menu
+                </div>
+
+
+                <button class="nav-item active">
+
+                    <span class="nav-icon">
+                        ⌂
+                    </span>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </button>
+
+
+                <button class="nav-item">
+
+                    <span class="nav-icon">
+                        ▣
+                    </span>
+
+                    <span>
+                        Appointments
+                    </span>
+
+                </button>
+
+
+                <button class="nav-item" id="patientsNavBtn">
+
+                    <span class="nav-icon">
+                        ♙
+                    </span>
+
+                    <span>
+                        Patients
+                    </span>
+
+                </button>
+
+               
+
+
+            </nav>
+
+        </div>
+
+
+        <!-- LOGOUT -->
+
+        <div class="sidebar-bottom">
+
+            <button
+                class="logout"
+                id="logoutBtn"
+            >
+
+                <span class="nav-icon">
+                    ↪
+                </span>
+
+                <span>
+                    Logout
+                </span>
+
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+    <main class="main">
+
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <span class="page-label">
+                    ADMIN DASHBOARD
+                </span>
+
+                <h1>
+                    Appointment Overview
+                </h1>
+
+                <p>
+                    Manage and review patient appointment requests.
+                </p>
+
+            </div>
+
+
+            <div class="admin-profile">
+
+                <div class="avatar">
+                    AD
+                </div>
+
+                <div class="admin-info">
+
+                    <strong>
+                        Hospital Admin
+                    </strong>
+
+                    <span>
+                        Administrator
+                    </span>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================================
+             STATISTICS
+        ========================================== -->
+
+        <section class="stats" id="dashboardStats">
+
+
+            <div
+                class="stat-card clickable-stat-card"
+                id="totalAppointmentsCard"
+                role="button"
+                tabindex="0"
+            >
+
+                <div class="stat-top">
+
+                    <span class="stat-title">
+                        Total Appointments
+                    </span>
+
+                    <span class="stat-icon">
+                        ▣
+                    </span>
+
+                </div>
+
+                <div
+                    class="stat-number"
+                    id="totalAppointments"
+                >
+                    0
+                </div>
+
+                <div class="stat-note">
+                    All appointment requests
+                </div>
+
+            </div>
+
+
+            <div
+                    class="stat-card clickable-stat-card"
+                    id="todayRequestsCard"
+                    role="button"
+                    tabindex="0"
+                >
+                    <div class="stat-top">
+                        <span class="stat-title">
+                            Today's Requests
+                        </span>
+
+                    <span class="stat-icon">
+                        ◷
+                    </span>
+
+                </div>
+
+                <div
+                    class="stat-number"
+                    id="todayAppointments"
+                >
+                    0
+                </div>
+
+                <div class="stat-note">
+                    Requests created today
+                </div>
+
+            </div>
+
+            <div 
+                    class="stat-card clickable-stat-card"
+                    id="latestRequestCard"
+                    role="button"
+                    tabindex="0"
+                >
+                <div class="stat-top">
+
+                    <span class="stat-title">
+                        Latest Request
+                    </span>
+
+                    <span class="stat-icon">
+                        !
+                    </span>
+
+                </div>
+
+                <div
+                    class="stat-number"
+                    id="latestRequest"
+                    style="font-size:17px;"
+                >
+                    —
+                </div>
+
+                <div class="stat-note">
+                    Most recent appointment
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             APPOINTMENT PANEL
+        ========================================== -->
+
+        <section class="panel" id="appointmentsPanel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <h2>
+                        Appointment Requests
+                    </h2>
+
+                    <p>
+                        Patient requests received through the website
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="refresh-btn"
+                    id="refreshBtn"
+                >
+                    ↻ Refresh
+                </button>
+
+            </div>
+
+
+
+            <!-- TABLE -->
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                ID
+                            </th>
+
+                            <th>
+                                Patient
+                            </th>
+
+                            <th>
+                                Phone
+                            </th>
+
+                            <th>
+                                Department
+                            </th>
+
+                            <th>
+                                Appointment Date
+                            </th>
+
+                            <th>
+                                Time
+                            </th>
+
+                            <th>
+                                Message
+                            </th>
+
+                            <th>
+                                Submitted
+                            </th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="appointmentTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="10"
+                                class="loading"
+                            >
+                                Loading appointments...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <!-- =========================================
+     PATIENTS PANEL
+========================================== -->
+
+<section class="panel" id="patientsPanel" style="display:none;">
+
+    <div class="panel-header">
+
+        <div>
+            <h2>Patients</h2>
+            <p>Manage pending and completed appointments</p>
+        </div>
+
+        <button
+            class="refresh-btn"
+            id="patientsRefreshBtn"
+        >
+            ↻ Refresh
+        </button>
+
+    </div>
+
+
+    <!-- PENDING PATIENTS -->
+
+    <div class="patient-status-section">
+
+        <div class="patient-section-title pending-title">
+            <span>●</span>
+            Pending
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Phone</th>
+                        <th>Department</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="pendingPatientsBody">
+
+                    <tr>
+                        <td colspan="6" class="loading">
+                            Loading pending patients...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- COMPLETE PATIENTS -->
+
+    <div class="patient-status-section">
+
+        <div class="patient-section-title complete-title">
+            <span>●</span>
+            Complete
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Phone</th>
+                        <th>Department</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody id="completePatientsBody">
+
+                    <tr>
+                        <td colspan="6" class="loading">
+                            Loading completed patients...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+        <!-- FOOTER -->
+
+        <div class="dashboard-footer">
+
+            <span>
+                RCB Hospital Administration
+            </span>
+
+            <span>
+                Appointment Management
+            </span>
+
+        </div>
+
+
+    </main>
+
+</div>
+
+
+<!-- =========================================
+     APPOINTMENT DETAILS MODAL
+========================================= -->
+
+<div id="appointmentDetailsModal" class="appointment-modal">
+
+    <div class="appointment-modal-content">
+
+        <div class="appointment-modal-header">
+
+            <div>
+                <span class="modal-label">PATIENT DETAILS</span>
+
+                <h2 id="detailPatientName">
+                    Patient Name
+                </h2>
+            </div>
+
+            <button
+                type="button"
+                id="closeAppointmentModal"
+                class="modal-close-btn"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="appointment-detail-grid">
+
+            <div class="detail-item">
+                <span>Phone</span>
+                <strong id="detailPhone">—</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Email</span>
+                <strong id="detailEmail">—</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Department</span>
+                <strong id="detailDepartment">—</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Appointment Date</span>
+                <strong id="detailDate">—</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Appointment Time</span>
+                <strong id="detailTime">—</strong>
+            </div>
+
+            <div class="detail-item">
+                <span>Status</span>
+                <strong id="detailStatus">—</strong>
+            </div>
+
+            <div class="detail-item detail-full">
+                <span>Message</span>
+                <p id="detailMessage">—</p>
+            </div>
+
+            <div class="detail-item detail-full">
+                <span>Submitted</span>
+                <strong id="detailSubmitted">—</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../supabase.js"></script>
+    <script src="../script.js"></script>
+
+
+</body>
+</html>

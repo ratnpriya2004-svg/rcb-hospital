@@ -1014,12 +1014,13 @@
                     schedule
                   </span>
 
-                  <input
-                    type="time"
-                    id="time"
-                    name="time"
-                    class="form-control"
-                  >
+                  <input 
+                      type="time" 
+                      id="time" 
+                      name="time" 
+                      class="form-control"
+                      required
+                    >
 
                 </div>
 
@@ -1094,51 +1095,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase.js"></script>
-<script>
-const appointmentForm = document.getElementById("appointmentForm");
-
-appointmentForm.addEventListener("submit", async function(event) {
-    event.preventDefault();
-
-    const name = document.getElementById("name").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const department = document.getElementById("department").value;
-    const date = document.getElementById("date").value;
-    const time = document.getElementById("time").value;
-    const message = document.getElementById("message").value.trim();
-
-    if (!name || !phone || !department || !date || !time) {
-        alert("Please fill all required fields.");
-        return;
-    }
-
-    const { data, error } = await supabaseClient
-  .from("appointments")
-  .insert([
-    {
-      full_name: name,
-      phone: phone,
-      email: email,
-      department: department,
-      appointment_date: date,
-      appointment_time: time,
-      message: message
-    }
-  ]);
-
-if (error) {
-  console.error("Supabase Error:", error);
-  alert("Appointment could not be submitted. Please try again.");
-  return;
-}
-
-alert("Appointment submitted successfully! Our team will contact you soon.");
-
-appointmentForm.reset();
-});
-</script>
-
-
+<script src="script.js"></script>
 </body>
 </html>

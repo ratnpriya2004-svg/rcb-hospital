@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Login | RCB Hospital</title>
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="auth-page">
+
+    <main class="auth-wrapper">
+
+        <!-- LEFT BRANDING SECTION -->
+        <section class="auth-brand">
+
+            <div class="auth-brand-content">
+
+                <div class="auth-logo">
+                    <div class="auth-logo-icon">+</div>
+
+                    <div>
+                        <strong>RCB HOSPITAL</strong>
+                        <span>Multi-Speciality &amp; Diagnostic Centre</span>
+                    </div>
+                </div>
+
+                <div class="auth-message">
+
+                    <span class="auth-label">ADMIN PORTAL</span>
+
+                    <h2>
+                        Manage care,
+                        <span>with confidence.</span>
+                    </h2>
+                    <p>
+                        Secure access to the RCB Hospital administration
+                        dashboard and appointment management system.
+                    </p>
+
+                </div>
+
+                <div class="auth-services">
+
+                    <div class="auth-service">
+                        <span>+</span>
+                        <div>
+                            <strong>Expert Care</strong>
+                            <small>Experienced medical professionals</small>
+                        </div>
+                    </div>
+
+                    <div class="auth-service">
+                        <span>+</span>
+                        <div>
+                            <strong>Advanced Diagnostics</strong>
+                            <small>Modern diagnostic services</small>
+                        </div>
+                    </div>
+
+                    <div class="auth-service">
+                        <span>+</span>
+                        <div>
+                            <strong>Patient Focused</strong>
+                            <small>Healthcare designed around you</small>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="auth-brand-footer">
+                <span>Emergency Care</span>
+                <i></i>
+                <span>Diagnostics</span>
+                <i></i>
+                <span>Consultations</span>
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT LOGIN SECTION -->
+        <section class="auth-form-section">
+
+            <div class="auth-form-box">
+
+                <div class="mobile-auth-logo">
+
+                    <div class="auth-logo-icon">+</div>
+
+                    <div>
+                        <strong>RCB HOSPITAL</strong>
+                        <span>Multi-Speciality &amp; Diagnostic Centre</span>
+                    </div>
+
+                </div>
+
+                <div class="auth-heading">
+
+                    <span>ADMIN ACCESS</span>
+
+                        <h1>Admin Login</h1>
+
+                        <p>
+                            Sign in to access the RCB Hospital admin dashboard.
+                        </p>
+                </div>
+
+
+                <form id="loginForm">
+
+                    <div class="auth-input-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <div class="auth-input">
+                            <span class="input-icon">@</span>
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Enter your email"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <div class="auth-input-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="auth-input">
+                            <span class="input-icon">●</span>
+
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Enter your password"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <button type="submit" class="auth-submit">
+                        <span>Sign In</span>
+                        <span class="auth-arrow">→</span>
+                    </button>
+
+
+                <p class="auth-security">
+                    Secure administrator access. Authorized personnel only.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../supabase.js"></script>
+    <script src="../script.js"></script>
+
+</body>
+</html>

@@ -499,3 +499,1943 @@
 .close-button .material-symbols-outlined {
   font-size: 22px;
 }
+/* =========================================
+   RCB HOSPITAL - LOGIN PAGE
+   ========================================= */
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: #f7f7f7;
+}
+
+/* Login Card */
+.login-box {
+    width: 100%;
+    max-width: 400px;
+    background: #ffffff;
+    padding: 36px 38px;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.07);
+
+    animation: loginFade 0.45s ease-out;
+}
+
+/* Small entrance animation */
+@keyframes loginFade {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RCB Hospital Brand */
+.login-brand {
+    text-align: center;
+    margin-bottom: 26px;
+}
+
+.login-brand h2 {
+    margin: 0;
+    color: #c91f26;
+    font-size: 25px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.login-brand span {
+    display: block;
+    margin-top: 5px;
+    color: #777777;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+}
+
+/* Heading */
+.login-box h1 {
+    margin: 0;
+    text-align: center;
+    color: #171717;
+    font-size: 25px;
+    font-weight: 650;
+}
+
+.login-subtitle {
+    margin: 8px 0 26px;
+    text-align: center;
+    color: #777777;
+    font-size: 14px;
+}
+
+/* Labels */
+.login-box label {
+    display: block;
+    margin: 17px 0 7px;
+    color: #252525;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Inputs */
+.login-box input {
+    width: 100%;
+    height: 46px;
+    padding: 0 13px;
+
+    border: 1px solid #d7d7d7;
+    border-radius: 5px;
+
+    background: #ffffff;
+    color: #222222;
+
+    font-size: 14px;
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.login-box input::placeholder {
+    color: #9a9a9a;
+}
+
+.login-box input:focus {
+    border-color: #c91f26;
+    box-shadow: 0 0 0 3px rgba(201, 31, 38, 0.08);
+}
+
+/* Login Button */
+.login-box button {
+    width: 100%;
+    height: 46px;
+
+    margin-top: 24px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: #c91f26;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.login-box button:hover {
+    background: #ad181e;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(201, 31, 38, 0.16);
+}
+
+.login-box button:active {
+    transform: translateY(0);
+}
+
+/* Registration */
+.register-text {
+    margin: 20px 0 0 !important;
+    text-align: center;
+    color: #707070;
+    font-size: 13px;
+}
+
+.register-text a {
+    color: #c91f26;
+    font-weight: 600;
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.register-text a:hover {
+    color: #97161b;
+    text-decoration: underline;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+
+    .login-container {
+        padding: 25px 15px;
+    }
+
+    .login-box {
+        padding: 30px 24px;
+    }
+
+    .login-box h1 {
+        font-size: 23px;
+    }
+}
+/* =========================================
+   RCB HOSPITAL LOGO
+========================================= */
+
+.hospital-logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.logo-icon {
+    width: 24px;
+    height: 24px;
+
+    background: #d71920;
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 4px;
+
+    font-size: 30px;
+    font-weight: 300;
+    line-height: 1;
+
+    flex-shrink: 0;
+
+    transition: transform 0.2s ease;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1;
+}
+
+.logo-text strong {
+    color: #202020;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.4px;
+    white-space: nowrap;
+}
+
+.logo-text span {
+    display: block;
+    margin-top: 3px;
+
+    color: #777777;
+
+    font-size: 6px;
+    font-weight: 700;
+    letter-spacing: 0.9px;
+
+    white-space: nowrap;
+}
+
+.hospital-logo:hover .logo-icon {
+    transform: scale(1.03);
+}
+/* =========================================================
+   RCB HOSPITAL — AUTHENTICATION PAGES
+========================================================= */
+
+.auth-page {
+    margin: 0;
+    min-height: 100vh;
+    background: #f6f6f5;
+    color: #202020;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* MAIN LAYOUT */
+
+.auth-wrapper {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 46% 54%;
+}
+
+
+/* =========================================================
+   LEFT BRAND SECTION
+========================================================= */
+
+.auth-brand {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(18, 18, 18, 0.97),
+            rgba(45, 45, 45, 0.94)
+        );
+
+    color: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 48px 55px;
+
+    animation: authBrandIn 0.8s ease both;
+}
+
+
+.auth-brand::after {
+    content: "";
+    position: absolute;
+
+    width: 420px;
+    height: 420px;
+
+    right: -180px;
+    bottom: -180px;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+}
+
+
+.auth-brand-content {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* LOGO */
+
+.auth-logo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+
+.auth-logo-icon,
+.mobile-auth-logo .auth-logo-icon {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #d71920;
+    color: #ffffff;
+
+    border-radius: 4px;
+
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 1;
+
+    flex-shrink: 0;
+}
+
+
+.auth-logo strong,
+.mobile-auth-logo strong {
+    display: block;
+
+    font-size: 18px;
+    font-weight: 800;
+
+    letter-spacing: 0.5px;
+}
+
+
+.auth-logo span,
+.mobile-auth-logo span {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #a9a9a9;
+
+    font-size: 7px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+/* MESSAGE */
+
+.auth-message {
+    max-width: 480px;
+    margin-top: 150px;
+}
+
+
+.auth-label {
+    color: #d71920;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+
+.auth-message h2 {
+    margin: 18px 0 18px;
+
+    font-size: clamp(42px, 4vw, 62px);
+    line-height: 1.04;
+    font-weight: 700;
+
+    letter-spacing: -2px;
+}
+
+
+.auth-message h2 span {
+    display: block;
+    color: #d71920;
+}
+
+
+.auth-message p {
+    max-width: 430px;
+
+    margin: 0;
+
+    color: #c2c2c2;
+
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+
+/* SERVICES */
+
+.auth-services {
+    margin-top: 50px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+}
+
+
+.auth-service {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+
+.auth-service > span {
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    color: #d71920;
+
+    font-size: 17px;
+}
+
+
+.auth-service strong {
+    display: block;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+.auth-service small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #888888;
+
+    font-size: 10px;
+}
+
+
+/* FOOTER */
+
+.auth-brand-footer {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    color: #999999;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+
+.auth-brand-footer i {
+    width: 3px;
+    height: 3px;
+
+    background: #d71920;
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   RIGHT FORM SECTION
+========================================================= */
+
+.auth-form-section {
+    min-height: 100vh;
+
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 50px;
+}
+
+
+.auth-form-box {
+    width: 100%;
+    max-width: 440px;
+
+    animation: authFormIn 0.7s 0.15s ease both;
+}
+
+
+/* MOBILE LOGO */
+
+.mobile-auth-logo {
+    display: none;
+}
+
+
+/* HEADING */
+
+.auth-heading {
+    margin-bottom: 38px;
+}
+
+
+.auth-heading > span {
+    color: #d71920;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+
+.auth-heading h1 {
+    margin: 11px 0 10px;
+
+    color: #171717;
+
+    font-size: 36px;
+    line-height: 1.15;
+
+    font-weight: 700;
+
+    letter-spacing: -1px;
+}
+
+
+.auth-heading p {
+    margin: 0;
+
+    color: #777777;
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* INPUT */
+
+.auth-input-group {
+    margin-bottom: 23px;
+}
+
+
+.auth-input-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #333333;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.auth-input {
+    position: relative;
+}
+
+
+.input-icon {
+    position: absolute;
+
+    left: 16px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #999999;
+
+    font-size: 13px;
+
+    pointer-events: none;
+}
+
+
+.auth-input input {
+    width: 100%;
+    height: 52px;
+
+    box-sizing: border-box;
+
+    padding: 0 15px 0 43px;
+
+    border: 1px solid #d9d9d9;
+    border-radius: 3px;
+
+    background: #ffffff;
+
+    color: #222222;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+.auth-input input::placeholder {
+    color: #a6a6a6;
+}
+
+
+.auth-input input:focus {
+    border-color: #d71920;
+
+    box-shadow: 0 0 0 3px rgba(215, 25, 32, 0.08);
+}
+
+
+/* SUBMIT BUTTON */
+
+.auth-submit {
+    width: 100%;
+    height: 53px;
+
+    margin-top: 8px;
+
+    border: none;
+    border-radius: 3px;
+
+    background: #d71920;
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 12px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+.auth-submit:hover {
+    background: #b9141a;
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 20px rgba(215, 25, 32, 0.18);
+}
+
+
+.auth-arrow {
+    font-size: 18px;
+
+    transition: transform 0.25s ease;
+}
+
+
+.auth-submit:hover .auth-arrow {
+    transform: translateX(4px);
+}
+
+
+/* DIVIDER */
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin: 29px 0 18px;
+
+    color: #999999;
+
+    font-size: 11px;
+}
+
+
+.auth-divider::before,
+.auth-divider::after {
+    content: "";
+
+    height: 1px;
+
+    flex: 1;
+
+    background: #e6e6e6;
+}
+
+
+/* CREATE ACCOUNT */
+
+.create-account {
+    height: 50px;
+
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    color: #333333;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    transition:
+        border-color 0.25s ease,
+        color 0.25s ease,
+        background 0.25s ease;
+}
+
+
+.create-account span {
+    color: #d71920;
+
+    font-size: 17px;
+
+    transition: transform 0.25s ease;
+}
+
+
+.create-account:hover {
+    border-color: #d71920;
+
+    color: #d71920;
+
+    background: #fffafa;
+}
+
+
+.create-account:hover span {
+    transform: translateX(4px);
+}
+
+
+/* SECURITY TEXT */
+
+.auth-security {
+    margin-top: 30px;
+
+    text-align: center;
+
+    color: #a0a0a0;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes authBrandIn {
+
+    from {
+        opacity: 0;
+        transform: translateX(-25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+}
+
+
+@keyframes authFormIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .auth-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-brand {
+        display: none;
+    }
+
+    .auth-form-section {
+        min-height: 100vh;
+
+        padding: 35px 22px;
+    }
+
+    .mobile-auth-logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        margin-bottom: 55px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .auth-form-section {
+        padding: 28px 18px;
+    }
+
+    .auth-heading h1 {
+        font-size: 29px;
+    }
+
+    .mobile-auth-logo {
+        margin-bottom: 42px;
+    }
+
+}
+
+        /* =========================================
+           RESET
+        ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            color: #181818;
+        }
+
+        button,
+        input,
+        select {
+            font-family: inherit;
+        }
+
+
+        /* =========================================
+           LAYOUT
+        ========================================= */
+
+        .dashboard {
+            min-height: 100vh;
+            display: flex;
+        }
+
+
+        /* =========================================
+           SIDEBAR
+        ========================================= */
+
+        .sidebar {
+            width: 245px;
+            min-height: 100vh;
+
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            background: #151515;
+            color: white;
+
+            padding: 26px 16px;
+
+            display: flex;
+            flex-direction: column;
+
+            z-index: 100;
+        }
+
+
+        /* BRAND */
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            padding: 0 10px 27px;
+
+            border-bottom: 1px solid #303030;
+        }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+
+            background: #d71920;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 25px;
+            font-weight: 300;
+
+            border-radius: 4px;
+        }
+
+        .brand-name strong {
+            display: block;
+
+            font-size: 14px;
+            letter-spacing: .5px;
+        }
+
+        .brand-name span {
+            display: block;
+
+            margin-top: 4px;
+
+            color: #8a8a8a;
+
+            font-size: 8px;
+            font-weight: 700;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* NAVIGATION */
+
+        .navigation {
+            margin-top: 27px;
+        }
+
+        .nav-title {
+            padding: 0 11px 10px;
+
+            color: #777;
+
+            font-size: 9px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+        }
+
+        .nav-item {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            padding: 12px;
+
+            margin-bottom: 4px;
+
+            border: none;
+            border-radius: 4px;
+
+            background: transparent;
+            color: #aaa;
+
+            cursor: pointer;
+
+            text-align: left;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            transition: .25s ease;
+        }
+
+        .nav-item:hover {
+            background: #252525;
+            color: white;
+        }
+
+        .nav-item.active {
+            background: #d71920;
+            color: white;
+        }
+
+        .nav-icon {
+            width: 20px;
+
+            text-align: center;
+
+            font-size: 14px;
+        }
+
+
+        /* SIDEBAR BOTTOM */
+
+        .sidebar-bottom {
+            margin-top: auto;
+
+            padding-top: 18px;
+
+            border-top: 1px solid #303030;
+        }
+
+        .logout {
+            width: 100%;
+
+            padding: 12px;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            border: none;
+            border-radius: 4px;
+
+            background: transparent;
+            color: #999;
+
+            cursor: pointer;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            transition: .25s ease;
+        }
+
+        .logout:hover {
+            background: #252525;
+            color: white;
+        }
+
+
+        /* =========================================
+           MAIN
+        ========================================= */
+
+        .main {
+            width: calc(100% - 245px);
+
+            margin-left: 245px;
+
+            padding: 32px 38px;
+        }
+
+
+        /* =========================================
+           TOP BAR
+        ========================================= */
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 32px;
+        }
+
+        .page-label {
+            color: #d71920;
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+        }
+
+        .topbar h1 {
+            margin-top: 7px;
+
+            font-size: 27px;
+            font-weight: 700;
+        }
+
+        .topbar p {
+            margin-top: 6px;
+
+            color: #777;
+
+            font-size: 11px;
+        }
+
+
+        /* ADMIN PROFILE */
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .avatar {
+            width: 39px;
+            height: 39px;
+
+            border-radius: 50%;
+
+            background: #e9e9e9;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .admin-info strong {
+            display: block;
+
+            font-size: 11px;
+        }
+
+        .admin-info span {
+            display: block;
+
+            margin-top: 3px;
+
+            color: #888;
+
+            font-size: 9px;
+        }
+
+
+        /* =========================================
+           STAT CARDS
+        ========================================= */
+
+        .stats {
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 16px;
+
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+
+            border: 1px solid #e5e5e5;
+
+            border-radius: 5px;
+
+            padding: 20px;
+
+            transition: .25s ease;
+
+            animation: fadeUp .5s ease both;
+        }
+
+        .stat-card:nth-child(2) {
+            animation-delay: .08s;
+        }
+
+        .stat-card:nth-child(3) {
+            animation-delay: .16s;
+        }
+
+        .stat-card:nth-child(4) {
+            animation-delay: .24s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+
+            box-shadow: 0 10px 25px rgba(0,0,0,.06);
+        }
+
+        .stat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-title {
+            color: #777;
+
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .stat-icon {
+            width: 30px;
+            height: 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #fff0f1;
+            color: #d71920;
+
+            border-radius: 4px;
+
+            font-size: 13px;
+        }
+
+        .stat-number {
+            margin-top: 17px;
+
+            font-size: 27px;
+            font-weight: 700;
+        }
+
+        .stat-note {
+            margin-top: 4px;
+
+            color: #999;
+
+            font-size: 9px;
+        }
+
+        /* =========================================
+   CLICKABLE STAT CARD
+========================================= */
+
+.clickable-stat-card {
+    cursor: pointer;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.clickable-stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.10);
+}
+
+.clickable-stat-card:active {
+    transform: translateY(-2px) scale(0.99);
+}
+
+.clickable-stat-card:focus-visible {
+    outline: 2px solid #e31b23;
+    outline-offset: 3px;
+} 
+
+        /* =========================================
+           APPOINTMENT PANEL
+        ========================================= */
+
+        .panel {
+            background: white;
+
+            border: 1px solid #e5e5e5;
+
+            border-radius: 5px;
+
+            overflow: hidden;
+        }
+
+        .panel-header {
+            padding: 19px 21px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .panel-header h2 {
+            font-size: 15px;
+        }
+
+        .panel-header p {
+            margin-top: 4px;
+
+            color: #999;
+
+            font-size: 10px;
+        }
+
+
+        /* REFRESH */
+
+        .refresh-btn {
+            padding: 9px 14px;
+
+            border: 1px solid #ddd;
+            border-radius: 4px;
+
+            background: white;
+            color: #333;
+
+            cursor: pointer;
+
+            font-size: 10px;
+            font-weight: 700;
+
+            transition: .25s ease;
+        }
+
+        .refresh-btn:hover {
+            border-color: #d71920;
+            color: #d71920;
+        }
+
+
+        /* =========================================
+           TABLE
+        ========================================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 1050px;
+        }
+
+        th {
+            padding: 13px 18px;
+
+            background: #fafafa;
+
+            color: #777;
+
+            text-align: left;
+
+            font-size: 9px;
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: .7px;
+        }
+
+        td {
+            padding: 15px 18px;
+
+            border-top: 1px solid #eeeeee;
+
+            font-size: 11px;
+
+            vertical-align: middle;
+        }
+
+        tbody tr {
+            transition: .2s ease;
+        }
+
+        tbody tr:hover {
+            background: #fcfcfc;
+        }
+
+
+        /* PATIENT */
+
+        .patient-name {
+            font-weight: 700;
+        }
+
+        .patient-email {
+            display: block;
+
+            margin-top: 3px;
+
+            color: #999;
+
+            font-size: 9px;
+        }
+
+
+        /* =========================================
+           STATES
+        ========================================= */
+
+        .loading,
+        .empty,
+        .error {
+            text-align: center;
+
+            padding: 55px !important;
+
+            color: #777;
+        }
+
+        .error {
+            color: #d71920;
+        }
+
+
+        /* =========================================
+           MESSAGE
+        ========================================= */
+
+        .message-cell {
+            max-width: 190px;
+
+            color: #666;
+
+            line-height: 1.4;
+        }
+
+
+        /* =========================================
+           FOOTER INFO
+        ========================================= */
+
+        .dashboard-footer {
+            margin-top: 18px;
+
+            display: flex;
+            justify-content: space-between;
+
+            color: #999;
+
+            font-size: 9px;
+        }
+
+
+        /* =========================================
+           ANIMATION
+        ========================================= */
+
+        @keyframes fadeUp {
+
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+
+        /* =========================================
+           TABLET
+        ========================================= */
+
+        @media (max-width: 1100px) {
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .main {
+                padding: 28px 25px;
+            }
+
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                width: 68px;
+
+                padding: 20px 9px;
+            }
+
+            .brand {
+                justify-content: center;
+
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .brand-name,
+            .nav-title,
+            .nav-item span:not(.nav-icon),
+            .logout span {
+                display: none;
+            }
+
+            .nav-item,
+            .logout {
+                justify-content: center;
+            }
+
+            .main {
+                width: calc(100% - 68px);
+
+                margin-left: 68px;
+
+                padding: 24px 18px;
+            }
+
+            .admin-info {
+                display: none;
+            }
+
+        }
+
+
+        @media (max-width: 550px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                align-items: flex-start;
+            }
+
+            .topbar h1 {
+                font-size: 22px;
+            }
+
+            .topbar p {
+                max-width: 230px;
+                line-height: 1.5;
+            }
+
+            .panel-header {
+                align-items: flex-start;
+
+                gap: 12px;
+            }
+
+        }
+
+/* =========================================
+   APPOINTMENT DETAILS MODAL
+========================================= */
+
+.appointment-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 9999;
+
+    padding: 24px;
+
+    backdrop-filter: blur(5px);
+}
+
+
+.appointment-modal.show {
+    display: flex;
+}
+
+
+.appointment-modal-content {
+
+    width: min(720px, 100%);
+
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.25);
+
+    overflow: hidden;
+
+    animation: appointmentModalIn 0.25s ease;
+}
+
+
+@keyframes appointmentModalIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+/* HEADER */
+
+.appointment-modal-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    padding: 25px 28px;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+.modal-label {
+
+    display: block;
+
+    color: #e31b23;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 6px;
+}
+
+
+.appointment-modal-header h2 {
+
+    margin: 0;
+
+    font-size: 25px;
+
+    color: #111827;
+}
+
+
+/* CLOSE BUTTON */
+
+.modal-close-btn {
+
+    width: 38px;
+
+    height: 38px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f3f4f6;
+
+    color: #333;
+
+    font-size: 26px;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.modal-close-btn:hover {
+
+    background: #e31b23;
+
+    color: white;
+
+    transform: rotate(90deg);
+}
+
+
+/* DETAILS */
+
+.appointment-detail-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 16px;
+
+    padding: 28px;
+}
+
+
+.detail-item {
+
+    padding: 16px;
+
+    background: #f8f9fa;
+
+    border-radius: 12px;
+
+    border: 1px solid #eeeeee;
+
+    transition: 0.2s ease;
+}
+
+
+.detail-item:hover {
+
+    transform: translateY(-2px);
+
+    border-color: #e31b23;
+
+}
+
+
+.detail-item span {
+
+    display: block;
+
+    font-size: 12px;
+
+    color: #777;
+
+    margin-bottom: 6px;
+}
+
+
+.detail-item strong {
+
+    display: block;
+
+    font-size: 15px;
+
+    color: #111827;
+
+    word-break: break-word;
+}
+
+
+.detail-item p {
+
+    margin: 0;
+
+    color: #333;
+
+    line-height: 1.6;
+
+    word-break: break-word;
+}
+
+
+.detail-full {
+
+    grid-column: 1 / -1;
+}
+
+
+/* CLICKABLE PATIENT NAME */
+
+.patient-name {
+
+    display: block;
+
+    color: #111827;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.patient-name:hover {
+
+    color: #e31b23;
+
+    text-decoration: underline;
+
+}
+
+
+@media (max-width: 650px) {
+
+    .appointment-detail-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .detail-full {
+
+        grid-column: auto;
+
+    }
+
+}
+/* =========================================
+   VIEW APPOINTMENT BUTTON
+========================================= */
+
+.view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-width: 78px;
+    height: 36px;
+
+    padding: 0 16px;
+
+    border: 1px solid rgba(190, 30, 45, 0.18);
+    border-radius: 9px;
+
+    background: #fff;
+    color: #b91c2b;
+
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.2s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* Eye icon */
+
+.view-btn::before {
+    content: "◉";
+
+    font-size: 12px;
+    opacity: 0.8;
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+}
+
+
+/* Hover */
+
+.view-btn:hover {
+    background: #b91c2b;
+    color: #fff;
+
+    border-color: #b91c2b;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 6px 16px rgba(185, 28, 43, 0.20);
+}
+
+
+/* Hover icon */
+
+.view-btn:hover::before {
+    transform: scale(1.15);
+    opacity: 1;
+}
+
+
+/* Click */
+
+.view-btn:active {
+    transform: translateY(0);
+    box-shadow:
+        0 3px 8px rgba(185, 28, 43, 0.15);
+}
+
+
+/* Keyboard focus */
+
+.view-btn:focus-visible {
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(185, 28, 43, 0.15);
+}
+
+
+/* Latest Request table specifically */
+
+.latest-view-btn {
+    white-space: nowrap;
+}
