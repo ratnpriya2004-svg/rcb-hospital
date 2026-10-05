@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "appointment.html", "use": "@vercel/static" },
+    { "src": "admin/**/*.html", "use": "@vercel/static" },
+    { "src": "style.css", "use": "@vercel/static" },
+    { "src": "script.js", "use": "@vercel/static" },
+    { "src": "image/**/*", "use": "@vercel/static" }
+  ],
+  "rewrites": [
+    { "source": "/admin", "destination": "/admin/login.html" },
+    { "source": "/admin/", "destination": "/admin/login.html" },
+    { "source": "/admin/dashboard", "destination": "/admin/admin.html" }
+  ]
+}
