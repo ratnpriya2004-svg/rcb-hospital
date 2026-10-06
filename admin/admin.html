@@ -84,7 +84,6 @@
         a { color: inherit; text-decoration: none; }
         img { max-width: 100%; display: block; }
 
-        /* Material Icons safety */
         .material-symbols-outlined {
             font-family: 'Material Symbols Outlined', sans-serif;
             font-weight: normal;
@@ -136,7 +135,6 @@
 
         .sidebar-inner { display: flex; flex-direction: column; gap: 8px; }
 
-        /* BRAND */
         .brand {
             display: flex;
             align-items: center;
@@ -176,7 +174,6 @@
             font-weight: 500;
         }
 
-        /* NAV */
         .nav-title {
             font-size: 10px;
             letter-spacing: 0.18em;
@@ -233,7 +230,6 @@
         }
         .nav-item.active .nav-icon { opacity: 1; }
 
-        /* LOGOUT */
         .sidebar-bottom {
             margin-top: 20px;
             padding-top: 16px;
@@ -304,10 +300,6 @@
         .hamburger.open span:nth-child(2) { opacity: 0; }
         .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-        /* ==========================================================
-           MOBILE OVERLAY
-        ========================================================== */
-
         .sidebar-overlay {
             display: none;
             position: fixed;
@@ -333,10 +325,6 @@
             max-width: 1400px;
             margin: 0 auto;
         }
-
-        /* ==========================================================
-           TOPBAR
-        ========================================================== */
 
         .topbar {
             display: flex;
@@ -634,6 +622,48 @@
         }
 
         /* ==========================================================
+           CLICKABLE ROWS + VIEW BUTTON
+        ========================================================== */
+
+        #appointmentTableBody tr,
+        #pendingPatientsBody tr,
+        #completePatientsBody tr {
+            cursor: pointer;
+        }
+        #appointmentTableBody tr.loading-row,
+        #pendingPatientsBody tr.loading-row,
+        #completePatientsBody tr.loading-row {
+            cursor: default;
+        }
+
+        .view-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 7px 13px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border: none;
+            transition: all 200ms ease;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(217,26,42,0.22);
+        }
+        .view-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(217,26,42,0.35);
+            background: var(--primary-dark);
+        }
+        .view-btn:active {
+            transform: translateY(0) scale(0.97);
+        }
+        .view-btn .material-symbols-outlined {
+            font-size: 16px;
+        }
+
+        /* ==========================================================
            PATIENTS SECTION
         ========================================================== */
 
@@ -660,6 +690,68 @@
         .complete-title {
             background: var(--success-soft);
             color: #065f46;
+        }
+
+        /* ==========================================================
+           STATUS BADGES
+        ========================================================== */
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 11px;
+            border-radius: var(--radius-full);
+            font-size: 11.5px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+        .status-badge.status-pending,
+        .status-badge.pending {
+            background: var(--warning-soft);
+            color: #92400e;
+        }
+        .status-badge.status-complete,
+        .status-badge.complete,
+        .status-badge.confirmed {
+            background: var(--success-soft);
+            color: #065f46;
+        }
+        .status-badge.status-cancelled,
+        .status-badge.cancelled {
+            background: var(--primary-soft);
+            color: #991b1b;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 7px 14px;
+            border-radius: var(--radius-xs);
+            font-size: 12px;
+            font-weight: 600;
+            background: var(--surface-soft);
+            color: var(--text);
+            transition: all 200ms ease;
+            border: 1px solid var(--border);
+            white-space: nowrap;
+        }
+        .action-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-primary);
+        }
+        .action-btn.primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            border-color: var(--primary);
+        }
+        .action-btn.primary:hover {
+            background: var(--primary-dark);
         }
 
         /* ==========================================================
@@ -800,56 +892,7 @@
         .detail-full { grid-column: 1 / -1; }
 
         /* ==========================================================
-           STATUS & ACTION BUTTONS
-        ========================================================== */
-
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 5px 11px;
-            border-radius: var(--radius-full);
-            font-size: 11.5px;
-            font-weight: 600;
-            letter-spacing: 0.02em;
-            white-space: nowrap;
-        }
-        .status-pending { background: var(--warning-soft); color: #92400e; }
-        .status-complete { background: var(--success-soft); color: #065f46; }
-        .status-cancelled { background: var(--primary-soft); color: #991b1b; }
-
-        .action-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            padding: 7px 14px;
-            border-radius: var(--radius-xs);
-            font-size: 12px;
-            font-weight: 600;
-            background: var(--surface-soft);
-            color: var(--text);
-            transition: all 200ms ease;
-            border: 1px solid var(--border);
-            white-space: nowrap;
-        }
-        .action-btn:hover {
-            background: var(--primary);
-            color: #fff;
-            border-color: var(--primary);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-primary);
-        }
-        .action-btn.primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: #fff;
-            border-color: var(--primary);
-        }
-        .action-btn.primary:hover {
-            background: var(--primary-dark);
-        }
-
-        /* ==========================================================
-           RESPONSIVE — TABLET (≤ 1024px)
+           RESPONSIVE — TABLET
         ========================================================== */
 
         @media (max-width: 1024px) {
@@ -861,7 +904,7 @@
         }
 
         /* ==========================================================
-           RESPONSIVE — MOBILE (≤ 900px)
+           RESPONSIVE — MOBILE
         ========================================================== */
 
         @media (max-width: 900px) {
@@ -934,7 +977,7 @@
         }
 
         /* ==========================================================
-           RESPONSIVE — SMALL (≤ 480px)
+           RESPONSIVE — SMALL
         ========================================================== */
 
         @media (max-width: 480px) {
@@ -959,15 +1002,14 @@
             .appointment-modal-content { padding: 20px 16px; border-radius: var(--radius-md); }
         }
 
-        /* ==========================================================
-           REDUCED MOTION
-        ========================================================== */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;
                 transition-duration: 0.01ms !important;
             }
         }
+
+        body.modal-open { overflow: hidden; }
     </style>
 </head>
 <body>
@@ -1002,7 +1044,6 @@
     ========================================== -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-inner">
-            <!-- BRAND (desktop) -->
             <div class="brand">
                 <div class="brand-mark">+</div>
                 <div class="brand-name">
@@ -1011,7 +1052,6 @@
                 </div>
             </div>
 
-            <!-- NAV -->
             <nav class="navigation">
                 <div class="nav-title">Main Menu</div>
 
@@ -1032,7 +1072,6 @@
             </nav>
         </div>
 
-        <!-- LOGOUT -->
         <div class="sidebar-bottom">
             <button class="logout" id="logoutBtn">
                 <span class="nav-icon material-symbols-outlined">logout</span>
@@ -1132,7 +1171,7 @@
                         </tr>
                     </thead>
                     <tbody id="appointmentTableBody">
-                        <tr>
+                        <tr class="loading-row">
                             <td colspan="10" class="loading">Loading appointments...</td>
                         </tr>
                     </tbody>
@@ -1153,7 +1192,6 @@
                 </button>
             </div>
 
-            <!-- PENDING -->
             <div class="patient-status-section">
                 <div class="patient-section-title pending-title">
                     <span>●</span> Pending
@@ -1171,7 +1209,7 @@
                             </tr>
                         </thead>
                         <tbody id="pendingPatientsBody">
-                            <tr>
+                            <tr class="loading-row">
                                 <td colspan="6" class="loading">Loading pending patients...</td>
                             </tr>
                         </tbody>
@@ -1179,7 +1217,6 @@
                 </div>
             </div>
 
-            <!-- COMPLETE -->
             <div class="patient-status-section">
                 <div class="patient-section-title complete-title">
                     <span>●</span> Complete
@@ -1197,7 +1234,7 @@
                             </tr>
                         </thead>
                         <tbody id="completePatientsBody">
-                            <tr>
+                            <tr class="loading-row">
                                 <td colspan="6" class="loading">Loading completed patients...</td>
                             </tr>
                         </tbody>
@@ -1273,7 +1310,9 @@
 (function () {
     'use strict';
 
-    /* ============ MOBILE MENU ============ */
+    /* ============================================================
+       MOBILE MENU
+    ============================================================ */
     var hamburger = document.getElementById('hamburgerBtn');
     var sidebar = document.getElementById('sidebar');
     var overlay = document.getElementById('sidebarOverlay');
@@ -1292,9 +1331,10 @@
         overlay.classList.remove('show');
         hamburger.classList.remove('open');
         hamburger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+        if (!document.body.classList.contains('modal-open')) {
+            document.body.style.overflow = '';
+        }
     }
-
     if (hamburger && sidebar) {
         hamburger.addEventListener('click', function () {
             sidebar.classList.contains('open') ? closeMenu() : openMenu();
@@ -1305,7 +1345,6 @@
         if (e.key === 'Escape') closeMenu();
     });
 
-    /* ============ NAV ITEM CLICK ============ */
     var navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -1315,7 +1354,6 @@
         });
     });
 
-    /* ============ AUTO CLOSE ON RESIZE ============ */
     var resizeTimer;
     window.addEventListener('resize', function () {
         clearTimeout(resizeTimer);
@@ -1324,24 +1362,193 @@
         }, 150);
     });
 
-    /* ============ MODAL FALLBACK ============ */
+    /* ============================================================
+       APPOINTMENT MODAL — OPEN / CLOSE
+    ============================================================ */
     var modal = document.getElementById('appointmentDetailsModal');
     var closeModalBtn = document.getElementById('closeAppointmentModal');
 
-    if (closeModalBtn && modal) {
-        closeModalBtn.addEventListener('click', function () {
-            modal.classList.remove('show');
-            setTimeout(function () { modal.style.display = 'none'; }, 250);
+    function openModal() {
+        if (!modal) return;
+        modal.style.display = 'flex';
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+                modal.classList.add('show');
+            });
         });
+        document.body.classList.add('modal-open');
     }
+
+    function closeModal() {
+        if (!modal) return;
+        modal.classList.remove('show');
+        setTimeout(function () {
+            modal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+        }, 260);
+    }
+
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
     if (modal) {
         modal.addEventListener('click', function (e) {
-            if (e.target === modal) {
-                modal.classList.remove('show');
-                setTimeout(function () { modal.style.display = 'none'; }, 250);
-            }
+            if (e.target === modal) closeModal();
         });
     }
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
+
+    /* ============================================================
+       POPULATE MODAL
+    ============================================================ */
+    function setText(id, value) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = (value !== undefined && value !== null && value !== '') ? value : '—';
+    }
+
+    function populateModal(data) {
+        setText('detailPatientName', data.patient);
+        setText('detailPhone', data.phone);
+        setText('detailEmail', data.email);
+        setText('detailDepartment', data.department);
+        setText('detailDate', data.date);
+        setText('detailTime', data.time);
+        setText('detailStatus', data.status);
+        setText('detailMessage', data.message);
+        setText('detailSubmitted', data.submitted);
+    }
+
+    /* ============================================================
+       EXTRACT DATA
+    ============================================================ */
+    function getCell(row, index) {
+        var cells = row.querySelectorAll('td');
+        if (index < cells.length) return cells[index].textContent.trim();
+        return '—';
+    }
+
+    function extractAppointmentData(row) {
+        var data = {};
+        if (row.dataset.patient) data.patient = row.dataset.patient;
+        if (row.dataset.phone) data.phone = row.dataset.phone;
+        if (row.dataset.email) data.email = row.dataset.email;
+        if (row.dataset.department) data.department = row.dataset.department;
+        if (row.dataset.date) data.date = row.dataset.date;
+        if (row.dataset.time) data.time = row.dataset.time;
+        if (row.dataset.status) data.status = row.dataset.status;
+        if (row.dataset.message) data.message = row.dataset.message;
+        if (row.dataset.submitted) data.submitted = row.dataset.submitted;
+
+        // Fallback from cells: 0 ID, 1 Patient, 2 Phone, 3 Dept, 4 Date, 5 Time, 6 Msg, 7 Sub, 8 Status, 9 Action
+        if (!data.patient)     data.patient     = getCell(row, 1);
+        if (!data.phone)       data.phone       = getCell(row, 2);
+        if (!data.department)  data.department  = getCell(row, 3);
+        if (!data.date)        data.date        = getCell(row, 4);
+        if (!data.time)        data.time        = getCell(row, 5);
+        if (!data.message)     data.message     = getCell(row, 6);
+        if (!data.submitted)   data.submitted   = getCell(row, 7);
+        if (!data.status)      data.status      = getCell(row, 8);
+
+        return data;
+    }
+
+    function extractPatientData(row) {
+        var data = {};
+        if (row.dataset.patient) data.patient = row.dataset.patient;
+        if (row.dataset.phone) data.phone = row.dataset.phone;
+        if (row.dataset.email) data.email = row.dataset.email;
+        if (row.dataset.department) data.department = row.dataset.department;
+        if (row.dataset.date) data.date = row.dataset.date;
+        if (row.dataset.time) data.time = row.dataset.time;
+        if (row.dataset.status) data.status = row.dataset.status;
+        if (row.dataset.message) data.message = row.dataset.message;
+        if (row.dataset.submitted) data.submitted = row.dataset.submitted;
+
+        // Fallback: 0 Patient, 1 Phone, 2 Dept, 3 Date, 4 Time, 5 Status
+        if (!data.patient)     data.patient     = getCell(row, 0);
+        if (!data.phone)       data.phone       = getCell(row, 1);
+        if (!data.department)  data.department  = getCell(row, 2);
+        if (!data.date)        data.date        = getCell(row, 3);
+        if (!data.time)        data.time        = getCell(row, 4);
+        if (!data.status)      data.status      = getCell(row, 5);
+
+        return data;
+    }
+
+    function isPlaceholderCell(value) {
+        if (!value) return true;
+        var v = value.toLowerCase();
+        return v.indexOf('loading') !== -1 || v === '—' || v === '-';
+    }
+
+    /* ============================================================
+       ROW / VIEW BUTTON CLICK → OPEN MODAL
+    ============================================================ */
+    function handleRow(row, tableId) {
+        if (!row) return;
+        if (row.classList.contains('loading-row')) return;
+
+        var firstCell = row.querySelector('td');
+        if (firstCell && firstCell.hasAttribute('colspan')) return;
+
+        var data;
+        if (tableId === 'appointmentTableBody') {
+            data = extractAppointmentData(row);
+        } else {
+            data = extractPatientData(row);
+        }
+
+        if (isPlaceholderCell(data.patient) && isPlaceholderCell(data.phone)) return;
+
+        populateModal(data);
+        openModal();
+    }
+
+    document.addEventListener('click', function (e) {
+        // View button
+        var btn = e.target.closest('.view-btn');
+        if (btn) {
+            e.preventDefault();
+            e.stopPropagation();
+            var tr = btn.closest('tr');
+            if (tr) {
+                var tbody = tr.parentElement;
+                handleRow(tr, tbody ? tbody.id : '');
+            }
+            return;
+        }
+
+        // Skip other action buttons
+        if (e.target.closest('.action-btn') && !e.target.closest('.view-btn')) {
+            return;
+        }
+
+        // Row click (delegated)
+        var row = e.target.closest(
+            '#appointmentTableBody tr, #pendingPatientsBody tr, #completePatientsBody tr'
+        );
+        if (row) {
+            var tbody2 = row.parentElement;
+            handleRow(row, tbody2 ? tbody2.id : '');
+        }
+    });
+
+    /* ============================================================
+       EXPOSE GLOBALS
+    ============================================================ */
+    window.RCBAdmin = {
+        openModal: openModal,
+        closeModal: closeModal,
+        populateModal: populateModal,
+        handleRowClick: function (row) {
+            if (!row) return;
+            var tbody = row.parentElement;
+            handleRow(row, tbody ? tbody.id : '');
+        }
+    };
+
 })();
 </script>
 
