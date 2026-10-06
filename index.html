@@ -47,6 +47,18 @@
   html, body { font-family: var(--font-1); -webkit-font-smoothing: antialiased; }
   h1, h2, .display-heading { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.012em; line-height: 1.06; }
   h3, h4, h5, h6 { font-family: var(--font-1); font-weight: 600; }
+  /* ============ HEADING SIZE FIX ============ */
+.display-heading {
+  font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+h1.display-heading {
+  font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+  line-height: 1.05;
+}
+h2.display-heading {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  line-height: 1.08;
+}
   .body-copy, p { font-family: var(--font-1); }
   .stat-display { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.02em; }
   .step-num { font-family: var(--font-accent); font-weight: 400; line-height: 1; }
