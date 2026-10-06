@@ -7,7 +7,8 @@
     { "src": "admin/**/*.html", "use": "@vercel/static" },
     { "src": "style.css", "use": "@vercel/static" },
     { "src": "script.js", "use": "@vercel/static" },
-    { "src": "image/**/*", "use": "@vercel/static" }
+    { "src": "image/**/*", "use": "@vercel/static" },
+    { "src": "supabase.js", "use": "@vercel/static" }
   ],
   "rewrites": [
     { "source": "/admin", "destination": "/admin/login.html" },
