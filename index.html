@@ -45,7 +45,14 @@
     --font-display: "DM Serif Display", "Noto Serif", serif;
     --font-accent: "Fredericka the Great", "DM Serif Display", cursive;
   }
-  html, body { font-family: var(--font-1); -webkit-font-smoothing: antialiased; }
+
+  /* CRITICAL: overflow-x: clip — sticky ko todta nahi (hidden todta hai) */
+  html, body {
+    font-family: var(--font-1);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
   h1, h2, .display-heading { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.012em; line-height: 1.06; }
   h3, h4, h5, h6 { font-family: var(--font-1); font-weight: 600; }
   .body-copy, p { font-family: var(--font-1); }
@@ -59,6 +66,18 @@
     display: inline-block; white-space: nowrap; direction: ltr;
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
+  }
+
+  /* ============ FORCE STICKY NAVBAR ============ */
+  #mainHeader {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 9999 !important;
+    width: 100% !important;
+    will-change: transform;
   }
 
   /* Fade-in on scroll */
@@ -87,15 +106,6 @@
   @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
   .icon-float { animation: floatY 3200ms ease-in-out infinite; }
 
-  /* STICKY TOP WRAPPER — utility strip + header pinned */
-  .sticky-top-wrap {
-    position: -webkit-sticky;
-    position: sticky;
-    top: -40px;           /* hides the 40px utility strip on scroll */
-    z-index: 999;
-    transition: box-shadow 300ms ease;
-  }
-
   /* ============ TESTIMONIAL MARQUEE ============ */
   .marquee-wrap {
     overflow: hidden;
@@ -104,25 +114,12 @@
     -webkit-mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0, black 8%, black 92%, transparent 100%);
   }
-  .marquee-track {
-    display: flex;
-    gap: 1.5rem;
-    width: max-content;
-    padding: 0.75rem 0;
-  }
+  .marquee-track { display: flex; gap: 1.5rem; width: max-content; padding: 0.75rem 0; }
   .marquee-left  { animation: marqueeLeft 45s linear infinite; }
   .marquee-right { animation: marqueeRight 45s linear infinite; }
-
   .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
-
-  @keyframes marqueeLeft {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-  @keyframes marqueeRight {
-    from { transform: translateX(-50%); }
-    to   { transform: translateX(0); }
-  }
+  @keyframes marqueeLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes marqueeRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
   .marquee-card {
     flex: 0 0 340px;
@@ -139,75 +136,69 @@
     box-shadow: 0 20px 40px rgba(17,28,45,0.10);
     border-color: rgba(217,26,42,0.35);
   }
-
-  @media (max-width: 640px) {
-    .marquee-card { flex: 0 0 280px; padding: 1.25rem; }
-  }
+  @media (max-width: 640px) { .marquee-card { flex: 0 0 280px; padding: 1.25rem; } }
 </style>
 </head>
 
 <body class="bg-surface text-on-surface antialiased selection:bg-[#D91A2A] selection:text-white">
 
-<!-- ============ STICKY TOP (Utility Strip + Navbar together) ============ -->
-<div class="sticky-top-wrap w-full">
-  <!-- 1. TOP UTILITY STRIP -->
-  <aside class="w-full bg-[#111315] border-b border-neutral-800 text-neutral-300 text-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-10 flex items-center justify-between">
-      <div class="flex items-center gap-4 sm:gap-6">
-        <div class="flex items-center gap-1.5 text-neutral-200">
-          <span class="material-symbols-outlined text-[#D91A2A] text-[16px]">location_on</span>
-          <span class="tracking-wide">Bausi Road, Aliganj, Bhagalpur, Bihar</span>
-        </div>
-        <div class="hidden md:flex items-center gap-2 pl-4 border-l border-neutral-700/80">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-          </span>
-          <span class="text-emerald-400 font-semibold tracking-wider uppercase text-[10px]">24/7 Casualty Active</span>
-        </div>
+<!-- ============ 1. TOP UTILITY STRIP (normal — scroll ke saath upar jayega) ============ -->
+<aside class="w-full bg-[#111315] border-b border-neutral-800 text-neutral-300 text-xs relative z-40">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-10 flex items-center justify-between">
+    <div class="flex items-center gap-4 sm:gap-6">
+      <div class="flex items-center gap-1.5 text-neutral-200">
+        <span class="material-symbols-outlined text-[#D91A2A] text-[16px]">location_on</span>
+        <span class="tracking-wide">Bausi Road, Aliganj, Bhagalpur, Bihar</span>
       </div>
-      <div class="flex items-center gap-5">
-        <span class="hidden sm:inline text-neutral-400 text-[11px]">Emergency Desk:</span>
-        <a class="inline-flex items-center gap-1.5 font-semibold text-white hover:text-red-400 transition-colors" href="tel:+919801010314">
-          <span class="material-symbols-outlined text-[15px] text-[#D91A2A]">call</span>
-          <span>+91 98010 10314</span>
-        </a>
+      <div class="hidden md:flex items-center gap-2 pl-4 border-l border-neutral-700/80">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span class="text-emerald-400 font-semibold tracking-wider uppercase text-[10px]">24/7 Casualty Active</span>
       </div>
     </div>
-  </aside>
-
-  <!-- 2. NAVBAR -->
-  <header class="w-full bg-surface border-b border-outline-variant/60 shadow-[0_2px_15px_rgba(0,0,0,0.05)]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-20 flex items-center justify-between gap-4">
-      <a class="flex items-center gap-3" href="#hero">
-        <div class="logo-icon w-11 h-11 rounded-lg bg-[#D91A2A] text-white flex items-center justify-center text-2xl shadow-md">+</div>
-        <div class="logo-text flex flex-col leading-tight">
-          <strong class="text-[#111c2d] text-base">RCB HOSPITAL</strong>
-          <span class="text-[10px] text-secondary">MULTI-SPECIALITY &amp; DIAGNOSTIC</span>
-        </div>
+    <div class="flex items-center gap-5">
+      <span class="hidden sm:inline text-neutral-400 text-[11px]">Emergency Desk:</span>
+      <a class="inline-flex items-center gap-1.5 font-semibold text-white hover:text-red-400 transition-colors" href="tel:+919801010314">
+        <span class="material-symbols-outlined text-[15px] text-[#D91A2A]">call</span>
+        <span>+91 98010 10314</span>
       </a>
-      <nav class="hidden lg:flex items-center gap-8 text-[13.5px] font-semibold text-secondary">
-        <a class="nav-editorial-link active text-[#111c2d]" href="#hero">Home</a>
-        <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#about">About</a>
-        <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#departments">Departments</a>
-        <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#journey">Journey</a>
-        <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#facilities">Facilities</a>
-        <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#testimonials">Reviews</a>
-        <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#location">Contact</a>
-      </nav>
-      <div class="flex items-center gap-3">
-        <a class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-secondary hover:text-[#D91A2A] transition-colors px-2 py-1" href="https://maps.google.com">
-          <span class="material-symbols-outlined text-[17px]">near_me</span>
-          <span>Directions</span>
-        </a>
-        <a class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-xs sm:text-[13px] font-bold px-5 sm:px-6 py-2.5 rounded-md shadow-[0_4px_14px_rgba(217,26,42,0.28)] hover:bg-[#b0001a]" href="appointment.html">
-          <span class="material-symbols-outlined text-[17px]">calendar_month</span>
-          <span>Book Appointment</span>
-        </a>
-      </div>
     </div>
-  </header>
-</div>
+  </div>
+</aside>
+
+<!-- ============ 2. STICKY NAVBAR (hamesha top pe chipka rahega) ============ -->
+<header id="mainHeader" class="w-full bg-surface border-b border-outline-variant/60 shadow-[0_2px_15px_rgba(0,0,0,0.05)]">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-20 flex items-center justify-between gap-4">
+    <a class="flex items-center gap-3" href="#hero">
+      <div class="logo-icon w-11 h-11 rounded-lg bg-[#D91A2A] text-white flex items-center justify-center text-2xl shadow-md">+</div>
+      <div class="logo-text flex flex-col leading-tight">
+        <strong class="text-[#111c2d] text-base">RCB HOSPITAL</strong>
+        <span class="text-[10px] text-secondary">MULTI-SPECIALITY &amp; DIAGNOSTIC</span>
+      </div>
+    </a>
+    <nav class="hidden lg:flex items-center gap-8 text-[13.5px] font-semibold text-secondary">
+      <a class="nav-editorial-link active text-[#111c2d]" href="#hero">Home</a>
+      <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#about">About</a>
+      <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#departments">Departments</a>
+      <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#journey">Journey</a>
+      <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#facilities">Facilities</a>
+      <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#testimonials">Reviews</a>
+      <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#location">Contact</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-secondary hover:text-[#D91A2A] transition-colors px-2 py-1" href="https://maps.google.com">
+        <span class="material-symbols-outlined text-[17px]">near_me</span>
+        <span>Directions</span>
+      </a>
+      <a class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-xs sm:text-[13px] font-bold px-5 sm:px-6 py-2.5 rounded-md shadow-[0_4px_14px_rgba(217,26,42,0.28)] hover:bg-[#b0001a]" href="appointment.html">
+        <span class="material-symbols-outlined text-[17px]">calendar_month</span>
+        <span>Book Appointment</span>
+      </a>
+    </div>
+  </div>
+</header>
 
 <main class="w-full">
 
@@ -938,7 +929,6 @@
 <section class="w-full bg-surface py-16 lg:py-24 border-b border-outline-variant/60 overflow-hidden" id="testimonials">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col gap-10">
 
-    <!-- Header + CTA -->
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal-el">
       <div class="max-w-2xl flex flex-col gap-3">
         <div class="flex items-center gap-3">
@@ -961,26 +951,19 @@
     <!-- Row 1: scrolls LEFT -->
     <div class="marquee-wrap">
       <div class="marquee-track marquee-left">
-
-        <!-- SET A -->
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-[#D91A2A] text-white flex items-center justify-center font-bold text-lg shrink-0">R</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Rajesh Kumar</h4>
-              <span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Rajesh Kumar</h4><span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "RCB Hospital ne meri maa ki emergency me jaan bachayi. Doctor aur staff bohot helpful the — raat me bhi turant treatment mili."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"RCB Hospital ne meri maa ki emergency me jaan bachayi. Doctor aur staff bohot helpful the — raat me bhi turant treatment mili."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -990,21 +973,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shrink-0">P</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Priya Devi</h4>
-              <span class="text-[11px] text-secondary">Bausi, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Priya Devi</h4><span class="text-[11px] text-secondary">Bausi, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Lab reports same day mil gaye. Pehle kahin jaana padta tha 2 din lag jaate the. Yahan sab ek hi jagah milta hai."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Lab reports same day mil gaye. Pehle kahin jaana padta tha 2 din lag jaate the. Yahan sab ek hi jagah milta hai."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1014,21 +992,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-[#D91A2A] text-white flex items-center justify-center font-bold text-lg shrink-0">S</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Sunita Sharma</h4>
-              <span class="text-[11px] text-secondary">Zero Mile, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Sunita Sharma</h4><span class="text-[11px] text-secondary">Zero Mile, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Bacche ka vaccination aur checkup dono ek hi visit me ho gaya. Bohot convenient — staff bacchon ko sambhal ke rakhta hai."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Bacche ka vaccination aur checkup dono ek hi visit me ho gaya. Bohot convenient — staff bacchon ko sambhal ke rakhta hai."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1038,21 +1011,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shrink-0">M</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Mohammed Ali</h4>
-              <span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Mohammed Ali</h4><span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Emergency ward 24/7 khula rehta hai. Raat 2 baje bhi doctor turant mile jab papa ko chest pain hua."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Emergency ward 24/7 khula rehta hai. Raat 2 baje bhi doctor turant mile jab papa ko chest pain hua."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1062,21 +1030,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-[#D91A2A] text-white flex items-center justify-center font-bold text-lg shrink-0">A</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Anita Singh</h4>
-              <span class="text-[11px] text-secondary">Bausi Road, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Anita Singh</h4><span class="text-[11px] text-secondary">Bausi Road, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Billing transparent hai, koi hidden charges nahi. Pehle se hi sab kuch bata dete hain — trust build hota hai."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Billing transparent hai, koi hidden charges nahi. Pehle se hi sab kuch bata dete hain — trust build hota hai."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1086,46 +1049,36 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shrink-0">V</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Vikash Yadav</h4>
-              <span class="text-[11px] text-secondary">Bhagalpur, Bihar</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Vikash Yadav</h4><span class="text-[11px] text-secondary">Bhagalpur, Bihar</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Doctor ne pura time diya, sab kuch samjhaya. Prescription me bhi clear likha tha — koi confusion nahi hua."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Doctor ne pura time diya, sab kuch samjhaya. Prescription me bhi clear likha tha — koi confusion nahi hua."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
           </div>
         </article>
 
-        <!-- SET A DUPLICATE (for seamless loop) -->
+        <!-- DUPLICATE SET -->
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-[#D91A2A] text-white flex items-center justify-center font-bold text-lg shrink-0">R</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Rajesh Kumar</h4>
-              <span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Rajesh Kumar</h4><span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "RCB Hospital ne meri maa ki emergency me jaan bachayi. Doctor aur staff bohot helpful the — raat me bhi turant treatment mili."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"RCB Hospital ne meri maa ki emergency me jaan bachayi. Doctor aur staff bohot helpful the — raat me bhi turant treatment mili."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1135,21 +1088,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shrink-0">P</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Priya Devi</h4>
-              <span class="text-[11px] text-secondary">Bausi, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Priya Devi</h4><span class="text-[11px] text-secondary">Bausi, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Lab reports same day mil gaye. Pehle kahin jaana padta tha 2 din lag jaate the. Yahan sab ek hi jagah milta hai."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Lab reports same day mil gaye. Pehle kahin jaana padta tha 2 din lag jaate the. Yahan sab ek hi jagah milta hai."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1159,21 +1107,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-[#D91A2A] text-white flex items-center justify-center font-bold text-lg shrink-0">S</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Sunita Sharma</h4>
-              <span class="text-[11px] text-secondary">Zero Mile, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Sunita Sharma</h4><span class="text-[11px] text-secondary">Zero Mile, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Bacche ka vaccination aur checkup dono ek hi visit me ho gaya. Bohot convenient — staff bacchon ko sambhal ke rakhta hai."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Bacche ka vaccination aur checkup dono ek hi visit me ho gaya. Bohot convenient — staff bacchon ko sambhal ke rakhta hai."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1183,21 +1126,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shrink-0">M</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Mohammed Ali</h4>
-              <span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Mohammed Ali</h4><span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Emergency ward 24/7 khula rehta hai. Raat 2 baje bhi doctor turant mile jab papa ko chest pain hua."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Emergency ward 24/7 khula rehta hai. Raat 2 baje bhi doctor turant mile jab papa ko chest pain hua."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1207,21 +1145,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-[#D91A2A] text-white flex items-center justify-center font-bold text-lg shrink-0">A</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Anita Singh</h4>
-              <span class="text-[11px] text-secondary">Bausi Road, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Anita Singh</h4><span class="text-[11px] text-secondary">Bausi Road, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Billing transparent hai, koi hidden charges nahi. Pehle se hi sab kuch bata dete hain — trust build hota hai."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Billing transparent hai, koi hidden charges nahi. Pehle se hi sab kuch bata dete hain — trust build hota hai."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1231,53 +1164,40 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shrink-0">V</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Vikash Yadav</h4>
-              <span class="text-[11px] text-secondary">Bhagalpur, Bihar</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Vikash Yadav</h4><span class="text-[11px] text-secondary">Bhagalpur, Bihar</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Doctor ne pura time diya, sab kuch samjhaya. Prescription me bhi clear likha tha — koi confusion nahi hua."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Doctor ne pura time diya, sab kuch samjhaya. Prescription me bhi clear likha tha — koi confusion nahi hua."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
           </div>
         </article>
-
       </div>
     </div>
 
-    <!-- Row 2: scrolls RIGHT (opposite direction) -->
+    <!-- Row 2: scrolls RIGHT -->
     <div class="marquee-wrap">
       <div class="marquee-track marquee-right">
-
-        <!-- SET B — different order -->
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shrink-0">V</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Vikash Yadav</h4>
-              <span class="text-[11px] text-secondary">Bhagalpur, Bihar</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Vikash Yadav</h4><span class="text-[11px] text-secondary">Bhagalpur, Bihar</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Doctor ne pura time diya, sab kuch samjhaya. Prescription me bhi clear likha tha — koi confusion nahi hua."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Doctor ne pura time diya, sab kuch samjhaya. Prescription me bhi clear likha tha — koi confusion nahi hua."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1287,21 +1207,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-[#D91A2A] text-white flex items-center justify-center font-bold text-lg shrink-0">A</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Anita Singh</h4>
-              <span class="text-[11px] text-secondary">Bausi Road, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Anita Singh</h4><span class="text-[11px] text-secondary">Bausi Road, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Billing transparent hai, koi hidden charges nahi. Pehle se hi sab kuch bata dete hain — trust build hota hai."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Billing transparent hai, koi hidden charges nahi. Pehle se hi sab kuch bata dete hain — trust build hota hai."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1311,21 +1226,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shrink-0">M</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Mohammed Ali</h4>
-              <span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Mohammed Ali</h4><span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Emergency ward 24/7 khula rehta hai. Raat 2 baje bhi doctor turant mile jab papa ko chest pain hua."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Emergency ward 24/7 khula rehta hai. Raat 2 baje bhi doctor turant mile jab papa ko chest pain hua."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1335,21 +1245,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-[#D91A2A] text-white flex items-center justify-center font-bold text-lg shrink-0">S</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Sunita Sharma</h4>
-              <span class="text-[11px] text-secondary">Zero Mile, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Sunita Sharma</h4><span class="text-[11px] text-secondary">Zero Mile, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Bacche ka vaccination aur checkup dono ek hi visit me ho gaya. Bohot convenient — staff bacchon ko sambhal ke rakhta hai."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Bacche ka vaccination aur checkup dono ek hi visit me ho gaya. Bohot convenient — staff bacchon ko sambhal ke rakhta hai."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1359,21 +1264,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shrink-0">P</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Priya Devi</h4>
-              <span class="text-[11px] text-secondary">Bausi, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Priya Devi</h4><span class="text-[11px] text-secondary">Bausi, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Lab reports same day mil gaye. Pehle kahin jaana padta tha 2 din lag jaate the. Yahan sab ek hi jagah milta hai."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Lab reports same day mil gaye. Pehle kahin jaana padta tha 2 din lag jaate the. Yahan sab ek hi jagah milta hai."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1383,46 +1283,36 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-[#D91A2A] text-white flex items-center justify-center font-bold text-lg shrink-0">R</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Rajesh Kumar</h4>
-              <span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Rajesh Kumar</h4><span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "RCB Hospital ne meri maa ki emergency me jaan bachayi. Doctor aur staff bohot helpful the — raat me bhi turant treatment mili."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"RCB Hospital ne meri maa ki emergency me jaan bachayi. Doctor aur staff bohot helpful the — raat me bhi turant treatment mili."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
           </div>
         </article>
 
-        <!-- SET B DUPLICATE -->
+        <!-- DUPLICATE SET 2 -->
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shrink-0">V</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Vikash Yadav</h4>
-              <span class="text-[11px] text-secondary">Bhagalpur, Bihar</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Vikash Yadav</h4><span class="text-[11px] text-secondary">Bhagalpur, Bihar</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Doctor ne pura time diya, sab kuch samjhaya. Prescription me bhi clear likha tha — koi confusion nahi hua."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Doctor ne pura time diya, sab kuch samjhaya. Prescription me bhi clear likha tha — koi confusion nahi hua."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1432,21 +1322,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-[#D91A2A] text-white flex items-center justify-center font-bold text-lg shrink-0">A</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Anita Singh</h4>
-              <span class="text-[11px] text-secondary">Bausi Road, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Anita Singh</h4><span class="text-[11px] text-secondary">Bausi Road, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Billing transparent hai, koi hidden charges nahi. Pehle se hi sab kuch bata dete hain — trust build hota hai."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Billing transparent hai, koi hidden charges nahi. Pehle se hi sab kuch bata dete hain — trust build hota hai."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1456,21 +1341,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shrink-0">M</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Mohammed Ali</h4>
-              <span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Mohammed Ali</h4><span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Emergency ward 24/7 khula rehta hai. Raat 2 baje bhi doctor turant mile jab papa ko chest pain hua."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Emergency ward 24/7 khula rehta hai. Raat 2 baje bhi doctor turant mile jab papa ko chest pain hua."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1480,21 +1360,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-[#D91A2A] text-white flex items-center justify-center font-bold text-lg shrink-0">S</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Sunita Sharma</h4>
-              <span class="text-[11px] text-secondary">Zero Mile, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Sunita Sharma</h4><span class="text-[11px] text-secondary">Zero Mile, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Bacche ka vaccination aur checkup dono ek hi visit me ho gaya. Bohot convenient — staff bacchon ko sambhal ke rakhta hai."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Bacche ka vaccination aur checkup dono ek hi visit me ho gaya. Bohot convenient — staff bacchon ko sambhal ke rakhta hai."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1504,21 +1379,16 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-lg shrink-0">P</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Priya Devi</h4>
-              <span class="text-[11px] text-secondary">Bausi, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Priya Devi</h4><span class="text-[11px] text-secondary">Bausi, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "Lab reports same day mil gaye. Pehle kahin jaana padta tha 2 din lag jaate the. Yahan sab ek hi jagah milta hai."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"Lab reports same day mil gaye. Pehle kahin jaana padta tha 2 din lag jaate the. Yahan sab ek hi jagah milta hai."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
@@ -1528,27 +1398,21 @@
         <article class="marquee-card">
           <div class="flex items-center gap-3 mb-4">
             <div class="w-12 h-12 rounded-full bg-[#D91A2A] text-white flex items-center justify-center font-bold text-lg shrink-0">R</div>
-            <div>
-              <h4 class="font-bold text-[#111c2d] text-sm">Rajesh Kumar</h4>
-              <span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span>
-            </div>
+            <div><h4 class="font-bold text-[#111c2d] text-sm">Rajesh Kumar</h4><span class="text-[11px] text-secondary">Aliganj, Bhagalpur</span></div>
           </div>
           <div class="flex gap-0.5 mb-3">
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
-            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
+            <span class="material-symbols-outlined text-amber-500 text-[18px]" style="font-variation-settings:'FILL' 1;">star</span>
           </div>
-          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">
-            "RCB Hospital ne meri maa ki emergency me jaan bachayi. Doctor aur staff bohot helpful the — raat me bhi turant treatment mili."
-          </p>
+          <p class="body-copy text-secondary text-sm leading-relaxed flex-1">"RCB Hospital ne meri maa ki emergency me jaan bachayi. Doctor aur staff bohot helpful the — raat me bhi turant treatment mili."</p>
           <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center justify-between">
             <span class="text-[10px] font-bold uppercase tracking-wider text-[#D91A2A]">Verified Patient</span>
             <span class="material-symbols-outlined text-[#D91A2A] text-[18px]">format_quote</span>
           </div>
         </article>
-
       </div>
     </div>
 
@@ -1668,6 +1532,7 @@
 
 <script>
 (function(){
+  // Scroll reveal
   const els = document.querySelectorAll('.reveal-el, .reveal-img-wrap');
   if (!('IntersectionObserver' in window)) {
     els.forEach(el => el.classList.add('is-visible'));
@@ -1683,9 +1548,25 @@
     els.forEach(el => io.observe(el));
   }
 
+  // ===== SAFETY: Force sticky navbar =====
+  const header = document.getElementById('mainHeader');
+  if (header) {
+    // Add shadow on scroll
+    const onScroll = () => {
+      if (window.scrollY > 10) {
+        header.style.boxShadow = '0 6px 24px rgba(17,28,45,0.10)';
+      } else {
+        header.style.boxShadow = '0 2px 15px rgba(0,0,0,0.05)';
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // Back to top
   const btn = document.getElementById('backToTop');
   if (btn) {
-    const onScroll = () => {
+    const onScroll2 = () => {
       if (window.scrollY > 500) {
         btn.classList.remove('opacity-0','invisible','translate-y-4');
         btn.classList.add('opacity-100','visible','translate-y-0');
@@ -1694,7 +1575,7 @@
         btn.classList.remove('opacity-100','visible','translate-y-0');
       }
     };
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll2, { passive: true });
     btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 })();
