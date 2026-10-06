@@ -1,1032 +1,1375 @@
 <!DOCTYPE html>
-<html class="scroll-smooth" lang="en">
-<head>
+
+<html class="scroll-smooth" lang="en" style="min-height: 100%; height: auto;"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>RCB Hospital — Multi-Speciality &amp; Diagnostic Centre, Aliganj, Bhagalpur</title>
-
-<!-- FONTS -->
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Fredericka+the+Great&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
 <script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          "surface": "#f8f9fc",
-          "surface-container": "#eef2f8",
-          "surface-container-low": "#f3f5f9",
-          "surface-container-lowest": "#ffffff",
-          "on-surface": "#111c2d",
-          "secondary": "#576071",
-          "outline-variant": "#e5e8ec",
-          "primary": "#b0001a",
-          "primary-container": "#D91A2A"
-        },
-        fontFamily: {
-          sans: ['var(--font-1)'],
-          display: ['var(--font-display)'],
-          accent: ['var(--font-accent)']
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-surface-variant": "#5d3f3d",
+            "tertiary-container": "#008036",
+            "primary-fixed-dim": "#ffb3ae",
+            "outline": "#916f6c",
+            "on-primary-fixed": "#410004",
+            "secondary-fixed-dim": "#c6c6c9",
+            "error": "#ba1a1a",
+            "on-secondary-fixed-variant": "#454749",
+            "on-secondary": "#ffffff",
+            "surface": "#f8f9fc",
+            "surface-dim": "#d0daf2",
+            "on-primary-fixed-variant": "#930014",
+            "surface-tint": "#c0001e",
+            "on-surface": "#111c2d",
+            "primary-fixed": "#ffdad7",
+            "inverse-primary": "#ffb3ae",
+            "background": "#f8f9fc",
+            "surface-container-high": "#dfe8ff",
+            "on-tertiary-container": "#ceffcf",
+            "on-primary": "#ffffff",
+            "tertiary-fixed": "#7ffc97",
+            "secondary-fixed": "#e2e2e5",
+            "inverse-on-surface": "#ecf0ff",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed": "#002109",
+            "surface-container-highest": "#d9e3fb",
+            "on-error-container": "#93000a",
+            "secondary-container": "#e2e2e5",
+            "error-container": "#ffdad6",
+            "inverse-surface": "#273143",
+            "primary": "#b0001a",
+            "primary-container": "#D91A2A",
+            "on-tertiary": "#ffffff",
+            "tertiary-fixed-dim": "#62df7d",
+            "surface-container": "#eef2f8",
+            "on-secondary-fixed": "#1a1c1e",
+            "surface-container-lowest": "#ffffff",
+            "on-primary-container": "#ffefed",
+            "on-background": "#111c2d",
+            "surface-bright": "#ffffff",
+            "outline-variant": "#e5e8ec",
+            "tertiary": "#006429",
+            "on-tertiary-fixed-variant": "#005320",
+            "on-secondary-container": "#636467",
+            "secondary": "#576071",
+            "surface-variant": "#e3e8f1",
+            "surface-container-low": "#f3f5f9"
+          },
+          fontFamily: {
+            sans: ['var(--font-1)'],
+          }
         }
       }
     }
-  }
-</script>
+  </script>
 
-<style>
-  :root {
-    --font-1: "Noto Serif", ui-serif, Georgia, serif;
-    --font-display: "DM Serif Display", "Noto Serif", serif;
-    --font-accent: "Fredericka the Great", "DM Serif Display", cursive;
-  }
-  html, body { font-family: var(--font-1); -webkit-font-smoothing: antialiased; }
-  h1, h2, .display-heading { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.012em; line-height: 1.06; }
-  h3, h4, h5, h6 { font-family: var(--font-1); font-weight: 600; }
-  .body-copy, p { font-family: var(--font-1); }
-  .stat-display { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.02em; }
-  .step-num { font-family: var(--font-accent); font-weight: 400; line-height: 1; }
-  .logo-icon { font-family: var(--font-accent); }
-  .logo-text strong { font-family: var(--font-display); letter-spacing: 0.015em; }
-  .material-symbols-outlined {
-    font-family: 'Material Symbols Outlined', sans-serif;
-    font-weight: normal; font-style: normal; line-height: 1;
-    display: inline-block; white-space: nowrap; direction: ltr;
-    -webkit-font-feature-settings: 'liga';
-    -webkit-font-smoothing: antialiased;
-  }
-  /* Fade-in animation */
-  .reveal-el, .reveal-img-wrap { opacity: 0; transform: translateY(35px); transition: opacity 900ms cubic-bezier(0.22,1,0.36,1), transform 900ms cubic-bezier(0.22,1,0.36,1); }
-  .reveal-el.is-visible, .reveal-img-wrap.is-visible { opacity: 1; transform: translateY(0); }
-  /* Button lift */
-  .btn-lift { transition: transform 250ms ease, box-shadow 250ms ease, background-color 250ms ease, color 250ms ease; }
-  .btn-lift:hover { transform: translateY(-3px); }
-  .btn-lift:active { transform: translateY(-1px) scale(0.98); }
-  /* Nav underline */
-  .nav-editorial-link { position: relative; }
-  .nav-editorial-link::after {
-    content: ''; position: absolute; left: 0; bottom: -6px;
-    height: 2px; width: 0; background: #D91A2A;
-    transition: width 350ms cubic-bezier(0.22,1,0.36,1);
-  }
-  .nav-editorial-link:hover::after, .nav-editorial-link.active::after { width: 100%; }
-</style>
 </head>
-
 <body class="bg-surface text-on-surface antialiased selection:bg-[#D91A2A] selection:text-white">
-
 <!-- 1. TOP UTILITY STRIP -->
 <aside class="w-full bg-[#111315] border-b border-neutral-800 text-neutral-300 z-50 relative text-xs">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-10 flex items-center justify-between">
-    <div class="flex items-center gap-4 sm:gap-6">
-      <div class="flex items-center gap-1.5 text-neutral-200">
-        <span class="material-symbols-outlined text-[#D91A2A] text-[16px]">location_on</span>
-        <span class="tracking-wide">Bausi Road, Aliganj, Bhagalpur, Bihar</span>
-      </div>
-      <div class="hidden md:flex items-center gap-2 pl-4 border-l border-neutral-700/80">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-        </span>
-        <span class="text-emerald-400 font-semibold tracking-wider uppercase text-[10px]">24/7 Casualty Active</span>
-      </div>
-    </div>
-    <div class="flex items-center gap-5">
-      <span class="hidden sm:inline text-neutral-400 text-[11px]">Emergency Desk:</span>
-      <a class="inline-flex items-center gap-1.5 font-semibold text-white hover:text-red-400 transition-colors" href="tel:+919801010314">
-        <span class="material-symbols-outlined text-[15px] text-[#D91A2A]">call</span>
-        <span>+91 98010 10314</span>
-      </a>
-    </div>
-  </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-10 flex items-center justify-between">
+<div class="flex items-center gap-4 sm:gap-6">
+<div class="flex items-center gap-1.5 font-normal text-neutral-200">
+<span class="material-symbols-outlined text-[#D91A2A] text-[16px]">location_on</span>
+<span class="tracking-wide">Bausi Road, Aliganj, Bhagalpur, Bihar</span>
+</div>
+<div class="hidden md:flex items-center gap-2 pl-4 border-l border-neutral-700/80">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+</span>
+<span class="text-emerald-400 font-semibold tracking-wider uppercase text-[10px]">24/7 Casualty &amp; Emergency Active</span>
+</div>
+</div>
+<div class="flex items-center gap-5">
+<span class="hidden sm:inline text-neutral-400 font-light text-[11px] tracking-wide">Emergency &amp; Admissions Desk:</span>
+<a class="inline-flex items-center gap-1.5 font-token-bold text-white hover:text-red-400 transition-colors" href="tel:+919801010314">
+<span class="material-symbols-outlined text-[15px] text-[#D91A2A]">call</span>
+<span class="tracking-tight">+91 98010 10314 / 24x7 Triage</span>
+</a>
+</div>
+</div>
 </aside>
+<!-- 2. STICKY NAVIGATION BAR -->
+<header class="sticky top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-xl border-b border-outline-variant/60 shadow-[0_2px_15px_rgba(0,0,0,0.03)] transition-all">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-20 flex items-center justify-between gap-4">
+<!-- RCB Hospital Brand Logo -->
+<a class="hospital-logo" href="#hero">
 
-<!-- 2. STICKY NAV -->
-<header class="sticky top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-xl border-b border-outline-variant/60 shadow-[0_2px_15px_rgba(0,0,0,0.03)]">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-20 flex items-center justify-between gap-4">
-    <a class="flex items-center gap-3" href="#hero">
-      <div class="logo-icon w-11 h-11 rounded-lg bg-[#D91A2A] text-white flex items-center justify-center text-2xl shadow-md">+</div>
-      <div class="logo-text flex flex-col leading-tight">
-        <strong class="text-[#111c2d] text-base">RCB HOSPITAL</strong>
-        <span class="text-[10px] text-secondary">MULTI-SPECIALITY &amp; DIAGNOSTIC</span>
-      </div>
-    </a>
-    <nav class="hidden lg:flex items-center gap-8 text-[13.5px] font-semibold text-secondary">
-      <a class="nav-editorial-link active text-[#111c2d]" href="#hero">Home</a>
-      <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#about">About</a>
-      <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#departments">Departments</a>
-      <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#journey">Journey</a>
-      <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#facilities">Facilities</a>
-      <a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#location">Contact</a>
-    </nav>
-    <div class="flex items-center gap-3">
-      <a class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-secondary hover:text-[#D91A2A] transition-colors px-2 py-1" href="https://maps.google.com">
-        <span class="material-symbols-outlined text-[17px]">near_me</span>
-        <span>Directions</span>
-      </a>
-      <a class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-xs sm:text-[13px] font-bold px-5 sm:px-6 py-2.5 rounded-md shadow-[0_4px_14px_rgba(217,26,42,0.28)] hover:bg-[#b0001a]" href="appointment.html">
-        <span class="material-symbols-outlined text-[17px]">calendar_month</span>
-        <span>Book Appointment</span>
-      </a>
+    <div class="logo-icon">+</div>
+
+    <div class="logo-text">
+        <strong>RCB HOSPITAL</strong>
+        <span>MULTI-SPECIALITY &amp; DIAGNOSTIC</span>
     </div>
-  </div>
+
+</a>
+<!-- Desktop Navigation Links -->
+<nav class="hidden lg:flex items-center gap-8 text-[13.5px] font-semibold text-secondary">
+<a class="nav-editorial-link active hover:text-[#111c2d] transition-colors text-[#111c2d]" href="#hero">Home</a>
+<a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#about">About</a>
+<a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#departments">Departments</a>
+<a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#journey">Patient Journey</a>
+<a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#facilities">Facilities</a>
+<a class="nav-editorial-link hover:text-[#111c2d] transition-colors" href="#location">Contact</a>
+</nav>
+<!-- Action Area -->
+<div class="flex items-center gap-3 sm:gap-4">
+<a class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-secondary hover:text-[#D91A2A] transition-colors px-2 py-1" href="https://maps.google.com">
+<span class="material-symbols-outlined text-[17px]">near_me</span>
+<span>Directions</span>
+</a>
+<a class="btn-lift inline-flex items-center justify-center gap-2 bg-[#D91A2A] text-white text-xs sm:text-[13px] font-token-bold px-5 sm:px-6 py-2.5 rounded-md shadow-[0_4px_14px_rgba(217,26,42,0.28)] hover:bg-[#b0001a] active:scale-95 transition-all" href="appointment.html">
+<span class="material-symbols-outlined text-[17px]">calendar_month</span>
+<span>Book an Appointment</span>
+</a>
+</div>
+</div>
 </header>
-
 <main class="w-full">
-
-<!-- ============ 3. HERO (ORIGINAL CLEAN STYLE) ============ -->
+<!-- 3. HERO SECTION -->
 <section class="relative w-full bg-surface-container-lowest pt-8 pb-16 lg:pt-14 lg:pb-24 overflow-hidden border-b border-outline-variant/60" id="hero">
-  <div class="absolute -top-32 right-0 w-[550px] h-[550px] bg-red-100/35 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="absolute bottom-0 left-10 w-80 h-80 bg-neutral-200/30 rounded-full blur-2xl pointer-events-none"></div>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-
-      <!-- LEFT -->
-      <div class="lg:col-span-7 flex flex-col items-start gap-6 reveal-el">
-        <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-red-50 text-[#D91A2A] border border-red-200/70 text-[11px] font-bold uppercase tracking-widest">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D91A2A] opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#D91A2A]"></span>
-          </span>
-          <span>Multi-Speciality &amp; Diagnostic Centre — Bhagalpur</span>
-        </div>
-        <h1 class="display-heading text-[#111c2d] max-w-xl">
-          <span class="font-light block">Healthcare,</span>
-          <span class="text-[#D91A2A] font-bold block">Designed Around You.</span>
-        </h1>
-        <p class="body-copy text-secondary max-w-xl leading-relaxed">
-          A patient-first multi-speciality hospital and diagnostic centre serving Bhagalpur and Eastern Bihar with precision, clinical excellence, and heartfelt human care.
-        </p>
-        <div class="flex flex-wrap items-center gap-4 pt-1">
-          <a class="btn-lift inline-flex items-center gap-2.5 px-7 py-3.5 rounded-md bg-[#D91A2A] text-white font-bold text-sm shadow-[0_8px_20px_rgba(217,26,42,0.25)] hover:bg-[#b0001a]" href="appointment.html">
-            <span class="material-symbols-outlined text-[19px]">event_available</span>
-            <span>Book an Appointment</span>
-          </a>
-          <a class="btn-lift inline-flex items-center gap-2 px-6 py-3.5 rounded-md bg-surface-container text-[#111c2d] font-semibold text-sm hover:bg-neutral-200 border border-outline-variant/80" href="#about">
-            <span>Explore Hospital</span>
-            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-          </a>
-        </div>
-
-        <!-- 3 CLEAN HIGHLIGHT CARDS (Original Style) -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-5 w-full">
-          <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/60 flex flex-col gap-1 hover:border-red-200 hover:bg-white hover:-translate-y-1 shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-all duration-300">
-            <div class="flex items-center gap-1.5 text-[#D91A2A]">
-              <span class="material-symbols-outlined text-[18px]">home_pin</span>
-              <span class="text-[11px] font-bold uppercase tracking-wider">Prime Access</span>
-            </div>
-            <p class="text-xs font-semibold text-[#111c2d]">Bausi, Aliganj Main Rd</p>
-            <span class="text-[11px] text-secondary">Direct regional road link</span>
-          </div>
-          <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/60 flex flex-col gap-1 hover:border-red-200 hover:bg-white hover:-translate-y-1 shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-all duration-300">
-            <div class="flex items-center gap-1.5 text-[#D91A2A]">
-              <span class="material-symbols-outlined text-[18px]">biotech</span>
-              <span class="text-[11px] font-bold uppercase tracking-wider">In-House Lab</span>
-            </div>
-            <p class="text-xs font-semibold text-[#111c2d]">Pathology &amp; Diagnostics</p>
-            <span class="text-[11px] text-secondary">Rapid digital reporting</span>
-          </div>
-          <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/60 flex flex-col gap-1 hover:border-emerald-200 hover:bg-white hover:-translate-y-1 shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-all duration-300">
-            <div class="flex items-center gap-1.5 text-emerald-700">
-              <span class="material-symbols-outlined text-[18px]">acute</span>
-              <span class="text-[11px] font-bold uppercase tracking-wider">Continuous Care</span>
-            </div>
-            <p class="text-xs font-semibold text-[#111c2d]">24/7 Casualty &amp; Wards</p>
-            <span class="text-[11px] text-secondary">Observation &amp; triage</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- RIGHT: HERO IMAGE -->
-      <div class="lg:col-span-5 relative reveal-img-wrap">
-        <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-surface-container border border-neutral-200/80 group">
-          <img alt="RCB Hospital Facade" class="w-full h-[420px] sm:h-[500px] object-cover" src="image/RCB main door.webp"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/90 via-black/25 to-transparent"></div>
-          <div class="absolute bottom-5 left-5 right-5 p-4 rounded-xl bg-white/95 backdrop-blur-md border border-white/50 shadow-lg flex items-center justify-between gap-3 transform group-hover:-translate-y-1 transition-transform">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-lg bg-[#D91A2A] text-white flex items-center justify-center shrink-0">
-                <span class="material-symbols-outlined text-[22px]">local_hospital</span>
-              </div>
-              <div>
-                <h3 class="text-xs sm:text-sm font-bold text-[#111c2d]">Hospital Facade &amp; Diagnostic Wing</h3>
-                <p class="text-[11px] text-secondary">Bausi Road, Aliganj, Bhagalpur</p>
-              </div>
-            </div>
-            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase tracking-wider shrink-0 border border-emerald-200">
-              <span class="material-symbols-outlined text-[13px]">check_circle</span>
-              Verified
-            </span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+<!-- Subtle architectural background geometry -->
+<div class="absolute -top-32 right-0 w-[550px] h-[550px] bg-red-100/35 rounded-full blur-3xl pointer-events-none -z-0"></div>
+<div class="absolute bottom-0 left-10 w-80 h-80 bg-neutral-200/30 rounded-full blur-2xl pointer-events-none -z-0"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+<!-- Editorial Text Lead (Col 7) -->
+<div class="lg:col-span-7 flex flex-col items-start gap-6 reveal-el">
+<div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-red-50 text-[#D91A2A] border border-red-200/70 text-[11px] font-token-bold uppercase tracking-widest">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D91A2A] opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-[#D91A2A]"></span>
+</span>
+<span>Multi-Speciality &amp; Diagnostic Centre — Bhagalpur</span>
+</div>
+<h1 class="display-heading text-[#111c2d] max-w-xl">
+<span class="font-light block">Healthcare,</span>
+<span class="text-[#D91A2A] font-token-bold block">Designed Around You.</span>
+</h1>
+<p class="body-copy text-secondary max-w-xl leading-relaxed">
+            A patient-first multi-speciality hospital and diagnostic centre serving Bhagalpur and Eastern Bihar with precision, clinical excellence, and heartfelt human care.
+          </p>
+<div class="flex flex-wrap items-center gap-4 pt-1 w-full sm:w-auto">
+<a class="btn-lift inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-md bg-[#D91A2A] text-white font-token-bold text-sm shadow-[0_8px_20px_rgba(217,26,42,0.25)] hover:bg-[#b0001a] transition-all" href="appointment.html">
+<span class="material-symbols-outlined text-[19px]">event_available</span>
+<span>Book an Appointment</span>
+</a>
+<a class="btn-lift inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-md bg-surface-container text-[#111c2d] font-semibold text-sm hover:bg-neutral-200 transition-colors border border-outline-variant/80" href="#about">
+<span>Explore RCB Hospital</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<!-- Asymmetric Highlights Strip -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-5 w-full">
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/60 flex flex-col gap-1 transition-all hover:border-red-200 hover:bg-white shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+<div class="flex items-center gap-1.5 text-[#D91A2A]">
+<span class="material-symbols-outlined text-[18px]">home_pin</span>
+<span class="text-[11px] font-token-bold uppercase tracking-wider">Prime Access</span>
+</div>
+<p class="text-xs font-semibold text-[#111c2d]">Bausi, Aliganj Main Rd</p>
+<span class="text-[11px] text-secondary font-light">Direct regional road link</span>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/60 flex flex-col gap-1 transition-all hover:border-red-200 hover:bg-white shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+<div class="flex items-center gap-1.5 text-[#D91A2A]">
+<span class="material-symbols-outlined text-[18px]">biotech</span>
+<span class="text-[11px] font-token-bold uppercase tracking-wider">In-House Lab</span>
+</div>
+<p class="text-xs font-semibold text-[#111c2d]">Pathology &amp; Diagnostics</p>
+<span class="text-[11px] text-secondary font-light">Rapid digital reporting</span>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/60 flex flex-col gap-1 transition-all hover:border-emerald-200 hover:bg-white shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+<div class="flex items-center gap-1.5 text-emerald-700">
+<span class="material-symbols-outlined text-[18px]">acute</span>
+<span class="text-[11px] font-token-bold uppercase tracking-wider">Continuous Care</span>
+</div>
+<p class="text-xs font-semibold text-[#111c2d]">24/7 Casualty &amp; Wards</p>
+<span class="text-[11px] text-secondary font-light">Observation &amp; triage</span>
+</div>
+</div>
+</div>
+<!-- Hospital Facade Architectural Visual (Col 5) with Editorial Floating Overlays -->
+<div class="lg:col-span-5 relative reveal-el" style="transition-delay: 150ms;">
+<div class="relative rounded-2xl overflow-hidden shadow-2xl bg-surface-container border border-neutral-200/80 reveal-img-wrap group">
+<img alt="RCB Hospital Facade with Grand Entrance in Aliganj, Bhagalpur" class="w-full h-[420px] sm:h-[500px] object-cover object-center" src="image/RCB main door.webp"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#111315]/90 via-black/25 to-transparent"></div>
+<!-- Overlapping Architectural Plaque -->
+<div class="absolute bottom-5 left-5 right-5 p-4 rounded-xl bg-white/95 backdrop-blur-md border border-white/50 shadow-lg flex items-center justify-between gap-3 transform group-hover:-translate-y-1 transition-transform">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-[#D91A2A] text-white flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[22px]">local_hospital</span>
+</div>
+<div>
+<h3 class="text-xs sm:text-sm font-token-bold text-[#111c2d]">Hospital Facade &amp; Diagnostic Wing</h3>
+<p class="text-[11px] text-secondary font-light">Bausi Road, Aliganj, Bhagalpur</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-emerald-100 text-emerald-800 text-[10px] font-token-bold uppercase tracking-wider shrink-0 border border-emerald-200">
+<span class="material-symbols-outlined text-[13px]">check_circle</span>
+                Verified
+              </span>
+</div>
+</div>
+</div>
+</div>
+</div>
 </section>
-
-<!-- ============ 4. TRUST STRIP ============ -->
-<section class="w-full bg-surface-container-low py-12 border-b border-outline-variant/60">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-      <div class="reveal-el flex flex-col gap-1 p-5 rounded-xl bg-white border border-outline-variant/60 hover:-translate-y-1 hover:border-[#D91A2A]/40 transition-all shadow-sm">
-        <span class="stat-display text-2xl sm:text-3xl font-bold text-[#111c2d]">MULTI-SPEC</span>
-        <span class="text-[11px] uppercase tracking-wider font-bold text-[#D91A2A]">Verified Local Centre</span>
-        <p class="body-copy text-secondary text-xs mt-1">Full-spectrum clinical OPD and consulting care in Bhagalpur.</p>
-      </div>
-      <div class="reveal-el flex flex-col gap-1 p-5 rounded-xl bg-white border border-outline-variant/60 hover:-translate-y-1 hover:border-emerald-500/40 transition-all shadow-sm" style="transition-delay:100ms;">
-        <span class="stat-display text-2xl sm:text-3xl font-bold text-[#111c2d]">24 / 7 CARE</span>
-        <span class="text-[11px] uppercase tracking-wider font-bold text-emerald-700">Emergency &amp; Triage</span>
-        <p class="body-copy text-secondary text-xs mt-1">Round-the-clock emergency stabilization &amp; admission.</p>
-      </div>
-      <div class="reveal-el flex flex-col gap-1 p-5 rounded-xl bg-white border border-outline-variant/60 hover:-translate-y-1 hover:border-[#D91A2A]/40 transition-all shadow-sm" style="transition-delay:200ms;">
-        <span class="stat-display text-2xl sm:text-3xl font-bold text-[#111c2d]">IN-HOUSE LAB</span>
-        <span class="text-[11px] uppercase tracking-wider font-bold text-[#D91A2A]">Computerized Lab</span>
-        <p class="body-copy text-secondary text-xs mt-1">High-throughput biochemistry, hematology &amp; rapid testing.</p>
-      </div>
-      <div class="reveal-el flex flex-col gap-1 p-5 rounded-xl bg-white border border-outline-variant/60 hover:-translate-y-1 hover:border-[#D91A2A]/40 transition-all shadow-sm" style="transition-delay:300ms;">
-        <span class="stat-display text-2xl sm:text-3xl font-bold text-[#111c2d]">ALIGANJ HUB</span>
-        <span class="text-[11px] uppercase tracking-wider font-bold text-[#D91A2A]">Serving Bausi</span>
-        <p class="body-copy text-secondary text-xs mt-1">Convenient medical destination for regional families.</p>
-      </div>
-    </div>
-    <!-- BUTTON -->
-    <div class="mt-8 text-center reveal-el">
-      <a href="#departments" class="btn-lift inline-flex items-center gap-2 bg-[#111c2d] text-white text-sm font-bold px-6 py-3 rounded-md hover:bg-[#D91A2A]">
-        <span class="material-symbols-outlined text-[18px]">grid_view</span>
-        <span>See All Departments</span>
-        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-      </a>
-    </div>
-  </div>
+<!-- 4. RESTRAINED TRUST STRIP (Asymmetric Rhythm) -->
+<section class="w-full bg-surface-container-low py-10 border-b border-outline-variant/60">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 divide-y lg:divide-y-0 lg:divide-x divide-outline-variant/80">
+<div class="flex flex-col gap-1 pt-3 lg:pt-0 lg:px-5 first:pl-0 reveal-el">
+<span class="text-2xl sm:text-3xl font-token-bold tracking-tight text-[#111c2d]">MULTI-SPEC</span>
+<span class="text-xs uppercase tracking-wider font-token-bold text-[#D91A2A]">Verified Local Centre</span>
+<p class="body-copy text-secondary mt-1 text-sm">Full-spectrum clinical OPD and consulting care in Bhagalpur.</p>
+</div>
+<div class="flex flex-col gap-1 pt-3 lg:pt-0 lg:px-5 reveal-el" style="transition-delay: 100ms;">
+<span class="text-2xl sm:text-3xl font-token-bold tracking-tight text-[#111c2d]">24 / 7 CARE</span>
+<span class="text-xs uppercase tracking-wider font-token-bold text-emerald-700">Emergency &amp; Triage</span>
+<p class="body-copy text-secondary mt-1 text-sm">Round-the-clock emergency stabilization and patient admission.</p>
+</div>
+<div class="flex flex-col gap-1 pt-3 lg:pt-0 lg:px-4 reveal-el" style="transition-delay: 200ms;">
+<span class="text-2xl sm:text-3xl font-token-bold tracking-tight text-[#111c2d]">IN-HOUSE LAB</span>
+<span class="text-xs uppercase tracking-wider font-token-bold text-[#D91A2A]">Computerized Lab</span>
+<p class="body-copy text-secondary mt-1 text-sm">High-throughput biochemistry, hematology, and rapid testing.</p>
+</div>
+<div class="flex flex-col gap-1 pt-3 lg:pt-0 lg:px-5 reveal-el" style="transition-delay: 300ms;">
+<span class="text-2xl sm:text-3xl font-token-bold tracking-tight text-[#111c2d]">ALIGANJ HUB</span>
+<span class="text-xs uppercase tracking-wider font-token-bold text-[#D91A2A]">Serving Bausi &amp; Aliganj</span>
+<p class="body-copy text-secondary mt-1 text-sm">Convenient medical destination for regional district families.</p>
+</div>
+</div>
+</div>
 </section>
-
-<!-- ============ 5. ABOUT ============ -->
+<!-- 5. ABOUT RCB HOSPITAL (Editorial Visual Narrative) -->
 <section class="w-full bg-surface py-16 lg:py-24 border-b border-outline-variant/60" id="about">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
-      <div class="lg:col-span-7 flex flex-col gap-6 reveal-el">
-        <div class="flex items-center gap-3">
-          <span class="text-xs font-bold text-[#D91A2A] uppercase tracking-widest">01 — About Us</span>
-          <div class="h-px w-12 bg-[#D91A2A]/40"></div>
-        </div>
-        <h2 class="display-heading text-[#111c2d] font-light tracking-tight">
-          A commitment to <span class="font-bold text-[#111c2d]">clinical excellence</span> and community care.
-        </h2>
-        <p class="body-copy text-secondary leading-relaxed">
-          RCB Hospital was established to address the critical need for dependable, dignified, and technologically sound healthcare in the Aliganj and Bausi corridor of Bhagalpur. We bring together certified clinical consultation, comprehensive diagnostic pathology, and prompt emergency response under a single, patient-centered roof.
-        </p>
-        <p class="body-copy text-secondary leading-relaxed">
-          Our clinical facility is purposefully engineered to eliminate common logistical hassles for patient families. By combining computerized testing laboratories with multi-department doctor suites, patients receive same-day evaluation without having to travel across multiple diagnostic kiosks.
-        </p>
-
-        <!-- 3 CLEAN CARD -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-          <div class="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant/70 shadow-sm flex flex-col gap-2 hover:border-[#D91A2A]/40 hover:-translate-y-1 transition-all">
-            <span class="material-symbols-outlined text-[#D91A2A] text-[26px]">medical_information</span>
-            <h4 class="text-sm font-bold text-[#111c2d]">Dignified Care</h4>
-            <p class="body-copy text-secondary text-xs">Patient-first consultations with absolute transparency in medicine and treatment.</p>
-          </div>
-          <div class="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant/70 shadow-sm flex flex-col gap-2 hover:border-[#D91A2A]/40 hover:-translate-y-1 transition-all">
-            <span class="material-symbols-outlined text-[#D91A2A] text-[26px]">biotech</span>
-            <h4 class="text-sm font-bold text-[#111c2d]">Integrated Testing</h4>
-            <p class="body-copy text-secondary text-xs">Automated in-house biochemistry, blood work, and digital ECG readouts.</p>
-          </div>
-          <div class="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant/70 shadow-sm flex flex-col gap-2 hover:border-emerald-500/40 hover:-translate-y-1 transition-all">
-            <span class="material-symbols-outlined text-emerald-700 text-[26px]">health_and_safety</span>
-            <h4 class="text-sm font-bold text-[#111c2d]">Sterile Protocols</h4>
-            <p class="body-copy text-secondary text-xs">Rigorous daily sanitization schedules across wards and examination rooms.</p>
-          </div>
-        </div>
-
-        <!-- BUTTON -->
-        <div class="pt-3">
-          <a href="appointment.html" class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-sm font-bold px-6 py-3.5 rounded-md shadow-[0_8px_20px_rgba(217,26,42,0.25)] hover:bg-[#b0001a]">
-            <span class="material-symbols-outlined text-[18px]">calendar_month</span>
-            <span>Book a Consultation</span>
-            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="lg:col-span-5 flex flex-col gap-4 reveal-el" style="transition-delay:150ms;">
-        <div class="relative rounded-2xl overflow-hidden shadow-xl bg-surface-container group border border-outline-variant/70 reveal-img-wrap">
-          <img alt="Main Reception" class="w-full h-[390px] sm:h-[450px] object-cover" src="image/dami doctor image.png"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/85 via-transparent to-transparent"></div>
-          <div class="absolute bottom-5 left-5 right-5 text-white">
-            <span class="px-2.5 py-1 rounded bg-[#D91A2A] text-white text-[10px] font-bold uppercase tracking-wider">Patient Services</span>
-            <h3 class="text-base sm:text-lg font-bold mt-1 text-white">Main Reception &amp; Help Desk</h3>
-            <p class="body-copy text-neutral-200 text-xs">Dedicated assistance for appointments, billing transparency, and OPD queries.</p>
-          </div>
-        </div>
-        <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/70 flex items-center justify-between">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-lg bg-red-100 text-[#D91A2A] flex items-center justify-center">
-              <span class="material-symbols-outlined text-[19px]">badge</span>
-            </div>
-            <span class="text-xs font-semibold text-[#111c2d]">Licensed Clinical &amp; Para-Medical Staff</span>
-          </div>
-          <span class="text-[11px] font-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1">
-            <span class="material-symbols-outlined text-[14px]">verified</span>
-            Verified
-          </span>
-        </div>
-      </div>
-
-    </div>
-  </div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Narrative (Col 7) -->
+<div class="lg:col-span-7 flex flex-col gap-6 reveal-el">
+<div class="flex items-center gap-3">
+<span class="text-xs font-token-bold text-[#D91A2A] uppercase tracking-widest">01 — About Us</span>
+<div class="h-px w-12 bg-[#D91A2A]/40"></div>
+</div>
+<h2 class="display-heading text-[#111c2d] font-light tracking-tight">
+            A commitment to <span class="font-token-bold text-[#111c2d]">clinical excellence</span> and community care.
+          </h2>
+<p class="body-copy text-secondary leading-relaxed">
+            RCB Hospital was established to address the critical need for dependable, dignified, and technologically sound healthcare in the Aliganj and Bausi corridor of Bhagalpur. We bring together certified clinical consultation, comprehensive diagnostic pathology, and prompt emergency response under a single, patient-centered roof.
+          </p>
+<p class="body-copy text-secondary leading-relaxed">
+            Our clinical facility is purposefully engineered to eliminate common logistical hassles for patient families. By combining computerized testing laboratories with multi-department doctor suites, patients receive same-day evaluation without having to travel across multiple diagnostic kiosks.
+          </p>
+<!-- 3 Editorial Key Highlights Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+<div class="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant/70 shadow-sm flex flex-col gap-2 hover:border-[#D91A2A]/40 transition-colors">
+<span class="material-symbols-outlined text-[#D91A2A] text-[26px]">medical_information</span>
+<h4 class="text-sm font-token-bold text-[#111c2d]">Dignified Care</h4>
+<p class="body-copy text-secondary text-xs">Patient-first consultations with absolute transparency in medicine and treatment.</p>
+</div>
+<div class="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant/70 shadow-sm flex flex-col gap-2 hover:border-[#D91A2A]/40 transition-colors">
+<span class="material-symbols-outlined text-[#D91A2A] text-[26px]">biotech</span>
+<h4 class="text-sm font-token-bold text-[#111c2d]">Integrated Testing</h4>
+<p class="body-copy text-secondary text-xs">Automated in-house biochemistry, blood work, and digital ECG readouts.</p>
+</div>
+<div class="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant/70 shadow-sm flex flex-col gap-2 hover:border-emerald-500/40 transition-colors">
+<span class="material-symbols-outlined text-emerald-700 text-[26px]">health_and_safety</span>
+<h4 class="text-sm font-token-bold text-[#111c2d]">Sterile Protocols</h4>
+<p class="body-copy text-secondary text-xs">Rigorous daily sanitization schedules across wards and examination rooms.</p>
+</div>
+</div>
+</div>
+<!-- Reception & Patient Coordinator Visual (Col 5) with Overlapping Editorial Frame -->
+<div class="lg:col-span-5 flex flex-col gap-4 reveal-el" style="transition-delay: 150ms;">
+<div class="relative rounded-2xl overflow-hidden shadow-xl bg-surface-container group border border-outline-variant/70 reveal-img-wrap">
+<img alt="Main Reception Desk and Patient Care Help Desk at RCB Hospital" class="w-full h-[390px] sm:h-[450px] object-cover object-center" src="image/dami doctor image.png"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#111315]/85 via-transparent to-transparent"></div>
+<div class="absolute bottom-5 left-5 right-5 text-white">
+<span class="px-2.5 py-1 rounded bg-[#D91A2A] text-white text-[10px] font-token-bold uppercase tracking-wider">Patient Services</span>
+<h3 class="text-base sm:text-lg font-token-bold mt-1 text-white">Main Reception &amp; Help Desk</h3>
+<p class="body-copy text-neutral-200 text-xs">Dedicated assistance for appointments, billing transparency, and OPD queries.</p>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/70 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-red-100 text-[#D91A2A] flex items-center justify-center">
+<span class="material-symbols-outlined text-[19px]">badge</span>
+</div>
+<span class="text-xs font-semibold text-[#111c2d]">Licensed Clinical &amp; Para-Medical Staff</span>
+</div>
+<span class="text-[11px] font-token-bold text-emerald-700 uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+              Verified Facility
+            </span>
+</div>
+</div>
+</div>
+</div>
 </section>
-
-<!-- ============ 6. DEPARTMENTS ============ -->
+<!-- 6. SERVICES & DIAGNOSTIC SPECIALITIES -->
 <section class="w-full bg-surface-container-low py-16 lg:py-24 border-b border-outline-variant/60" id="departments">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col gap-12">
-
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal-el">
-      <div class="flex flex-col gap-3 max-w-2xl">
-        <div class="flex items-center gap-3">
-          <span class="text-xs font-bold text-[#D91A2A] uppercase tracking-widest">02 — Departments</span>
-          <div class="h-px w-12 bg-[#D91A2A]/40"></div>
-        </div>
-        <h2 class="display-heading text-[#111c2d] font-light tracking-tight">
-          Integrated diagnostics and <span class="font-bold text-[#111c2d]">speciality clinical care</span>.
-        </h2>
-        <p class="body-copy text-secondary">
-          Delivering high-reliability medical diagnoses alongside experienced general and specialized physicians.
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col gap-12">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal-el">
+<div class="flex flex-col gap-3 max-w-2xl">
+<div class="flex items-center gap-3">
+<span class="text-xs font-token-bold text-[#D91A2A] uppercase tracking-widest">02 — Departments</span>
+<div class="h-px w-12 bg-[#D91A2A]/40"></div>
+</div>
+<h2 class="display-heading text-[#111c2d] font-light tracking-tight">
+            Integrated diagnostics and <span class="font-token-bold text-[#111c2d]">speciality clinical care</span>.
+          </h2>
+</div>
+<p class="body-copy text-secondary max-w-md">
+          Delivering high-reliability medical diagnoses alongside experienced general and specialized physicians in Bhagalpur.
         </p>
-      </div>
-      <a href="appointment.html" class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-sm font-bold px-6 py-3.5 rounded-md shadow-[0_8px_20px_rgba(217,26,42,0.25)] hover:bg-[#b0001a] shrink-0">
-        <span class="material-symbols-outlined text-[18px]">stethoscope</span>
-        <span>Consult a Specialist</span>
-      </a>
-    </div>
-
-    <!-- LAB BANNER -->
-    <div class="rounded-2xl overflow-hidden bg-[#111315] text-white shadow-2xl border border-neutral-800 reveal-el">
-      <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
-        <div class="lg:col-span-7 p-6 sm:p-10 lg:p-12 flex flex-col justify-between gap-8">
-          <div class="flex flex-col gap-4">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#D91A2A] text-white text-xs font-bold self-start">
-              <span class="material-symbols-outlined text-[16px]">biotech</span>
-              <span>Flagship Diagnostic Facility</span>
-            </div>
-            <h3 class="text-2xl sm:text-3xl font-bold text-white">Clinical Pathology &amp; Diagnostic Laboratory</h3>
-            <p class="body-copy text-neutral-300 leading-relaxed">
-              Our certified in-house laboratory performs automated hematology, liver &amp; kidney panels, hormonal testing, diabetes monitoring (HbA1c), and lipid profiles — supervised by qualified technicians with swift turnaround.
+</div>
+<!-- Flagship Feature Banner: Computerized Laboratory -->
+<div class="rounded-2xl overflow-hidden bg-[#111315] text-white shadow-2xl border border-neutral-800 reveal-el">
+<div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
+<div class="lg:col-span-7 p-6 sm:p-10 lg:p-12 flex flex-col justify-between gap-8">
+<div class="flex flex-col gap-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-[#D91A2A] text-white text-xs font-token-bold self-start shadow-sm">
+<span class="material-symbols-outlined text-[16px]">biotech</span>
+<span>Flagship Diagnostic Facility</span>
+</div>
+<h3 class="text-2xl sm:text-3xl font-token-bold tracking-tight text-white">
+                Clinical Pathology &amp; Diagnostic Laboratory
+              </h3>
+<p class="body-copy text-neutral-300 leading-relaxed">
+                Our certified in-house diagnostic laboratory performs automated hematology, liver &amp; kidney function panels, hormonal testing, diabetes monitoring (HbA1c), and lipid profiles. Supervised by qualified technicians to deliver reliable computerized medical reports with swift turnaround.
+              </p>
+</div>
+<!-- Lab Test Stats -->
+<div class="grid grid-cols-3 gap-4 pt-6 border-t border-neutral-800">
+<div>
+<span class="text-xl sm:text-2xl font-token-bold text-red-400 block">100%</span>
+<span class="text-[11px] text-neutral-400 uppercase tracking-wider">In-House Testing</span>
+</div>
+<div>
+<span class="text-xl sm:text-2xl font-token-bold text-red-400 block">Same-Day</span>
+<span class="text-[11px] text-neutral-400 uppercase tracking-wider">Routine Reports</span>
+</div>
+<div>
+<span class="text-xl sm:text-2xl font-token-bold text-red-400 block">Sterile</span>
+<span class="text-[11px] text-neutral-400 uppercase tracking-wider">Sampling Bay</span>
+</div>
+</div>
+</div>
+<!-- Lab Image -->
+<div class="lg:col-span-5 relative min-h-[320px] lg:min-h-full reveal-img-wrap">
+<img alt="Interior of In-house Diagnostic Lab at RCB Hospital Bhagalpur" class="w-full h-full object-cover object-center" src="image/lab dami.webp"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#111315]/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#111315]/95 lg:via-transparent"></div>
+</div>
+</div>
+</div>
+<!-- 4 Asymmetric Department Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- 01 General Medicine -->
+<div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col justify-between gap-6 hover:shadow-md hover:border-[#D91A2A]/40 transition-all reveal-el">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-token-bold text-[#D91A2A]">01 / MEDICINE</span>
+<span class="material-symbols-outlined text-[#D91A2A] text-[24px]">stethoscope</span>
+</div>
+<h4 class="text-lg font-token-bold text-[#111c2d]">General Medicine</h4>
+<p class="body-copy text-secondary leading-relaxed text-sm">
+              Consultation and therapy for chronic hypertension, fever, diabetes control, gastrointestinal disorders, and preventive health screenings.
             </p>
-          </div>
-          <div class="grid grid-cols-3 gap-4 pt-6 border-t border-neutral-800">
-            <div>
-              <span class="stat-display text-xl sm:text-2xl font-bold text-red-400 block">100%</span>
-              <span class="text-[11px] text-neutral-400 uppercase tracking-wider">In-House</span>
-            </div>
-            <div>
-              <span class="stat-display text-xl sm:text-2xl font-bold text-red-400 block">Same-Day</span>
-              <span class="text-[11px] text-neutral-400 uppercase tracking-wider">Reports</span>
-            </div>
-            <div>
-              <span class="stat-display text-xl sm:text-2xl font-bold text-red-400 block">Sterile</span>
-              <span class="text-[11px] text-neutral-400 uppercase tracking-wider">Sampling</span>
-            </div>
-          </div>
-        </div>
-        <div class="lg:col-span-5 relative min-h-[320px] lg:min-h-full reveal-img-wrap">
-          <img alt="Diagnostic Lab" class="w-full h-full object-cover" src="image/lab dami.webp"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#111315]/95 lg:via-transparent"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4 DEPARTMENT CARDS WITH UNIQUE IMAGES -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-      <!-- Card 1: dami patient and doctor.jpg -->
-      <div class="reveal-el group relative rounded-2xl overflow-hidden shadow-md border border-outline-variant/60 h-[380px] hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500">
-        <img src="image/dami patient and doctor.jpg" alt="General Medicine" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/97 via-[#111315]/70 to-[#111315]/15"></div>
-        <div class="relative z-10 p-6 flex flex-col justify-between h-full text-white">
-          <div class="flex items-center justify-between">
-            <span class="text-[10px] font-bold text-red-300 uppercase tracking-wider">01 / MEDICINE</span>
-            <div class="w-11 h-11 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center">
-              <span class="material-symbols-outlined text-[22px] text-white">stethoscope</span>
-            </div>
-          </div>
-          <div class="flex flex-col gap-3">
-            <h4 class="text-xl font-bold text-white">General Medicine</h4>
-            <p class="text-xs text-neutral-200 leading-relaxed">Consultation &amp; therapy for hypertension, fever, diabetes, GI disorders &amp; preventive health screenings.</p>
-            <a class="inline-flex items-center gap-1.5 text-xs font-bold text-red-300 group-hover:translate-x-1 transition-transform" href="appointment.html">
-              <span>Book Doctor Consult</span>
-              <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 2: RCB counter.webp -->
-      <div class="reveal-el group relative rounded-2xl overflow-hidden shadow-md border border-outline-variant/60 h-[380px] hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500" style="transition-delay:100ms;">
-        <img src="image/RCB counter.webp" alt="Emergency &amp; Trauma" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/97 via-[#111315]/70 to-[#111315]/15"></div>
-        <div class="relative z-10 p-6 flex flex-col justify-between h-full text-white">
-          <div class="flex items-center justify-between">
-            <span class="text-[10px] font-bold text-red-300 uppercase tracking-wider">02 / EMERGENCY</span>
-            <div class="w-11 h-11 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center">
-              <span class="material-symbols-outlined text-[22px] text-white">emergency</span>
-            </div>
-          </div>
-          <div class="flex flex-col gap-3">
-            <h4 class="text-xl font-bold text-white">Emergency &amp; Trauma</h4>
-            <p class="text-xs text-neutral-200 leading-relaxed">24/7 casualty triage, wound dressing, trauma stabilization &amp; critical first-response care.</p>
-            <a class="inline-flex items-center gap-1.5 text-xs font-bold text-red-300 group-hover:translate-x-1 transition-transform" href="tel:+919801010314">
-              <span>Emergency Help Desk</span>
-              <span class="material-symbols-outlined text-[16px]">call</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 3: RCB cabin.webp -->
-      <div class="reveal-el group relative rounded-2xl overflow-hidden shadow-md border border-outline-variant/60 h-[380px] hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500" style="transition-delay:200ms;">
-        <img src="image/RCB cabin.webp" alt="Maternal &amp; Pediatric" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/97 via-[#111315]/70 to-[#111315]/15"></div>
-        <div class="relative z-10 p-6 flex flex-col justify-between h-full text-white">
-          <div class="flex items-center justify-between">
-            <span class="text-[10px] font-bold text-red-300 uppercase tracking-wider">03 / MATERNAL</span>
-            <div class="w-11 h-11 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center">
-              <span class="material-symbols-outlined text-[22px] text-white">family_restroom</span>
-            </div>
-          </div>
-          <div class="flex flex-col gap-3">
-            <h4 class="text-xl font-bold text-white">Maternal &amp; Pediatric</h4>
-            <p class="text-xs text-neutral-200 leading-relaxed">Prenatal wellness advice, nutrition guidance, pediatric vaccinations &amp; neonatal checkups.</p>
-            <a class="inline-flex items-center gap-1.5 text-xs font-bold text-red-300 group-hover:translate-x-1 transition-transform" href="appointment.html">
-              <span>Mother &amp; Child Care</span>
-              <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Card 4: RCB website image.webp -->
-      <div class="reveal-el group relative rounded-2xl overflow-hidden shadow-md border border-outline-variant/60 h-[380px] hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500" style="transition-delay:300ms;">
-        <img src="image/RCB website image.webp" alt="Diagnostic Pathology" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/97 via-[#111315]/70 to-[#111315]/15"></div>
-        <div class="relative z-10 p-6 flex flex-col justify-between h-full text-white">
-          <div class="flex items-center justify-between">
-            <span class="text-[10px] font-bold text-red-300 uppercase tracking-wider">04 / PATHOLOGY</span>
-            <div class="w-11 h-11 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center">
-              <span class="material-symbols-outlined text-[22px] text-white">microbiology</span>
-            </div>
-          </div>
-          <div class="flex flex-col gap-3">
-            <h4 class="text-xl font-bold text-white">Diagnostic Pathology</h4>
-            <p class="text-xs text-neutral-200 leading-relaxed">Complete blood count, blood sugar, lipid profiles, renal panels &amp; urine analytics.</p>
-            <a class="inline-flex items-center gap-1.5 text-xs font-bold text-red-300 group-hover:translate-x-1 transition-transform" href="appointment.html">
-              <span>Schedule Lab Test</span>
-              <span class="material-symbols-outlined text-[16px]">chevron_right</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BUTTON -->
-    <div class="text-center reveal-el">
-      <a href="appointment.html" class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-sm font-bold px-7 py-3.5 rounded-md shadow-[0_8px_20px_rgba(217,26,42,0.25)] hover:bg-[#b0001a]">
-        <span class="material-symbols-outlined text-[19px]">event_available</span>
-        <span>Book Your Appointment</span>
-        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-      </a>
-    </div>
-
-  </div>
+</div>
+<a class="inline-flex items-center gap-1.5 text-xs font-token-bold text-[#D91A2A] hover:translate-x-1 transition-transform" href="appointment.html">
+<span>Book Doctor Consult</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+<!-- 02 Emergency & Trauma -->
+<div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col justify-between gap-6 hover:shadow-md hover:border-[#D91A2A]/40 transition-all reveal-el" style="transition-delay: 100ms;">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-token-bold text-[#D91A2A]">02 / EMERGENCY</span>
+<span class="material-symbols-outlined text-[#D91A2A] text-[24px]">emergency</span>
+</div>
+<h4 class="text-lg font-token-bold text-[#111c2d]">Emergency &amp; Trauma</h4>
+<p class="body-copy text-secondary leading-relaxed text-sm">
+              24/7 casualty triage, wound dressing, trauma stabilization, IV hydration, and immediate critical medical first-response care.
+            </p>
+</div>
+<a class="inline-flex items-center gap-1.5 text-xs font-token-bold text-[#D91A2A] hover:translate-x-1 transition-transform" href="tel:+919801010314">
+<span>Emergency Help Desk</span>
+<span class="material-symbols-outlined text-[16px]">call</span>
+</a>
+</div>
+<!-- 03 Maternal & Pediatric Care -->
+<div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col justify-between gap-6 hover:shadow-md hover:border-[#D91A2A]/40 transition-all reveal-el" style="transition-delay: 200ms;">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-token-bold text-[#D91A2A]">03 / MATERNAL</span>
+<span class="material-symbols-outlined text-[#D91A2A] text-[24px]">family_restroom</span>
+</div>
+<h4 class="text-lg font-token-bold text-[#111c2d]">Maternal &amp; Pediatric</h4>
+<p class="body-copy text-secondary leading-relaxed text-sm">
+              Specialized prenatal wellness advice, maternal nutrition guidance, pediatric vaccinations, and neonatal wellness checkups.
+            </p>
+</div>
+<a class="inline-flex items-center gap-1.5 text-xs font-token-bold text-[#D91A2A] hover:translate-x-1 transition-transform" href="#cta">
+<span>Mother &amp; Child Care</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+<!-- 04 Diagnostic Pathology -->
+<div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col justify-between gap-6 hover:shadow-md hover:border-[#D91A2A]/40 transition-all reveal-el" style="transition-delay: 300ms;">
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="text-xs font-token-bold text-[#D91A2A]">04 / PATHOLOGY</span>
+<span class="material-symbols-outlined text-[#D91A2A] text-[24px]">microbiology</span>
+</div>
+<h4 class="text-lg font-token-bold text-[#111c2d]">Diagnostic Pathology</h4>
+<p class="body-copy text-secondary leading-relaxed text-sm">
+              Comprehensive panel testing including complete blood count, blood sugar, lipid profiles, renal panels, and computerized urine analytics.
+            </p>
+</div>
+<a class="inline-flex items-center gap-1.5 text-xs font-token-bold text-[#D91A2A] hover:translate-x-1 transition-transform" href="#cta">
+<span>Schedule Lab Test</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+</div>
+</div>
+</div>
 </section>
-
-<!-- ============ 7. JOURNEY (CLEAN CARDS) ============ -->
-<section class="w-full bg-surface py-16 lg:py-24 border-b border-outline-variant/60 relative overflow-hidden" id="journey">
-  <div class="absolute -top-20 right-0 w-80 h-80 bg-red-100/40 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col gap-14 relative z-10">
-
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal-el">
-      <div class="max-w-2xl flex flex-col gap-3">
-        <div class="flex items-center gap-3">
-          <span class="text-xs font-bold text-[#D91A2A] uppercase tracking-widest">03 — Patient Journey</span>
-          <div class="h-px w-12 bg-[#D91A2A]/40"></div>
-        </div>
-        <h2 class="display-heading text-[#111c2d] font-light tracking-tight">
-          A seamless path from <span class="font-bold text-[#111c2d]">entry to recovery</span>.
+<!-- 7. PATIENT EXPERIENCE JOURNEY -->
+<section class="w-full bg-surface py-16 lg:py-24 border-b border-outline-variant/60" id="journey">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col gap-14">
+<div class="max-w-2xl flex flex-col gap-3 reveal-el">
+<div class="flex items-center gap-3">
+<span class="text-xs font-token-bold text-[#D91A2A] uppercase tracking-widest">03 — Patient Journey</span>
+<div class="h-px w-12 bg-[#D91A2A]/40"></div>
+</div>
+<h2 class="display-heading text-[#111c2d] font-light tracking-tight">
+          A seamless path from <span class="font-token-bold text-[#111c2d]">entry to recovery</span>.
         </h2>
-        <p class="body-copy text-secondary">
+<p class="body-copy text-secondary">
           Structured for peace of mind, zero unnecessary waiting, and total transparency at every milestone.
         </p>
-      </div>
-      <a href="appointment.html" class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-sm font-bold px-6 py-3.5 rounded-md shadow-[0_8px_20px_rgba(217,26,42,0.25)] hover:bg-[#b0001a] shrink-0">
-        <span class="material-symbols-outlined text-[19px]">event_available</span>
-        <span>Start Your Journey</span>
-        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-      </a>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <!-- Step 1 -->
-      <div class="reveal-el p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col gap-4 hover:border-[#D91A2A]/60 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-500">
-        <div class="flex items-center justify-between">
-          <span class="step-num text-4xl text-[#D91A2A]">01</span>
-          <div class="w-12 h-12 rounded-full bg-red-50 border border-red-100 flex items-center justify-center text-[#D91A2A]">
-            <span class="material-symbols-outlined text-[24px]">how_to_reg</span>
-          </div>
-        </div>
-        <h3 class="text-base font-bold text-[#111c2d]">Reception &amp; Triage</h3>
-        <p class="body-copy text-secondary leading-relaxed text-sm">
-          Warm reception at our Aliganj front desk. Immediate vitals assessment by nursing personnel to identify urgent or acute patient needs.
-        </p>
-        <div class="pt-2 mt-auto border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-secondary">
-          <span class="material-symbols-outlined text-[14px]">schedule</span>
-          <span>Walk-in Ready</span>
-        </div>
-      </div>
-
-      <!-- Step 2 -->
-      <div class="reveal-el p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col gap-4 hover:border-[#D91A2A]/60 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-500" style="transition-delay:100ms;">
-        <div class="flex items-center justify-between">
-          <span class="step-num text-4xl text-[#D91A2A]">02</span>
-          <div class="w-12 h-12 rounded-full bg-red-50 border border-red-100 flex items-center justify-center text-[#D91A2A]">
-            <span class="material-symbols-outlined text-[24px]">biotech</span>
-          </div>
-        </div>
-        <h3 class="text-base font-bold text-[#111c2d]">Advanced Diagnostics</h3>
-        <p class="body-copy text-secondary leading-relaxed text-sm">
-          Prompt on-premise blood sample collection and testing without sending patients to distant third-party pathology centers.
-        </p>
-        <div class="pt-2 mt-auto border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-secondary">
-          <span class="material-symbols-outlined text-[14px]">science</span>
-          <span>In-House Lab</span>
-        </div>
-      </div>
-
-      <!-- Step 3 -->
-      <div class="reveal-el p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col gap-4 hover:border-[#D91A2A]/60 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-500" style="transition-delay:200ms;">
-        <div class="flex items-center justify-between">
-          <span class="step-num text-4xl text-[#D91A2A]">03</span>
-          <div class="w-12 h-12 rounded-full bg-red-50 border border-red-100 flex items-center justify-center text-[#D91A2A]">
-            <span class="material-symbols-outlined text-[24px]">clinical_notes</span>
-          </div>
-        </div>
-        <h3 class="text-base font-bold text-[#111c2d]">Physician Consultation</h3>
-        <p class="body-copy text-secondary leading-relaxed text-sm">
-          Thorough, unhurried evaluation inside sanitized doctor cabins with clear explanation of diagnostic results and prescriptions.
-        </p>
-        <div class="pt-2 mt-auto border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-secondary">
-          <span class="material-symbols-outlined text-[14px]">verified_user</span>
-          <span>Expert Doctors</span>
-        </div>
-      </div>
-
-      <!-- Step 4 -->
-      <div class="reveal-el p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col gap-4 hover:border-emerald-500/60 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-500" style="transition-delay:300ms;">
-        <div class="flex items-center justify-between">
-          <span class="step-num text-4xl text-emerald-700">04</span>
-          <div class="w-12 h-12 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-700">
-            <span class="material-symbols-outlined text-[24px]">health_and_safety</span>
-          </div>
-        </div>
-        <h3 class="text-base font-bold text-[#111c2d]">Continued Care &amp; Follow-up</h3>
-        <p class="body-copy text-secondary leading-relaxed text-sm">
-          Daycare observation, monitored medication administration, follow-up scheduling, and direct telephonic helpline support.
-        </p>
-        <div class="pt-2 mt-auto border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-emerald-700">
-          <span class="material-symbols-outlined text-[14px]">support_agent</span>
-          <span>24/7 Support</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- BOTTOM CTA -->
-    <div class="reveal-el rounded-2xl bg-surface-container-lowest border border-outline-variant/60 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-sm">
-      <div class="flex items-center gap-4">
-        <div class="w-12 h-12 rounded-xl bg-red-100 text-[#D91A2A] flex items-center justify-center shrink-0">
-          <span class="material-symbols-outlined text-[26px]">volunteer_activism</span>
-        </div>
-        <div>
-          <h4 class="text-sm sm:text-base font-bold text-[#111c2d]">Need help navigating your visit?</h4>
-          <p class="body-copy text-secondary text-xs sm:text-sm mt-0.5">Our care coordinators can guide you at every step.</p>
-        </div>
-      </div>
-      <a href="tel:+919801010314" class="btn-lift inline-flex items-center gap-2 bg-[#111c2d] text-white text-sm font-bold px-6 py-3 rounded-md hover:bg-[#D91A2A] shrink-0">
-        <span class="material-symbols-outlined text-[18px]">phone_in_talk</span>
-        <span>Talk to a Coordinator</span>
-      </a>
-    </div>
-
-  </div>
+</div>
+<!-- 4-Step Progressive Timeline Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+<!-- Step 1 -->
+<div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col gap-4 relative reveal-el hover:border-[#D91A2A]/40 transition-colors">
+<div class="flex items-center justify-between">
+<span class="text-3xl font-light text-[#D91A2A]">01</span>
+<span class="material-symbols-outlined text-[#D91A2A] text-[26px]">how_to_reg</span>
+</div>
+<h3 class="text-base font-token-bold text-[#111c2d]">01 — Reception &amp; Triage</h3>
+<p class="body-copy text-secondary leading-relaxed text-sm">
+            Warm reception at our Aliganj front desk. Immediate vitals assessment by nursing personnel to identify urgent or acute patient needs.
+          </p>
+</div>
+<!-- Step 2 -->
+<div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col gap-4 relative reveal-el hover:border-[#D91A2A]/40 transition-colors" style="transition-delay: 100ms;">
+<div class="flex items-center justify-between">
+<span class="text-3xl font-light text-[#D91A2A]">02</span>
+<span class="material-symbols-outlined text-[#D91A2A] text-[26px]">biotech</span>
+</div>
+<h3 class="text-base font-token-bold text-[#111c2d]">02 — Advanced Diagnostics</h3>
+<p class="body-copy text-secondary leading-relaxed text-sm">
+            Prompt on-premise blood sample collection and testing without sending patients to distant third-party pathology centers.
+          </p>
+</div>
+<!-- Step 3 -->
+<div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col gap-4 relative reveal-el hover:border-[#D91A2A]/40 transition-colors" style="transition-delay: 200ms;">
+<div class="flex items-center justify-between">
+<span class="text-3xl font-light text-[#D91A2A]">03</span>
+<span class="material-symbols-outlined text-[#D91A2A] text-[26px]">clinical_notes</span>
+</div>
+<h3 class="text-base font-token-bold text-[#111c2d]">03 — Physician Consultation</h3>
+<p class="body-copy text-secondary leading-relaxed text-sm">
+            Thorough, unhurried evaluation inside sanitized doctor cabins with clear explanation of diagnostic results and prescriptions.
+          </p>
+</div>
+<!-- Step 4 -->
+<div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col gap-4 relative reveal-el hover:border-emerald-500/40 transition-colors" style="transition-delay: 300ms;">
+<div class="flex items-center justify-between">
+<span class="text-3xl font-light text-emerald-700">04</span>
+<span class="material-symbols-outlined text-emerald-700 text-[26px]">health_and_safety</span>
+</div>
+<h3 class="text-base font-token-bold text-[#111c2d]">04 — Continued Care &amp; Follow-up</h3>
+<p class="body-copy text-secondary leading-relaxed text-sm">
+            Daycare observation, monitored medication administration, follow-up scheduling, and direct telephonic helpline support.
+          </p>
+</div>
+</div>
+</div>
 </section>
-
-<!-- ============ 8. FACILITIES ============ -->
-<section class="w-full bg-surface-container-low py-16 lg:py-24 border-b border-outline-variant/60 overflow-hidden" id="facilities">
+<!-- 8. FACILITIES & HOSPITAL ENVIRONMENT GALLERY -->
+<section
+  class="w-full bg-surface-container-low py-16 lg:py-24 border-b border-outline-variant/60 overflow-hidden"
+  id="facilities"
+>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+
+    <!-- MAIN FACILITIES LAYOUT -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
-      <div class="reveal-el">
+      <!-- ================= LEFT: TEXT ================= -->
+      <div
+        class="reveal-el"
+        style="transition-delay: 100ms;"
+      >
+
+        <!-- Small Label -->
         <div class="flex items-center gap-3 mb-5">
-          <span class="text-xs font-bold text-[#D91A2A] uppercase tracking-widest">04 — Facilities</span>
+          <span
+            class="text-xs font-token-bold text-[#D91A2A] uppercase tracking-widest"
+          >
+            04 — Facilities
+          </span>
+
           <div class="h-px w-12 bg-[#D91A2A]/40"></div>
         </div>
-        <h2 class="display-heading text-4xl sm:text-5xl lg:text-6xl font-light text-[#111c2d] tracking-tight leading-[1.05]">
-          Clean, sterile spaces <br/>
+
+
+        <!-- Heading -->
+        <h2
+          class="text-4xl sm:text-5xl lg:text-6xl font-light text-[#111c2d] tracking-tight leading-[1.05]"
+        >
+          Clean, sterile spaces
+          <br />
+
           designed for
-          <span class="font-bold text-[#111c2d]">dignity &amp; healing.</span>
+
+          <span class="font-token-bold text-[#111c2d]">
+            dignity &amp; healing.
+          </span>
         </h2>
-        <p class="body-copy text-secondary leading-relaxed mt-7 max-w-xl">
-          Take a visual tour through our sanitized corridors, dedicated laboratory rooms, and modern consultation cabins in Aliganj, Bhagalpur.
+
+
+        <!-- Description -->
+        <p
+          class="body-copy text-secondary leading-relaxed mt-7 max-w-xl"
+        >
+          Take a visual tour through our sanitized corridors, dedicated
+          laboratory rooms, and modern consultation cabins in Aliganj,
+          Bhagalpur.
         </p>
-        <p class="text-sm text-secondary leading-relaxed mt-5 max-w-lg">
-          Explore our hospital environment and discover spaces designed around patient comfort, safety, and clinical care.
+
+
+        <!-- Supporting Text -->
+        <p
+          class="text-sm text-secondary leading-relaxed mt-5 max-w-lg"
+        >
+          Explore our hospital environment and discover spaces designed
+          around patient comfort, safety, and clinical care.
         </p>
+
+
+        <!-- Small Feature Points -->
         <div class="flex flex-wrap gap-3 mt-7">
-          <span class="px-4 py-2 rounded-full bg-white border border-outline-variant/60 text-xs font-bold text-[#111c2d] shadow-sm hover:-translate-y-1 hover:shadow-md transition-all">Clinical Safety</span>
-          <span class="px-4 py-2 rounded-full bg-white border border-outline-variant/60 text-xs font-bold text-[#111c2d] shadow-sm hover:-translate-y-1 hover:shadow-md transition-all">Modern Facilities</span>
-          <span class="px-4 py-2 rounded-full bg-white border border-outline-variant/60 text-xs font-bold text-[#111c2d] shadow-sm hover:-translate-y-1 hover:shadow-md transition-all">Patient Comfort</span>
+
+          <span
+            class="px-4 py-2 rounded-full bg-white border border-outline-variant/60 text-xs font-token-bold text-[#111c2d] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+          >
+            Clinical Safety
+          </span>
+
+          <span
+            class="px-4 py-2 rounded-full bg-white border border-outline-variant/60 text-xs font-token-bold text-[#111c2d] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+          >
+            Modern Facilities
+          </span>
+
+          <span
+            class="px-4 py-2 rounded-full bg-white border border-outline-variant/60 text-xs font-token-bold text-[#111c2d] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+          >
+            Patient Comfort
+          </span>
+
         </div>
-        <div class="mt-8">
-          <a href="appointment.html" class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-sm font-bold px-6 py-3.5 rounded-md shadow-[0_8px_20px_rgba(217,26,42,0.25)] hover:bg-[#b0001a]">
-            <span class="material-symbols-outlined text-[19px]">calendar_month</span>
-            <span>Book a Facility Visit</span>
-            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-          </a>
-        </div>
+
       </div>
 
-      <!-- 3 UNIQUE IMAGE GRID (dami pat and doc.jpg, RCB front.webp already footer logo, so use icon card) -->
-      <div class="reveal-el" style="transition-delay:200ms;">
-        <div class="grid grid-cols-2 gap-4">
 
-          <div class="group relative rounded-2xl overflow-hidden shadow-lg aspect-[4/3] border border-outline-variant/60 cursor-pointer">
-            <img src="image/dami pat and doc.jpg" alt="Patient Care" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/90 via-transparent to-transparent"></div>
-            <div class="absolute bottom-3 left-3 right-3">
-              <span class="inline-block px-2.5 py-1 rounded bg-[#D91A2A] text-white text-[10px] font-bold uppercase tracking-wider">Patient Care</span>
-              <h3 class="text-sm font-bold text-white mt-1">Compassionate Care</h3>
-            </div>
+      <!-- ================= RIGHT: GALLERY ================= -->
+      <div
+        class="reveal-el"
+        style="transition-delay: 300ms;"
+      >
+
+        <div
+          id="facilities-gallery-trigger"
+          class="relative h-[380px] sm:h-[440px] lg:h-[500px] rounded-3xl overflow-hidden shadow-lg group bg-surface-container border border-outline-variant/60 cursor-pointer"
+        >
+
+          <!-- IMAGE -->
+          <img
+            src="image/RCB cabin.webp"
+            alt="RCB Hospital Facilities"
+            class="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
+          />
+
+
+          <!-- DARK GRADIENT -->
+          <div
+            class="absolute inset-0 bg-gradient-to-t from-[#111315]/90 via-black/10 to-transparent"
+          ></div>
+
+
+          <!-- HOVER SHINE EFFECT -->
+          <div
+            class="absolute inset-y-0 -left-[120%] w-[70%] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] transition-all duration-1000 group-hover:left-[130%]"
+          ></div>
+
+
+          <!-- TOP GALLERY BADGE -->
+          <div
+            class="absolute top-5 left-5 px-4 py-2 rounded-full bg-white/90 backdrop-blur-md text-[#111c2d] text-xs font-token-bold shadow-md transition-all duration-300 group-hover:-translate-y-1"
+          >
+            RCB Hospital
           </div>
 
-          <!-- Icon-based card (no image) -->
-          <div class="rounded-2xl border border-outline-variant/60 bg-white p-5 flex flex-col justify-center gap-2 mt-8 shadow-md hover:-translate-y-1 transition-all">
-            <span class="material-symbols-outlined text-[#D91A2A] text-[34px]">cleaning_services</span>
-            <h3 class="text-sm font-bold text-[#111c2d]">Sterile Corridors</h3>
-            <p class="text-[11px] text-secondary">Sanitized daily with hospital-grade disinfectants.</p>
-          </div>
 
-          <div class="rounded-2xl border border-outline-variant/60 bg-white p-5 flex flex-col justify-center gap-2 -mt-4 shadow-md hover:-translate-y-1 transition-all">
-            <span class="material-symbols-outlined text-emerald-700 text-[34px]">bed</span>
-            <h3 class="text-sm font-bold text-[#111c2d]">Observation Beds</h3>
-            <p class="text-[11px] text-secondary">Comfortable monitored beds with 24/7 nursing.</p>
-          </div>
+          <!-- VIEW GALLERY BUTTON -->
+          <div
+            class="absolute top-5 right-5 bg-black/60 text-white px-4 py-2 rounded-full text-xs backdrop-blur-md opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
+          >
+            <span class="flex items-center gap-2">
 
-          <div class="rounded-2xl border border-outline-variant/60 bg-white p-5 flex flex-col justify-center gap-2 mt-4 shadow-md hover:-translate-y-1 transition-all">
-            <span class="material-symbols-outlined text-[#D91A2A] text-[34px]">vaccines</span>
-            <h3 class="text-sm font-bold text-[#111c2d]">Modern Equipment</h3>
-            <p class="text-[11px] text-secondary">Latest diagnostic and monitoring devices.</p>
-          </div>
-
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ 9. QUALITY (CLEAN) ============ -->
-<section class="w-full bg-surface py-16 lg:py-24 border-b border-outline-variant/60" id="quality">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-
-      <div class="lg:col-span-6 flex flex-col gap-5 reveal-el">
-        <div class="flex items-center gap-3">
-          <span class="text-xs font-bold text-[#D91A2A] uppercase tracking-widest">05 — Quality &amp; Ethics</span>
-          <div class="h-px w-12 bg-[#D91A2A]/40"></div>
-        </div>
-        <h2 class="display-heading text-[#111c2d] font-light tracking-tight">
-          A healthcare ethos centered on <span class="font-bold text-[#111c2d]">transparency and trust</span>.
-        </h2>
-        <p class="body-copy text-secondary leading-relaxed">
-          At RCB Hospital, we prioritize verified clinical quality, standardized treatment procedures, and ethical medical administration over commercial interests. Every patient is treated with empathy, clarity, and respect.
-        </p>
-        <div class="space-y-3 pt-2">
-          <div class="flex items-start gap-3.5 p-3 rounded-lg hover:bg-surface-container-low transition-colors">
-            <div class="w-9 h-9 rounded-full bg-red-100 text-[#D91A2A] flex items-center justify-center shrink-0">
-              <span class="material-symbols-outlined text-[18px]">verified</span>
-            </div>
-            <div>
-              <h4 class="text-sm font-bold text-[#111c2d]">Accurate Digital Diagnostics</h4>
-              <p class="body-copy text-secondary text-xs mt-0.5">Calibrated computerized lab analyzers ensuring error-free pathology reports.</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-3.5 p-3 rounded-lg hover:bg-surface-container-low transition-colors">
-            <div class="w-9 h-9 rounded-full bg-red-100 text-[#D91A2A] flex items-center justify-center shrink-0">
-              <span class="material-symbols-outlined text-[18px]">price_check</span>
-            </div>
-            <div>
-              <h4 class="text-sm font-bold text-[#111c2d]">Transparent Prescriptions &amp; Billing</h4>
-              <p class="body-copy text-secondary text-xs mt-0.5">Complete clarity on diagnostic costs, consultations &amp; prescribed medicines.</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-3.5 p-3 rounded-lg hover:bg-surface-container-low transition-colors">
-            <div class="w-9 h-9 rounded-full bg-red-100 text-[#D91A2A] flex items-center justify-center shrink-0">
-              <span class="material-symbols-outlined text-[18px]">timelapse</span>
-            </div>
-            <div>
-              <h4 class="text-sm font-bold text-[#111c2d]">Zero Treatment Delay</h4>
-              <p class="body-copy text-secondary text-xs mt-0.5">Immediate evaluation of acute emergencies with dedicated casualty stabilization.</p>
-            </div>
-          </div>
-        </div>
-        <div class="pt-3">
-          <a href="appointment.html" class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-sm font-bold px-6 py-3.5 rounded-md shadow-[0_8px_20px_rgba(217,26,42,0.25)] hover:bg-[#b0001a]">
-            <span class="material-symbols-outlined text-[18px]">verified_user</span>
-            <span>Experience Quality Care</span>
-            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Quality Matrix: clean icon cards -->
-      <div class="lg:col-span-6 reveal-el" style="transition-delay:150ms;">
-        <div class="bg-surface-container-low p-6 sm:p-8 rounded-2xl border border-outline-variant/60 flex flex-col gap-6">
-          <h3 class="text-xl font-bold text-[#111c2d]">Institutional Clinical Highlights</h3>
-          <div class="grid grid-cols-2 gap-4 sm:gap-6">
-            <div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm hover:-translate-y-1 transition-all">
-              <span class="stat-display text-3xl font-bold text-[#D91A2A]">24 / 7</span>
-              <p class="text-xs font-semibold text-[#111c2d] mt-1">Observation Wards</p>
-              <p class="body-copy text-[11px] text-secondary mt-0.5">Constant nursing and emergency readiness</p>
-            </div>
-            <div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm hover:-translate-y-1 transition-all">
-              <span class="stat-display text-3xl font-bold text-[#D91A2A]">&lt; 30 min</span>
-              <p class="text-xs font-semibold text-[#111c2d] mt-1">Emergency Blood Counts</p>
-              <p class="body-copy text-[11px] text-secondary mt-0.5">Stat lab turnaround for urgent cases</p>
-            </div>
-            <div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm hover:-translate-y-1 transition-all">
-              <span class="stat-display text-3xl font-bold text-[#D91A2A]">100%</span>
-              <p class="text-xs font-semibold text-[#111c2d] mt-1">Sterilized Equipment</p>
-              <p class="body-copy text-[11px] text-secondary mt-0.5">Autoclaved instruments and single-use kits</p>
-            </div>
-            <div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm hover:-translate-y-1 transition-all">
-              <span class="stat-display text-3xl font-bold text-[#D91A2A]">Aliganj</span>
-              <p class="text-xs font-semibold text-[#111c2d] mt-1">Central Bhagalpur</p>
-              <p class="body-copy text-[11px] text-secondary mt-0.5">Easily accessible road network</p>
-            </div>
-          </div>
-          <div class="p-4 rounded-xl bg-surface-container border border-outline-variant/60 flex items-center gap-3">
-            <span class="material-symbols-outlined text-[#D91A2A] text-[24px]">support_agent</span>
-            <p class="body-copy text-secondary text-xs">Our care coordinators assist patients in local dialects to ensure instructions are understood clearly.</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ 10. LOCATION ============ -->
-<section class="w-full bg-surface-container-low py-16 lg:py-24 border-b border-outline-variant/60" id="location">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col gap-12">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal-el">
-      <div class="max-w-2xl flex flex-col gap-3">
-        <div class="flex items-center gap-3">
-          <span class="text-xs font-bold text-[#D91A2A] uppercase tracking-widest">06 — Verified Location</span>
-          <div class="h-px w-12 bg-[#D91A2A]/40"></div>
-        </div>
-        <h2 class="display-heading text-[#111c2d] font-light tracking-tight">
-          Strategically located at <span class="font-bold text-[#111c2d]">Bausi, Aliganj</span>.
-        </h2>
-        <p class="body-copy text-secondary">
-          On the prominent commercial corridor of Bhagalpur for simple ambulance and vehicular access across Bihar.
-        </p>
-      </div>
-      <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-sm font-bold px-6 py-3.5 rounded-md shadow-[0_8px_20px_rgba(217,26,42,0.25)] hover:bg-[#b0001a] shrink-0">
-        <span class="material-symbols-outlined text-[18px]">near_me</span>
-        <span>Get Directions</span>
-      </a>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-      <div class="lg:col-span-6 flex flex-col justify-between gap-6 p-6 sm:p-8 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm reveal-el">
-        <div class="flex flex-col gap-6">
-          <div class="flex items-start gap-4">
-            <div class="w-12 h-12 rounded-xl bg-red-100 text-[#D91A2A] flex items-center justify-center shrink-0">
-              <span class="material-symbols-outlined text-[24px]">home_pin</span>
-            </div>
-            <div>
-              <span class="text-xs font-bold text-[#D91A2A] uppercase tracking-wider">Hospital Address</span>
-              <h3 class="text-xl font-bold text-[#111c2d] mt-0.5">RCB Hospital</h3>
-              <p class="text-sm text-secondary font-medium mt-1">Bausi Road, Aliganj, Bhagalpur, Bihar — 812005</p>
-              <p class="body-copy text-secondary mt-1 text-xs">Landmark: Main Commercial Transit Route, Near Aliganj Market</p>
-            </div>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-outline-variant/60">
-            <div class="flex flex-col gap-1">
-              <span class="text-xs uppercase font-bold text-secondary tracking-wider">OPD Consultations</span>
-              <span class="text-sm font-semibold text-[#111c2d]">Daily: 09:00 AM – 08:00 PM</span>
-              <span class="body-copy text-secondary text-xs">Specialist doctor timings</span>
-            </div>
-            <div class="flex flex-col gap-1">
-              <span class="text-xs uppercase font-bold text-[#D91A2A] tracking-wider">Emergency Support</span>
-              <span class="text-sm font-semibold text-[#111c2d]">24 Hours / 7 Days</span>
-              <span class="body-copy text-secondary text-xs">Casualty, lab &amp; wards</span>
-            </div>
-          </div>
-          <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/60 flex items-start gap-3">
-            <span class="material-symbols-outlined text-[#D91A2A] text-[22px] shrink-0 mt-0.5">commute</span>
-            <p class="body-copy text-secondary leading-relaxed text-xs">
-              Regular public bus, e-rickshaw, and auto connections direct from Bhagalpur Railway Junction (~15 min) and Zero Mile Chowk.
-            </p>
-          </div>
-        </div>
-        <div class="flex flex-wrap items-center gap-3 pt-4">
-          <a class="btn-lift inline-flex items-center gap-2 px-6 py-3 rounded-md bg-[#111315] text-white text-xs sm:text-sm font-bold hover:bg-neutral-800" href="https://maps.google.com" target="_blank" rel="noopener noreferrer">
-            <span class="material-symbols-outlined text-[18px]">near_me</span>
-            <span>Get Directions on Maps</span>
-          </a>
-          <a class="btn-lift inline-flex items-center gap-2 px-5 py-3 rounded-md bg-surface-container text-[#111c2d] text-xs sm:text-sm font-semibold hover:bg-neutral-200 border border-outline-variant/60" href="tel:+919801010314">
-            <span class="material-symbols-outlined text-[18px]">call</span>
-            <span>Call Help Desk</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="lg:col-span-6 relative rounded-2xl overflow-hidden shadow-sm bg-surface-container min-h-[350px] border border-outline-variant/60 flex flex-col justify-end reveal-img-wrap" style="transition-delay:150ms;">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.475604364994!2d86.97097887538257!3d25.220901177695705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f04b047d916863%3A0x9ec4e840ea2bc0d2!2sRCB%20HOSPITAL!5e0!3m2!1sen!2sin!4v1790935797054!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/45 to-transparent pointer-events-none"></div>
-        <div class="relative z-10 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-white">
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="relative flex h-2 w-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D91A2A] opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-[#D91A2A]"></span>
+              <span class="material-symbols-outlined text-[17px]">
+                photo_library
               </span>
-              <span class="text-xs font-bold uppercase tracking-wider text-red-300">Aliganj Hospital Location</span>
-            </div>
-            <h4 class="text-base font-bold text-white mt-1">RCB Hospital Premises</h4>
-            <p class="body-copy text-neutral-300 text-xs">Bausi Road, Aliganj, Bhagalpur, Bihar</p>
+
+              View Gallery
+
+            </span>
           </div>
-          <a class="btn-lift px-4 py-2 rounded bg-white text-[#111315] text-xs font-bold hover:bg-neutral-100 shrink-0 text-center shadow-md" href="https://maps.google.com" target="_blank" rel="noopener noreferrer">
-            Open in Google Maps
-          </a>
+        <!-- ================= VISIBLE IMAGE STACK ================= -->
+
+<!-- LEFT BACK PHOTO -->
+<div
+  class="absolute
+         left-[-45px]
+         top-12
+         w-[55%]
+         h-[78%]
+         rounded-3xl
+         overflow-hidden
+         border-[3px] border-white/70
+         shadow-2xl
+         rotate-[-9deg]
+         opacity-80
+         transition-all duration-[1200ms] ease-out
+         group-hover:left-[-70px]
+         group-hover:rotate-[-14deg]
+         group-hover:scale-105"
+>
+  <img
+    src="image/dami patient and doctor.jpg"
+    alt="RCB Hospital Consultation"
+    class="w-full h-full object-cover"
+  />
+
+  <div class="absolute inset-0 bg-black/15"></div>
+</div>
+
+
+<!-- RIGHT BACK PHOTO -->
+<div
+  class="absolute
+         right-[-45px]
+         top-10
+         w-[55%]
+         h-[80%]
+         rounded-3xl
+         overflow-hidden
+         border-[3px] border-white/70
+         shadow-2xl
+         rotate-[9deg]
+         opacity-80
+         transition-all duration-[1200ms] ease-out
+         group-hover:right-[-70px]
+         group-hover:rotate-[14deg]
+         group-hover:scale-105"
+>
+  <img
+    src="image/RCB counter.webp"
+    alt="RCB Hospital Reception"
+    class="w-full h-full object-cover"
+  />
+
+  <div class="absolute inset-0 bg-black/15"></div>
+</div>
+
+
+<!-- MAIN FRONT PHOTO -->
+<div
+  class="absolute
+         inset-x-[7%]
+         top-0
+         bottom-0
+         z-[5]
+         rounded-3xl
+         overflow-hidden
+         border-[3px] border-white/80
+         shadow-2xl
+         transition-all duration-[1000ms] ease-out
+         group-hover:scale-[0.97]"
+>
+
+  <img
+    src="image/RCB cabin.webp"
+    alt="RCB Hospital Facilities"
+    class="w-full h-full object-cover
+           transition-transform duration-[1200ms] ease-out
+           group-hover:scale-105"
+  />
+
+  <!-- MAIN IMAGE GRADIENT -->
+  <div
+    class="absolute inset-0
+           bg-gradient-to-t
+           from-[#111315]/90
+           via-black/10
+           to-transparent"
+  ></div>
+
+
+  <!-- MAIN IMAGE CONTENT -->
+  <div
+    class="absolute bottom-7 left-7 right-7 text-white
+           transform translate-y-2
+           group-hover:translate-y-0
+           transition-transform duration-700"
+  >
+
+    <span
+      class="inline-block px-2.5 py-1 rounded
+             bg-[#D91A2A]
+             text-white text-[10px]
+             font-token-bold uppercase tracking-wider"
+    >
+      Facilities
+    </span>
+
+    <h3
+      class="text-2xl sm:text-3xl font-token-bold mt-3"
+    >
+      Hospital Facilities
+    </h3>
+
+    <p
+      class="text-neutral-200 text-xs sm:text-sm mt-2"
+    >
+      Consultation • Diagnostics • Reception • Patient Care
+    </p>
+
+  </div>
+
+</div>
+
+
+<!-- GALLERY COUNT -->
+<div
+  class="absolute
+         bottom-7
+         right-7
+         z-20
+         px-4 py-2
+         rounded-full
+         bg-black/65
+         backdrop-blur-md
+         border border-white/30
+         text-white
+         text-xs
+         font-token-bold
+         flex items-center gap-2
+         transition-all duration-500
+         group-hover:bg-[#D91A2A]"
+>
+  <span class="material-symbols-outlined text-[17px]">
+    photo_library
+  </span>
+
+  5 Photos
+</div>
+
+          <!-- IMAGE CONTENT -->
+          <div
+            class="absolute bottom-7 left-7 right-7 text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500"
+          >
+          <!-- FLOATING IMAGE PREVIEW -->
+<div
+  class="absolute top-20 right-6 z-10 w-24 h-32 sm:w-28 sm:h-36 rounded-xl overflow-hidden
+         border border-white/40 bg-white/10 backdrop-blur-md shadow-xl
+         opacity-70 rotate-6
+         transition-all duration-700 ease-out
+         group-hover:opacity-100
+         group-hover:rotate-0
+         group-hover:-translate-y-2
+         group-hover:scale-105"
+>
+  <img
+    src="image/RCB counter.webp"
+    alt="RCB Hospital Preview"
+    class="w-full h-full object-cover"
+  />
+
+  <!-- Transparent overlay -->
+  <div class="absolute inset-0 bg-black/20"></div>
+</div>
+
+<!-- SECOND FLOATING IMAGE PREVIEW -->
+<div
+  class="absolute top-36 right-28 z-[9] w-20 h-24 sm:w-24 sm:h-28 rounded-xl overflow-hidden
+         border border-white/30 bg-white/10 backdrop-blur-sm shadow-lg
+         opacity-50 -rotate-6
+         transition-all duration-700 ease-out
+         group-hover:opacity-80
+         group-hover:rotate-0
+         group-hover:-translate-y-1"
+>
+  <img
+    src="image/dami patient and doctor.jpg"
+    alt="RCB Hospital Consultation Preview"
+    class="w-full h-full object-cover"
+  />
+
+  <div class="absolute inset-0 bg-black/20"></div>
+</div>
+            <span
+              class="inline-block px-2.5 py-1 rounded bg-[#D91A2A] text-white text-[10px] font-token-bold uppercase tracking-wider"
+            >
+              Verified Facilities
+            </span>
+
+            <h3
+              class="text-2xl sm:text-3xl font-token-bold mt-3"
+            >
+              Hospital Facilities
+            </h3>
+
+            <p
+              class="text-neutral-200 text-xs sm:text-sm mt-2 max-w-lg"
+            >
+              Consultation • Diagnostics • Reception • Patient Care
+            </p>
+
+          </div>
+
+
+          <!-- BOTTOM GALLERY INDICATOR -->
+          <div
+            class="absolute bottom-7 right-7 hidden sm:flex w-12 h-12 rounded-full bg-white/15 backdrop-blur-md border border-white/30 items-center justify-center text-white opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300"
+          >
+            <span class="material-symbols-outlined text-[22px]">
+              arrow_forward
+            </span>
+          </div>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
-</section>
+  <!-- ================= FACILITIES GALLERY OVERLAY ================= -->
+<div
+  id="facilities-gallery"
+  class="fixed inset-0 z-[100] hidden opacity-0 transition-opacity duration-500"
+>
 
-<!-- ============ 11. CTA ============ -->
-<section class="w-full bg-[#111315] text-white py-16 lg:py-24 relative overflow-hidden" id="cta">
-  <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#D91A2A] to-transparent"></div>
-  <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-[#D91A2A]/15 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="absolute top-10 right-10 w-72 h-72 bg-red-600/10 rounded-full blur-2xl pointer-events-none"></div>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
-    <div class="max-w-3xl mx-auto text-center flex flex-col items-center gap-6 reveal-el">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-red-300 text-xs font-semibold">
-        <span class="material-symbols-outlined text-[16px]">health_and_safety</span>
-        <span>Healthcare Without Delay</span>
+  <!-- Transparent / Glass Background -->
+  <div
+    id="facilities-gallery-backdrop"
+    class="absolute inset-0 bg-[#0b1220]/75 backdrop-blur-xl"
+  ></div>
+
+  <!-- Gallery Container -->
+  <div
+    class="relative w-full h-full flex items-center justify-center p-4 sm:p-8 lg:p-12"
+  >
+
+    <!-- Close Button -->
+    <button
+      id="facilities-gallery-close"
+      type="button"
+      class="absolute top-5 right-5 sm:top-8 sm:right-8 z-50 w-11 h-11 rounded-full bg-white/10 border border-white/20 text-white backdrop-blur-md flex items-center justify-center hover:bg-[#D91A2A] hover:border-[#D91A2A] transition-all duration-300 hover:rotate-90"
+      aria-label="Close Gallery"
+    >
+      <span class="material-symbols-outlined text-[22px]">
+        close
+      </span>
+    </button>
+
+    <!-- Gallery Wrapper -->
+    <div
+      class="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto scrollbar-hide"
+    >
+
+      <!-- Header -->
+      <div
+        class="gallery-header text-center mb-8 sm:mb-10"
+      >
+        <span
+          class="inline-block px-3 py-1 rounded-full bg-[#D91A2A]/90 text-white text-[10px] sm:text-xs font-token-bold uppercase tracking-[0.2em]"
+        >
+          RCB Hospital
+        </span>
+
+        <h2
+          class="text-3xl sm:text-4xl lg:text-5xl font-token-bold text-white mt-3"
+        >
+          Hospital Facilities
+        </h2>
+
+        <p
+          class="text-white/60 text-sm mt-2"
+        >
+          A visual tour of our clinical environment
+        </p>
       </div>
-      <h2 class="display-heading font-light tracking-tight text-white leading-tight">
-        Your care begins with <span class="font-bold text-[#D91A2A] block sm:inline">a conversation.</span>
-      </h2>
-      <p class="body-copy text-neutral-300 max-w-xl leading-relaxed text-sm">
-        Whether you require same-day diagnostic blood testing, specialist physician consultation, or emergency care, our clinical staff in Aliganj is ready to assist your family.
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
-        <a class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-sm font-bold px-6 py-3.5 rounded-md shadow-[0_4px_14px_rgba(217,26,42,0.28)] hover:bg-[#b0001a]" href="appointment.html">
-          <span class="material-symbols-outlined text-[18px]">calendar_month</span>
-          <span>Book an Appointment</span>
-        </a>
-        <a class="btn-lift inline-flex items-center gap-2 px-7 py-3.5 rounded-md bg-neutral-900 text-neutral-200 font-semibold text-sm hover:bg-neutral-800 hover:text-white border border-neutral-700" href="tel:+919801010314">
-          <span class="material-symbols-outlined text-[20px]">phone_in_talk</span>
-          <span>Contact Reception</span>
-        </a>
-      </div>
-      <p class="body-copy text-xs text-neutral-400 pt-2 max-w-md">
-        Walk-ins accepted daily. No advance appointment needed for casualty or emergency triage.
-      </p>
-    </div>
-  </div>
-</section>
 
-</main>
 
-<!-- ============ 12. FOOTER ============ -->
-<footer class="w-full bg-[#111315] text-neutral-300 border-t border-neutral-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-16 pb-12">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-neutral-800">
-      <div class="lg:col-span-5 flex flex-col gap-4">
-        <a class="inline-flex items-center gap-3" href="#hero">
-          <div class="logo-icon w-11 h-11 rounded-lg bg-[#D91A2A] text-white flex items-center justify-center text-2xl">+</div>
-          <div class="logo-text flex flex-col leading-tight">
-            <strong class="text-white text-base">RCB HOSPITAL</strong>
-            <span class="text-[10px] text-neutral-400">MULTI-SPECIALITY &amp; DIAGNOSTIC</span>
+      <!-- ================= 5 IMAGE GALLERY ================= -->
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 sm:gap-5"
+      >
+
+        <!-- IMAGE 1 -->
+        <div
+          class="gallery-card gallery-card-1 lg:col-span-4 h-[260px] sm:h-[300px] lg:h-[340px] rounded-2xl overflow-hidden border border-white/15 bg-white/5 shadow-2xl"
+        >
+          <img
+            src="image/dami patient and doctor.jpg"
+            alt="RCB Hospital Consultation Cabin"
+            class="w-full h-full object-cover"
+          />
+
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+
+          <div class="gallery-label">
+            Consultation Cabin
           </div>
-        </a>
-        <p class="body-copy text-neutral-400 max-w-sm leading-relaxed text-xs">
+        </div>
+
+
+        <!-- IMAGE 2 -->
+        <div
+          class="gallery-card gallery-card-2 lg:col-span-2 h-[260px] sm:h-[300px] lg:h-[340px] rounded-2xl overflow-hidden border border-white/15 bg-white/5 shadow-2xl"
+        >
+          <img
+            src="image/dami pat and doc.jpg"
+            alt="RCB Hospital Patient Corridor"
+            class="w-full h-full object-cover"
+          />
+
+          <div class="gallery-label">
+            Patient Care
+          </div>
+        </div>
+
+
+        <!-- IMAGE 3 -->
+        <div
+          class="gallery-card gallery-card-3 lg:col-span-2 h-[240px] sm:h-[280px] lg:h-[260px] rounded-2xl overflow-hidden border border-white/15 bg-white/5 shadow-2xl"
+        >
+          <img
+            src="image/RCB cabin.webp"
+            alt="RCB Hospital Diagnostic Laboratory"
+            class="w-full h-full object-cover"
+          />
+
+          <div class="gallery-label">
+            Diagnostics
+          </div>
+        </div>
+
+
+        <!-- IMAGE 4 -->
+        <div
+          class="gallery-card gallery-card-4 lg:col-span-2 h-[240px] sm:h-[280px] lg:h-[260px] rounded-2xl overflow-hidden border border-white/15 bg-white/5 shadow-2xl"
+        >
+          <img
+            src="image/RCB counter.webp"
+            alt="RCB Hospital Reception Counter"
+            class="w-full h-full object-cover"
+          />
+
+          <div class="gallery-label">
+            Reception
+          </div>
+        </div>
+
+
+        <!-- IMAGE 5 -->
+        <div
+          class="gallery-card gallery-card-5 lg:col-span-2 h-[240px] sm:h-[280px] lg:h-[260px] rounded-2xl overflow-hidden border border-white/15 bg-white/5 shadow-2xl"
+        >
+          <img
+            src="image/RCB website image.webp"
+            alt="RCB Hospital Laboratory"
+            class="w-full h-full object-cover"
+          />
+
+          <div class="gallery-label">
+            Hospital Environment
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+</section>
+
+
+          
+<!-- 9. CLINICAL CARE & MEDICAL EXCELLENCE SECTION -->
+<section class="w-full bg-surface py-16 lg:py-24 border-b border-outline-variant/60" id="quality">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+<div class="lg:col-span-6 flex flex-col gap-5 reveal-el">
+<div class="flex items-center gap-3">
+<span class="text-xs font-token-bold text-[#D91A2A] uppercase tracking-widest">05 — Quality &amp; Ethics</span>
+<div class="h-px w-12 bg-[#D91A2A]/40"></div>
+</div>
+<h2 class="display-heading text-[#111c2d] font-light tracking-tight">
+            A healthcare ethos centered on <span class="font-token-bold text-[#111c2d]">transparency and trust</span>.
+          </h2>
+<p class="body-copy text-secondary leading-relaxed">
+            At RCB Hospital, we prioritize verified clinical quality, standardized treatment procedures, and ethical medical administration over commercial interests. Every patient is treated with empathy, clarity, and respect.
+          </p>
+<div class="space-y-4 pt-2">
+<div class="flex items-start gap-3.5">
+<div class="w-7 h-7 rounded-full bg-red-100 text-[#D91A2A] flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[17px]">verified</span>
+</div>
+<div>
+<h4 class="text-sm font-token-bold text-[#111c2d]">Accurate Digital Diagnostics</h4>
+<p class="body-copy text-secondary text-xs mt-0.5">Calibrated computerized laboratory analyzers ensuring error-free pathology reports.</p>
+</div>
+</div>
+<div class="flex items-start gap-3.5">
+<div class="w-7 h-7 rounded-full bg-red-100 text-[#D91A2A] flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[17px]">price_check</span>
+</div>
+<div>
+<h4 class="text-sm font-token-bold text-[#111c2d]">Transparent Prescriptions &amp; Billing</h4>
+<p class="body-copy text-secondary text-xs mt-0.5">Complete clarity regarding diagnostic costs, consultation charges, and prescribed medicines.</p>
+</div>
+</div>
+<div class="flex items-start gap-3.5">
+<div class="w-7 h-7 rounded-full bg-red-100 text-[#D91A2A] flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[17px]">timelapse</span>
+</div>
+<div>
+<h4 class="text-sm font-token-bold text-[#111c2d]">Zero Treatment Delay</h4>
+<p class="body-copy text-secondary text-xs mt-0.5">Immediate evaluation of acute emergencies with dedicated casualty stabilization.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Quality Matrix Card -->
+<div
+  class="lg:col-span-6 bg-surface-container-low p-8 sm:p-10 rounded-2xl border border-outline-variant/60 flex flex-col gap-6 reveal-el"
+  style="transition-delay: 150ms;"
+>
+
+  <h3 class="text-xl font-token-bold text-[#111c2d]">
+    Institutional Clinical Highlights
+  </h3>
+
+  <!-- 4 Clinical Highlight Boxes -->
+  <div class="grid grid-cols-2 gap-4 sm:gap-6">
+
+  <!-- Box 1: Right se aayega -->
+  <div
+    class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm
+           quality-box quality-from-right"
+  >
+    <span class="text-3xl font-token-bold text-[#D91A2A]">24 / 7</span>
+    <p class="text-xs font-semibold text-[#111c2d] mt-1">Observation Wards</p>
+    <p class="body-copy text-[11px] text-secondary mt-0.5">
+      Constant nursing and emergency readiness
+    </p>
+  </div>
+
+  <!-- Box 2: Left se aayega -->
+  <div
+    class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm
+           quality-box quality-from-left"
+  >
+    <span class="text-3xl font-token-bold text-[#D91A2A]">&lt; 30 min</span>
+    <p class="text-xs font-semibold text-[#111c2d] mt-1">Emergency Blood Counts</p>
+    <p class="body-copy text-[11px] text-secondary mt-0.5">
+      Stat lab turnaround for urgent cases
+    </p>
+  </div>
+
+  <!-- Box 3: Right se aayega -->
+  <div
+    class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm
+           quality-box quality-from-right"
+  >
+    <span class="text-3xl font-token-bold text-[#D91A2A]">100%</span>
+    <p class="text-xs font-semibold text-[#111c2d] mt-1">Sterilized Equipment</p>
+    <p class="body-copy text-[11px] text-secondary mt-0.5">
+      Autoclaved instruments and single-use kits
+    </p>
+  </div>
+
+  <!-- Box 4: Left se aayega -->
+  <div
+    class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm
+           quality-box quality-from-left"
+  >
+    <span class="text-3xl font-token-bold text-[#D91A2A]">Aliganj</span>
+    <p class="text-xs font-semibold text-[#111c2d] mt-1">Central Bhagalpur</p>
+    <p class="body-copy text-[11px] text-secondary mt-0.5">
+      Easily accessible road network
+    </p>
+  </div>
+
+</div>
+
+
+  <!-- Support Information -->
+  <div
+    class="p-4 rounded-xl bg-surface-container border border-outline-variant/60 flex items-center gap-3"
+  >
+    <span class="material-symbols-outlined text-[#D91A2A] text-[24px]">
+      support_agent
+    </span>
+
+    <p class="body-copy text-secondary text-xs">
+      Our care coordinators assist patients in local dialects to ensure instructions are understood clearly.
+    </p>
+  </div>
+
+</div>
+</div>
+</section>
+<!-- 10. FIND RCB HOSPITAL / LOCATION & ACCESS -->
+<section class="w-full bg-surface-container-low py-16 lg:py-24 border-b border-outline-variant/60" id="location">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col gap-12">
+<div class="flex flex-col gap-3 max-w-2xl reveal-el">
+<div class="flex items-center gap-3">
+<span class="text-xs font-token-bold text-[#D91A2A] uppercase tracking-widest">06 — Verified Location</span>
+<div class="h-px w-12 bg-[#D91A2A]/40"></div>
+</div>
+<h2 class="display-heading text-[#111c2d] font-light tracking-tight">
+          Strategically located at <span class="font-token-bold text-[#111c2d]">Bausi, Aliganj</span>.
+        </h2>
+<p class="body-copy text-secondary">
+          Situated on the prominent commercial corridor of Bhagalpur for simple ambulance and vehicular access across Bihar.
+        </p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+<!-- Address & Transit Guidelines (Col 6) -->
+<div class="lg:col-span-6 flex flex-col justify-between gap-6 p-6 sm:p-8 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm reveal-el">
+<div class="flex flex-col gap-6">
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-xl bg-red-100 text-[#D91A2A] flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">home_pin</span>
+</div>
+<div>
+<span class="text-xs font-token-bold text-[#D91A2A] uppercase tracking-wider">Hospital Address</span>
+<h3 class="text-xl font-token-bold text-[#111c2d] mt-0.5">RCB Hospital</h3>
+<p class="text-sm text-secondary font-medium mt-1">Bausi Road, Aliganj, Bhagalpur, Bihar — 812005</p>
+<p class="body-copy text-secondary mt-1 text-xs">Landmark: Main Commercial Transit Route, Near Aliganj Market</p>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-outline-variant/60">
+<div class="flex flex-col gap-1">
+<span class="text-xs uppercase font-token-bold text-secondary tracking-wider">OPD Consultations</span>
+<span class="text-sm font-semibold text-[#111c2d]">Daily: 09:00 AM – 08:00 PM</span>
+<span class="body-copy text-secondary text-xs">Specialist doctor timings</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs uppercase font-token-bold text-[#D91A2A] tracking-wider">Emergency Support</span>
+<span class="text-sm font-semibold text-[#111c2d]">24 Hours / 7 Days</span>
+<span class="body-copy text-secondary text-xs">Casualty, lab &amp; wards</span>
+</div>
+</div>
+<div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/60 flex items-start gap-3">
+<span class="material-symbols-outlined text-[#D91A2A] text-[22px] shrink-0 mt-0.5">commute</span>
+<p class="body-copy text-secondary leading-relaxed text-xs">
+                Regular public bus, e-rickshaw, and auto connections direct from Bhagalpur Railway Junction (approx. 15 minutes) and Zero Mile Chowk.
+              </p>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3 pt-4">
+<a class="btn-lift inline-flex items-center gap-2 px-6 py-3 rounded-md bg-[#111315] text-white text-xs sm:text-sm font-token-bold hover:bg-neutral-800 transition-colors shadow-sm" href="https://maps.google.com" rel="noopener noreferrer" target="_blank">
+<span class="material-symbols-outlined text-[18px]">near_me</span>
+<span>Get Directions on Maps</span>
+</a>
+<a class="btn-lift inline-flex items-center gap-2 px-5 py-3 rounded-md bg-surface-container text-[#111c2d] text-xs sm:text-sm font-medium hover:bg-neutral-200 transition-colors border border-outline-variant/60" href="tel:+919801010314">
+<span class="material-symbols-outlined text-[18px]">call</span>
+<span>Call Help Desk</span>
+</a>
+</div>
+</div>
+<!-- Stylized Location Card (Col 6) with Regional Photography Asset -->
+<div class="lg:col-span-6 relative rounded-2xl overflow-hidden shadow-sm bg-surface-container min-h-[350px] border border-outline-variant/60 flex flex-col justify-end reveal-img-wrap reveal-el" style="transition-delay: 150ms;">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.475604364994!2d86.97097887538257!3d25.220901177695705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f04b047d916863%3A0x9ec4e840ea2bc0d2!2sRCB%20HOSPITAL!5e0!3m2!1sen!2sin!4v1790935797054!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+<div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/45 to-transparent"></div>
+<div class="relative z-10 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-white">
+<div>
+<div class="flex items-center gap-2">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D91A2A] opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-[#D91A2A]"></span>
+</span>
+<span class="text-xs font-token-bold uppercase tracking-wider text-red-300">Aliganj Hospital Location</span>
+</div>
+<h4 class="text-base font-token-bold text-white mt-1">RCB Hospital Premises</h4>
+<p class="body-copy text-neutral-300 text-xs">Bausi Road, Aliganj, Bhagalpur, Bihar</p>
+</div>
+<a class="btn-lift px-4 py-2 rounded bg-white text-[#111315] text-xs font-token-bold hover:bg-neutral-100 transition-colors shrink-0 text-center shadow-md" href="https://maps.google.com" rel="noopener noreferrer" target="_blank">
+              Open in Google Maps
+            </a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 11. DRAMATIC APPOINTMENT CALL-TO-ACTION -->
+<section class="w-full bg-[#111315] text-white py-16 lg:py-24 relative overflow-hidden" id="cta">
+<!-- Crimson Accents -->
+<div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#D91A2A] to-transparent"></div>
+<div class="absolute -bottom-24 -left-24 w-96 h-96 bg-[#D91A2A]/15 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute top-10 right-10 w-72 h-72 bg-red-600/10 rounded-full blur-2xl pointer-events-none"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
+<div class="max-w-3xl mx-auto text-center flex flex-col items-center gap-6 reveal-el">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-red-300 text-xs font-semibold">
+<span class="material-symbols-outlined text-[16px]">health_and_safety</span>
+<span>Healthcare Without Delay</span>
+</div>
+<h2 class="display-heading font-light tracking-tight text-white leading-tight">
+          Your care begins with <span class="font-token-bold text-[#D91A2A] block sm:inline">a conversation.</span>
+</h2>
+<p class="body-copy text-neutral-300 max-w-xl leading-relaxed text-sm">
+          Whether you require same-day diagnostic blood testing, specialist physician consultation, or emergency care, our clinical staff in Aliganj is ready to assist your family.
+        </p>
+<div class="flex flex-wrap items-center justify-center gap-4 pt-4 w-full sm:w-auto">
+<a
+  class="btn-lift inline-flex items-center justify-center gap-2 bg-[#D91A2A] text-white text-xs sm:text-[13px] font-token-bold px-5 sm:px-6 py-2.5 rounded-md shadow-[0_4px_14px_rgba(217,26,42,0.28)] hover:bg-[#b0001a] active:scale-95 transition-all"
+  href="appointment.html"
+>
+  <span class="material-symbols-outlined text-[17px]">
+    calendar_month
+  </span>
+
+  <span>Book an Appointment</span>
+</a>
+<a class="btn-lift inline-flex items-center justify-center gap-2 px-7 py-4 rounded-md bg-neutral-900 text-neutral-200 font-semibold text-sm hover:bg-neutral-800 hover:text-white transition-all border border-neutral-700" href="tel:+919801010314">
+<span class="material-symbols-outlined text-[20px]">phone_in_talk</span>
+<span>Contact Reception</span>
+</a>
+</div>
+<p class="body-copy text-xs text-neutral-400 pt-2 max-w-md">
+          Walk-ins accepted daily for OPD consultations and computerized diagnostic tests. No advance appointment needed for casualty or emergency triage.
+        </p>
+</div>
+</div>
+</section>
+</main>
+<!-- 12. COMPREHENSIVE INSTITUTIONAL FOOTER -->
+<footer class="w-full bg-[#111315] text-neutral-300 border-t border-neutral-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 pt-16 pb-12">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-neutral-800">
+<!-- Hospital Overview (Col 5) -->
+<div class="lg:col-span-5 flex flex-col gap-4">
+<a class="inline-block" href="#hero">
+<img alt="RCB Hospital Multi-Speciality &amp; Diagnostic Centre" class="h-10 w-auto object-contain brightness-110" src="image/RCB front.webp"/>
+</a>
+<p class="body-copy text-neutral-400 max-w-sm leading-relaxed text-xs">
           A Multi-Speciality Hospital &amp; Diagnostic Centre serving Bhagalpur, Aliganj, Bausi, and neighboring districts of Eastern Bihar with dedicated clinical care and diagnostic integrity.
         </p>
-        <div class="flex flex-wrap items-center gap-2 pt-2">
-          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-neutral-900 text-[11px] text-neutral-300 border border-neutral-800">
-            <span class="material-symbols-outlined text-[13px] text-emerald-400">verified</span>
-            Reg. Multi-Speciality Facility
-          </span>
-          <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-neutral-900 text-[11px] text-red-300 border border-neutral-800">
-            <span class="material-symbols-outlined text-[13px]">emergency</span>
-            24/7 Casualty Support
-          </span>
-        </div>
-      </div>
-      <div class="lg:col-span-2 flex flex-col gap-3">
-        <span class="text-xs font-bold text-white uppercase tracking-wider">Navigation</span>
-        <nav class="flex flex-col gap-2 text-xs text-neutral-400">
-          <a class="hover:text-white transition-colors" href="#hero">Home</a>
-          <a class="hover:text-white transition-colors" href="#about">About Facility</a>
-          <a class="hover:text-white transition-colors" href="#departments">Departments</a>
-          <a class="hover:text-white transition-colors" href="#facilities">Facilities</a>
-          <a class="hover:text-white transition-colors" href="#journey">Journey</a>
-          <a class="hover:text-white transition-colors" href="#location">Find Hospital</a>
-        </nav>
-      </div>
-      <div class="lg:col-span-3 flex flex-col gap-3">
-        <span class="text-xs font-bold text-white uppercase tracking-wider">Clinical Services</span>
-        <ul class="flex flex-col gap-2 text-xs text-neutral-400">
-          <li>Clinical Pathology &amp; Biochemistry</li>
-          <li>General Medicine Consultations</li>
-          <li>24/7 Observation Wards</li>
-          <li>Casualty Triage &amp; Minor Procedures</li>
-          <li>Digital Electrocardiogram (ECG)</li>
-          <li>Preventive Family Health Panels</li>
-        </ul>
-      </div>
-      <div class="lg:col-span-2 flex flex-col gap-3">
-        <span class="text-xs font-bold text-white uppercase tracking-wider">Location &amp; Desk</span>
-        <address class="not-italic flex flex-col gap-1.5 text-xs text-neutral-400">
-          <span class="font-medium text-neutral-200">RCB Hospital</span>
-          <span>Bausi Road, Aliganj</span>
-          <span>Bhagalpur, Bihar — 812005</span>
-          <span class="text-red-400 pt-1 font-semibold">Desk: +919801010314</span>
-        </address>
-      </div>
-    </div>
-    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
-      <p>© RCB Hospital. All rights reserved. Registered Multi-Speciality Hospital &amp; Diagnostic Centre, Bhagalpur.</p>
-      <div class="flex items-center gap-6">
-        <a class="hover:text-neutral-300 transition-colors" href="#location">Emergency Protocol</a>
-        <a class="hover:text-neutral-300 transition-colors" href="#location">Patient Privacy Policy</a>
-      </div>
-    </div>
-  </div>
+<div class="flex flex-wrap items-center gap-2 pt-2">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-neutral-900 text-[11px] text-neutral-300 border border-neutral-800">
+<span class="material-symbols-outlined text-[13px] text-emerald-400">verified</span>
+<span>Reg. Multi-Speciality Facility</span>
+</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-neutral-900 text-[11px] text-red-300 border border-neutral-800">
+<span class="material-symbols-outlined text-[13px]">emergency</span>
+<span>24/7 Casualty Support</span>
+</span>
+</div>
+</div>
+<!-- Quick Links (Col 2) -->
+<div class="lg:col-span-2 flex flex-col gap-3">
+<span class="text-xs font-token-bold text-white uppercase tracking-wider">Navigation</span>
+<nav class="flex flex-col gap-2 text-xs text-neutral-400 font-light">
+<a class="hover:text-white transition-colors" href="#hero">Home</a>
+<a class="hover:text-white transition-colors" href="#about">About Facility</a>
+<a class="hover:text-white transition-colors" href="#departments">Clinical Departments</a>
+<a class="hover:text-white transition-colors" href="#facilities">Hospital Facilities</a>
+<a class="hover:text-white transition-colors" href="#journey">Patient Journey</a>
+<a class="hover:text-white transition-colors" href="#location">Find Hospital</a>
+</nav>
+</div>
+<!-- Clinical Specialities (Col 3) -->
+<div class="lg:col-span-3 flex flex-col gap-3">
+<span class="text-xs font-token-bold text-white uppercase tracking-wider">Clinical Services</span>
+<ul class="flex flex-col gap-2 text-xs text-neutral-400 font-light">
+<li>Clinical Pathology &amp; Biochemistry</li>
+<li>General Medicine Consultations</li>
+<li>24/7 Observation Wards</li>
+<li>Casualty Triage &amp; Minor Procedures</li>
+<li>Digital Electrocardiogram (ECG)</li>
+<li>Preventive Family Health Panels</li>
+</ul>
+</div>
+<!-- Contact & Address (Col 2) -->
+<div class="lg:col-span-2 flex flex-col gap-3">
+<span class="text-xs font-token-bold text-white uppercase tracking-wider">Location &amp; Desk</span>
+<address class="not-italic flex flex-col gap-1.5 text-xs text-neutral-400 font-light">
+<span class="font-medium text-neutral-200">RCB Hospital</span>
+<span>Bausi Road, Aliganj</span>
+<span>Bhagalpur, Bihar — 812005</span>
+<span class="text-red-400 pt-1 font-semibold">Desk: +919801010314</span>
+</address>
+</div>
+</div>
+<!-- Copyright Bar -->
+<div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500 font-light">
+<p>© RCB Hospital. All rights reserved. Registered Multi-Speciality Hospital &amp; Diagnostic Centre, Bhagalpur.</p>
+<div class="flex items-center gap-6">
+<a class="hover:text-neutral-300 transition-colors" href="#location">Emergency Protocol</a>
+<a class="hover:text-neutral-300 transition-colors" href="#location">Patient Privacy Policy</a>
+</div>
+</div>
+</div>
 </footer>
 
-<!-- BACK TO TOP -->
-<button id="backToTop" type="button" aria-label="Back to top"
-  class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-[#D91A2A] text-white shadow-lg flex items-center justify-center opacity-0 invisible translate-y-4 transition-all duration-500 hover:bg-[#111315] hover:-translate-y-1 active:scale-90">
-  <span class="material-symbols-outlined text-[22px]">keyboard_arrow_up</span>
+<!-- BACK TO TOP BUTTON -->
+<button
+  id="backToTop"
+  type="button"
+  aria-label="Back to top"
+  class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full
+         bg-[#D91A2A] text-white shadow-lg
+         flex items-center justify-center
+         opacity-0 invisible translate-y-4
+         transition-all duration-500 ease-out
+         hover:bg-[#111315] hover:-translate-y-1
+         hover:shadow-[0_8px_25px_rgba(217,26,42,0.35)]
+         active:scale-90"
+>
+  <span class="material-symbols-outlined text-[22px]">
+    keyboard_arrow_up
+  </span>
 </button>
-
-<!-- SCROLL REVEAL + BACK TO TOP -->
-<script>
-(function(){
-  const els = document.querySelectorAll('.reveal-el, .reveal-img-wrap');
-  if (!('IntersectionObserver' in window)) {
-    els.forEach(el => el.classList.add('is-visible'));
-    return;
-  }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-  els.forEach(el => io.observe(el));
-
-  const btn = document.getElementById('backToTop');
-  if (btn) {
-    const onScroll = () => {
-      if (window.scrollY > 500) {
-        btn.classList.remove('opacity-0','invisible','translate-y-4');
-        btn.classList.add('opacity-100','visible','translate-y-0');
-      } else {
-        btn.classList.add('opacity-0','invisible','translate-y-4');
-        btn.classList.remove('opacity-100','visible','translate-y-0');
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-  }
-})();
-</script>
-
 <script src="supabase.js"></script>
 <script src="script.js"></script>
-</body>
-</html>
+</body></html>
