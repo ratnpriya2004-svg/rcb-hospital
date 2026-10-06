@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="scroll-smooth" lang="en" style="min-height: 100%; height: auto;">
+<html class="scroll-smooth" lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -20,9 +20,6 @@
     theme: {
       extend: {
         colors: {
-          "on-surface-variant": "#5d3f3d",
-          "primary": "#b0001a",
-          "primary-container": "#D91A2A",
           "surface": "#f8f9fc",
           "surface-container": "#eef2f8",
           "surface-container-low": "#f3f5f9",
@@ -30,12 +27,13 @@
           "on-surface": "#111c2d",
           "secondary": "#576071",
           "outline-variant": "#e5e8ec",
-          "tertiary": "#006429"
+          "primary": "#b0001a",
+          "primary-container": "#D91A2A"
         },
         fontFamily: {
-          sans:    ['var(--font-1)'],
+          sans: ['var(--font-1)'],
           display: ['var(--font-display)'],
-          accent:  ['var(--font-accent)'],
+          accent: ['var(--font-accent)']
         }
       }
     }
@@ -44,79 +42,33 @@
 
 <style>
   :root {
-    --font-1:       "Noto Serif", ui-serif, Georgia, serif;
-    --font-display: "DM Serif Display", "Noto Serif", ui-serif, Georgia, serif;
-    --font-accent:  "Fredericka the Great", "DM Serif Display", cursive;
+    --font-1: "Noto Serif", ui-serif, Georgia, serif;
+    --font-display: "DM Serif Display", "Noto Serif", serif;
+    --font-accent: "Fredericka the Great", "DM Serif Display", cursive;
   }
-
-  html, body { font-family: var(--font-1); font-optical-sizing: auto; }
-  body { font-weight: 400; letter-spacing: 0.002em; -webkit-font-smoothing: antialiased; }
-
-  h1, h2, .display-heading {
-    font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: -0.012em;
-    line-height: 1.06;
-  }
-  h1.display-heading { line-height: 1.04; letter-spacing: -0.018em; }
-  h3, h4, h5, h6 { font-family: var(--font-1); font-weight: 600; letter-spacing: -0.004em; }
-  p, .body-copy { font-family: var(--font-1); }
-
-  button, input, select, textarea, nav a, .btn-lift { font-family: var(--font-1); }
-
-  .font-display { font-family: var(--font-display); }
-  .font-accent  { font-family: var(--font-accent); }
-
+  html, body { font-family: var(--font-1); -webkit-font-smoothing: antialiased; }
+  h1, h2, .display-heading { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.012em; line-height: 1.06; }
+  h3, h4, h5, h6 { font-family: var(--font-1); font-weight: 600; }
+  .body-copy, p { font-family: var(--font-1); }
   .stat-display { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.02em; }
   .step-num { font-family: var(--font-accent); font-weight: 400; line-height: 1; }
-
-  .logo-icon { font-family: var(--font-accent); font-weight: 400; line-height: 1; }
-  .logo-text strong { font-family: var(--font-display); font-weight: 400; letter-spacing: 0.015em; }
-  .logo-text span { font-family: var(--font-1); font-weight: 500; letter-spacing: 0.16em; }
-
+  .logo-icon { font-family: var(--font-accent); }
+  .logo-text strong { font-family: var(--font-display); letter-spacing: 0.015em; }
   .material-symbols-outlined {
     font-family: 'Material Symbols Outlined', sans-serif;
     font-weight: normal; font-style: normal; line-height: 1;
-    letter-spacing: normal; text-transform: none; display: inline-block;
-    white-space: nowrap; word-wrap: normal; direction: ltr;
+    display: inline-block; white-space: nowrap; direction: ltr;
     -webkit-font-feature-settings: 'liga';
     -webkit-font-smoothing: antialiased;
   }
-
-  /* ============ SCROLL REVEAL ANIMATIONS ============ */
-  .reveal-el, .reveal-img-wrap {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1),
-                transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: opacity, transform;
-  }
-  .reveal-el.is-visible, .reveal-img-wrap.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .reveal-img-wrap img { transform: scale(1.06); transition: transform 1400ms cubic-bezier(0.22,1,0.36,1); }
-  .reveal-img-wrap.is-visible img { transform: scale(1); }
-
-  /* Card fade variants */
-  .fade-from-right { opacity: 0; transform: translateX(40px); transition: all 900ms cubic-bezier(0.22,1,0.36,1); }
-  .fade-from-left  { opacity: 0; transform: translateX(-40px); transition: all 900ms cubic-bezier(0.22,1,0.36,1); }
-  .fade-from-right.is-visible, .fade-from-left.is-visible { opacity: 1; transform: translateX(0); }
-
-  /* ============ HERO ENTRANCE ANIMATION ============ */
-  @keyframes floatUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-  .animate-float-up { animation: floatUp 900ms cubic-bezier(0.22,1,0.36,1) both; }
-
-  /* ============ BUTTON LIFT ============ */
+  /* Fade-in animation */
+  .reveal-el, .reveal-img-wrap { opacity: 0; transform: translateY(35px); transition: opacity 900ms cubic-bezier(0.22,1,0.36,1), transform 900ms cubic-bezier(0.22,1,0.36,1); }
+  .reveal-el.is-visible, .reveal-img-wrap.is-visible { opacity: 1; transform: translateY(0); }
+  /* Button lift */
   .btn-lift { transition: transform 250ms ease, box-shadow 250ms ease, background-color 250ms ease, color 250ms ease; }
   .btn-lift:hover { transform: translateY(-3px); }
   .btn-lift:active { transform: translateY(-1px) scale(0.98); }
-
-  /* ============ NAV LINK UNDERLINE ============ */
+  /* Nav underline */
   .nav-editorial-link { position: relative; }
   .nav-editorial-link::after {
     content: ''; position: absolute; left: 0; bottom: -6px;
@@ -124,52 +76,12 @@
     transition: width 350ms cubic-bezier(0.22,1,0.36,1);
   }
   .nav-editorial-link:hover::after, .nav-editorial-link.active::after { width: 100%; }
-
-  /* ============ IMAGE CARD HOVER ============ */
-  .img-card img { transition: transform 900ms cubic-bezier(0.22,1,0.36,1); }
-  .img-card:hover img { transform: scale(1.08); }
-  .img-card .img-card-shine {
-    position: absolute; inset: 0;
-    background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%);
-    transform: translateX(-120%); transition: transform 1200ms ease;
-  }
-  .img-card:hover .img-card-shine { transform: translateX(120%); }
-
-  /* ============ SCROLL HINT ============ */
-  @keyframes bounceDown {
-    0%, 100% { transform: translateY(0); opacity: 0.7; }
-    50% { transform: translateY(8px); opacity: 1; }
-  }
-  .scroll-hint { animation: bounceDown 1800ms ease-in-out infinite; }
-
-  /* ============ PULSE DOT ============ */
-  @keyframes pulseRing {
-    0% { transform: scale(0.8); opacity: 0.8; }
-    100% { transform: scale(2.2); opacity: 0; }
-  }
-  .pulse-ring::before {
-    content: ''; position: absolute; inset: 0;
-    border-radius: 9999px; background: currentColor;
-    animation: pulseRing 1800ms cubic-bezier(0.22,1,0.36,1) infinite;
-  }
-
-  /* Custom scrollbar hide */
-  .scrollbar-hide::-webkit-scrollbar { display: none; }
-  .scrollbar-hide { scrollbar-width: none; }
-
-  /* Gallery label */
-  .gallery-label {
-    position: absolute; bottom: 16px; left: 16px;
-    background: rgba(217,26,42,0.95); color: #fff;
-    font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-    text-transform: uppercase; padding: 6px 12px; border-radius: 6px;
-  }
 </style>
 </head>
 
 <body class="bg-surface text-on-surface antialiased selection:bg-[#D91A2A] selection:text-white">
 
-<!-- ============ 1. TOP UTILITY STRIP ============ -->
+<!-- 1. TOP UTILITY STRIP -->
 <aside class="w-full bg-[#111315] border-b border-neutral-800 text-neutral-300 z-50 relative text-xs">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-10 flex items-center justify-between">
     <div class="flex items-center gap-4 sm:gap-6">
@@ -186,19 +98,19 @@
       </div>
     </div>
     <div class="flex items-center gap-5">
-      <span class="hidden sm:inline text-neutral-400 text-[11px] tracking-wide">Emergency Desk:</span>
+      <span class="hidden sm:inline text-neutral-400 text-[11px]">Emergency Desk:</span>
       <a class="inline-flex items-center gap-1.5 font-semibold text-white hover:text-red-400 transition-colors" href="tel:+919801010314">
         <span class="material-symbols-outlined text-[15px] text-[#D91A2A]">call</span>
-        <span class="tracking-tight">+91 98010 10314</span>
+        <span>+91 98010 10314</span>
       </a>
     </div>
   </div>
 </aside>
 
-<!-- ============ 2. STICKY NAV ============ -->
+<!-- 2. STICKY NAV -->
 <header class="sticky top-0 left-0 right-0 z-40 bg-surface/90 backdrop-blur-xl border-b border-outline-variant/60 shadow-[0_2px_15px_rgba(0,0,0,0.03)]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-20 flex items-center justify-between gap-4">
-    <a class="hospital-logo flex items-center gap-3" href="#hero">
+    <a class="flex items-center gap-3" href="#hero">
       <div class="logo-icon w-11 h-11 rounded-lg bg-[#D91A2A] text-white flex items-center justify-center text-2xl shadow-md">+</div>
       <div class="logo-text flex flex-col leading-tight">
         <strong class="text-[#111c2d] text-base">RCB HOSPITAL</strong>
@@ -228,14 +140,15 @@
 
 <main class="w-full">
 
-<!-- ============ 3. HERO ============ -->
+<!-- ============ 3. HERO (ORIGINAL CLEAN STYLE) ============ -->
 <section class="relative w-full bg-surface-container-lowest pt-8 pb-16 lg:pt-14 lg:pb-24 overflow-hidden border-b border-outline-variant/60" id="hero">
   <div class="absolute -top-32 right-0 w-[550px] h-[550px] bg-red-100/35 rounded-full blur-3xl pointer-events-none"></div>
   <div class="absolute bottom-0 left-10 w-80 h-80 bg-neutral-200/30 rounded-full blur-2xl pointer-events-none"></div>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
 
-      <div class="lg:col-span-7 flex flex-col items-start gap-6 animate-float-up">
+      <!-- LEFT -->
+      <div class="lg:col-span-7 flex flex-col items-start gap-6 reveal-el">
         <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-red-50 text-[#D91A2A] border border-red-200/70 text-[11px] font-bold uppercase tracking-widest">
           <span class="relative flex h-2 w-2">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#D91A2A] opacity-75"></span>
@@ -248,7 +161,7 @@
           <span class="text-[#D91A2A] font-bold block">Designed Around You.</span>
         </h1>
         <p class="body-copy text-secondary max-w-xl leading-relaxed">
-          A patient-first multi-speciality hospital serving Bhagalpur with precision, clinical excellence, and heartfelt human care.
+          A patient-first multi-speciality hospital and diagnostic centre serving Bhagalpur and Eastern Bihar with precision, clinical excellence, and heartfelt human care.
         </p>
         <div class="flex flex-wrap items-center gap-4 pt-1">
           <a class="btn-lift inline-flex items-center gap-2.5 px-7 py-3.5 rounded-md bg-[#D91A2A] text-white font-bold text-sm shadow-[0_8px_20px_rgba(217,26,42,0.25)] hover:bg-[#b0001a]" href="appointment.html">
@@ -261,60 +174,40 @@
           </a>
         </div>
 
-        <!-- Highlights strip with background images -->
+        <!-- 3 CLEAN HIGHLIGHT CARDS (Original Style) -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-5 w-full">
-          <div class="img-card relative overflow-hidden rounded-xl border border-outline-variant/60 group cursor-pointer h-32">
-            <img src="image/RCB main door.webp" alt="Prime Access" class="absolute inset-0 w-full h-full object-cover"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/60 to-transparent"></div>
-            <div class="relative z-10 p-4 flex flex-col gap-1 h-full justify-end">
-              <div class="flex items-center gap-1.5 text-red-300">
-                <span class="material-symbols-outlined text-[18px]">home_pin</span>
-                <span class="text-[10px] font-bold uppercase tracking-wider">Prime Access</span>
-              </div>
-              <p class="text-xs font-semibold text-white">Bausi, Aliganj Main Rd</p>
-              <span class="text-[10px] text-neutral-300">Direct regional road link</span>
+          <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/60 flex flex-col gap-1 hover:border-red-200 hover:bg-white hover:-translate-y-1 shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-all duration-300">
+            <div class="flex items-center gap-1.5 text-[#D91A2A]">
+              <span class="material-symbols-outlined text-[18px]">home_pin</span>
+              <span class="text-[11px] font-bold uppercase tracking-wider">Prime Access</span>
             </div>
-            <div class="img-card-shine"></div>
+            <p class="text-xs font-semibold text-[#111c2d]">Bausi, Aliganj Main Rd</p>
+            <span class="text-[11px] text-secondary">Direct regional road link</span>
           </div>
-
-          <div class="img-card relative overflow-hidden rounded-xl border border-outline-variant/60 group cursor-pointer h-32">
-            <img src="image/lab dami.webp" alt="In-House Lab" class="absolute inset-0 w-full h-full object-cover"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/60 to-transparent"></div>
-            <div class="relative z-10 p-4 flex flex-col gap-1 h-full justify-end">
-              <div class="flex items-center gap-1.5 text-red-300">
-                <span class="material-symbols-outlined text-[18px]">biotech</span>
-                <span class="text-[10px] font-bold uppercase tracking-wider">In-House Lab</span>
-              </div>
-              <p class="text-xs font-semibold text-white">Pathology &amp; Diagnostics</p>
-              <span class="text-[10px] text-neutral-300">Rapid digital reporting</span>
+          <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/60 flex flex-col gap-1 hover:border-red-200 hover:bg-white hover:-translate-y-1 shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-all duration-300">
+            <div class="flex items-center gap-1.5 text-[#D91A2A]">
+              <span class="material-symbols-outlined text-[18px]">biotech</span>
+              <span class="text-[11px] font-bold uppercase tracking-wider">In-House Lab</span>
             </div>
-            <div class="img-card-shine"></div>
+            <p class="text-xs font-semibold text-[#111c2d]">Pathology &amp; Diagnostics</p>
+            <span class="text-[11px] text-secondary">Rapid digital reporting</span>
           </div>
-
-          <div class="img-card relative overflow-hidden rounded-xl border border-outline-variant/60 group cursor-pointer h-32">
-            <img src="image/dami patient and doctor.jpg" alt="Continuous Care" class="absolute inset-0 w-full h-full object-cover"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/95 via-emerald-900/60 to-transparent"></div>
-            <div class="relative z-10 p-4 flex flex-col gap-1 h-full justify-end">
-              <div class="flex items-center gap-1.5 text-emerald-300">
-                <span class="material-symbols-outlined text-[18px]">acute</span>
-                <span class="text-[10px] font-bold uppercase tracking-wider">Continuous Care</span>
-              </div>
-              <p class="text-xs font-semibold text-white">24/7 Casualty &amp; Wards</p>
-              <span class="text-[10px] text-neutral-300">Observation &amp; triage</span>
+          <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/60 flex flex-col gap-1 hover:border-emerald-200 hover:bg-white hover:-translate-y-1 shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-all duration-300">
+            <div class="flex items-center gap-1.5 text-emerald-700">
+              <span class="material-symbols-outlined text-[18px]">acute</span>
+              <span class="text-[11px] font-bold uppercase tracking-wider">Continuous Care</span>
             </div>
-            <div class="img-card-shine"></div>
+            <p class="text-xs font-semibold text-[#111c2d]">24/7 Casualty &amp; Wards</p>
+            <span class="text-[11px] text-secondary">Observation &amp; triage</span>
           </div>
         </div>
       </div>
 
-      <!-- Hero image -->
+      <!-- RIGHT: HERO IMAGE -->
       <div class="lg:col-span-5 relative reveal-img-wrap">
         <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-surface-container border border-neutral-200/80 group">
           <img alt="RCB Hospital Facade" class="w-full h-[420px] sm:h-[500px] object-cover" src="image/RCB main door.webp"/>
           <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/90 via-black/25 to-transparent"></div>
-          <div class="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur text-[#111c2d] text-[10px] font-bold uppercase tracking-wider shadow-md">
-            RCB Hospital · Aliganj
-          </div>
           <div class="absolute bottom-5 left-5 right-5 p-4 rounded-xl bg-white/95 backdrop-blur-md border border-white/50 shadow-lg flex items-center justify-between gap-3 transform group-hover:-translate-y-1 transition-transform">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-lg bg-[#D91A2A] text-white flex items-center justify-center shrink-0">
@@ -341,30 +234,34 @@
 <section class="w-full bg-surface-container-low py-12 border-b border-outline-variant/60">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-      <div class="reveal-el flex flex-col gap-2 p-5 rounded-xl bg-white border border-outline-variant/60 hover:border-[#D91A2A]/40 hover:-translate-y-1 transition-all duration-300 shadow-sm">
-        <span class="material-symbols-outlined text-[#D91A2A] text-[28px]">verified</span>
+      <div class="reveal-el flex flex-col gap-1 p-5 rounded-xl bg-white border border-outline-variant/60 hover:-translate-y-1 hover:border-[#D91A2A]/40 transition-all shadow-sm">
         <span class="stat-display text-2xl sm:text-3xl font-bold text-[#111c2d]">MULTI-SPEC</span>
         <span class="text-[11px] uppercase tracking-wider font-bold text-[#D91A2A]">Verified Local Centre</span>
-        <p class="body-copy text-secondary text-xs">Full-spectrum clinical OPD and consulting care.</p>
+        <p class="body-copy text-secondary text-xs mt-1">Full-spectrum clinical OPD and consulting care in Bhagalpur.</p>
       </div>
-      <div class="reveal-el flex flex-col gap-2 p-5 rounded-xl bg-white border border-outline-variant/60 hover:border-emerald-500/40 hover:-translate-y-1 transition-all duration-300 shadow-sm" style="transition-delay: 100ms;">
-        <span class="material-symbols-outlined text-emerald-700 text-[28px]">emergency</span>
+      <div class="reveal-el flex flex-col gap-1 p-5 rounded-xl bg-white border border-outline-variant/60 hover:-translate-y-1 hover:border-emerald-500/40 transition-all shadow-sm" style="transition-delay:100ms;">
         <span class="stat-display text-2xl sm:text-3xl font-bold text-[#111c2d]">24 / 7 CARE</span>
         <span class="text-[11px] uppercase tracking-wider font-bold text-emerald-700">Emergency &amp; Triage</span>
-        <p class="body-copy text-secondary text-xs">Round-the-clock stabilization &amp; admission.</p>
+        <p class="body-copy text-secondary text-xs mt-1">Round-the-clock emergency stabilization &amp; admission.</p>
       </div>
-      <div class="reveal-el flex flex-col gap-2 p-5 rounded-xl bg-white border border-outline-variant/60 hover:border-[#D91A2A]/40 hover:-translate-y-1 transition-all duration-300 shadow-sm" style="transition-delay: 200ms;">
-        <span class="material-symbols-outlined text-[#D91A2A] text-[28px]">biotech</span>
+      <div class="reveal-el flex flex-col gap-1 p-5 rounded-xl bg-white border border-outline-variant/60 hover:-translate-y-1 hover:border-[#D91A2A]/40 transition-all shadow-sm" style="transition-delay:200ms;">
         <span class="stat-display text-2xl sm:text-3xl font-bold text-[#111c2d]">IN-HOUSE LAB</span>
         <span class="text-[11px] uppercase tracking-wider font-bold text-[#D91A2A]">Computerized Lab</span>
-        <p class="body-copy text-secondary text-xs">High-throughput biochemistry &amp; hematology.</p>
+        <p class="body-copy text-secondary text-xs mt-1">High-throughput biochemistry, hematology &amp; rapid testing.</p>
       </div>
-      <div class="reveal-el flex flex-col gap-2 p-5 rounded-xl bg-white border border-outline-variant/60 hover:border-[#D91A2A]/40 hover:-translate-y-1 transition-all duration-300 shadow-sm" style="transition-delay: 300ms;">
-        <span class="material-symbols-outlined text-[#D91A2A] text-[28px]">location_on</span>
+      <div class="reveal-el flex flex-col gap-1 p-5 rounded-xl bg-white border border-outline-variant/60 hover:-translate-y-1 hover:border-[#D91A2A]/40 transition-all shadow-sm" style="transition-delay:300ms;">
         <span class="stat-display text-2xl sm:text-3xl font-bold text-[#111c2d]">ALIGANJ HUB</span>
         <span class="text-[11px] uppercase tracking-wider font-bold text-[#D91A2A]">Serving Bausi</span>
-        <p class="body-copy text-secondary text-xs">Convenient medical destination for families.</p>
+        <p class="body-copy text-secondary text-xs mt-1">Convenient medical destination for regional families.</p>
       </div>
+    </div>
+    <!-- BUTTON -->
+    <div class="mt-8 text-center reveal-el">
+      <a href="#departments" class="btn-lift inline-flex items-center gap-2 bg-[#111c2d] text-white text-sm font-bold px-6 py-3 rounded-md hover:bg-[#D91A2A]">
+        <span class="material-symbols-outlined text-[18px]">grid_view</span>
+        <span>See All Departments</span>
+        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+      </a>
     </div>
   </div>
 </section>
@@ -386,61 +283,46 @@
           RCB Hospital was established to address the critical need for dependable, dignified, and technologically sound healthcare in the Aliganj and Bausi corridor of Bhagalpur. We bring together certified clinical consultation, comprehensive diagnostic pathology, and prompt emergency response under a single, patient-centered roof.
         </p>
         <p class="body-copy text-secondary leading-relaxed">
-          Our facility is purposefully engineered to eliminate logistical hassles for patient families. By combining computerized testing labs with multi-department doctor suites, patients receive same-day evaluation without traveling across multiple diagnostic kiosks.
+          Our clinical facility is purposefully engineered to eliminate common logistical hassles for patient families. By combining computerized testing laboratories with multi-department doctor suites, patients receive same-day evaluation without having to travel across multiple diagnostic kiosks.
         </p>
 
-        <!-- Image cards -->
+        <!-- 3 CLEAN CARD -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-          <div class="img-card relative overflow-hidden rounded-xl border border-outline-variant/70 shadow-sm group cursor-pointer h-44">
-            <img src="image/dami doctor image.png" alt="Dignified Care" class="absolute inset-0 w-full h-full object-cover"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/55 to-transparent"></div>
-            <div class="relative z-10 p-4 flex flex-col gap-1.5 h-full justify-end">
-              <span class="material-symbols-outlined text-red-300 text-[24px]">medical_information</span>
-              <h4 class="text-sm font-bold text-white">Dignified Care</h4>
-              <p class="text-[11px] text-neutral-300 leading-snug">Patient-first consultations with complete transparency.</p>
-            </div>
-            <div class="img-card-shine"></div>
+          <div class="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant/70 shadow-sm flex flex-col gap-2 hover:border-[#D91A2A]/40 hover:-translate-y-1 transition-all">
+            <span class="material-symbols-outlined text-[#D91A2A] text-[26px]">medical_information</span>
+            <h4 class="text-sm font-bold text-[#111c2d]">Dignified Care</h4>
+            <p class="body-copy text-secondary text-xs">Patient-first consultations with absolute transparency in medicine and treatment.</p>
           </div>
-          <div class="img-card relative overflow-hidden rounded-xl border border-outline-variant/70 shadow-sm group cursor-pointer h-44">
-            <img src="image/lab dami.webp" alt="Integrated Testing" class="absolute inset-0 w-full h-full object-cover"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/55 to-transparent"></div>
-            <div class="relative z-10 p-4 flex flex-col gap-1.5 h-full justify-end">
-              <span class="material-symbols-outlined text-red-300 text-[24px]">biotech</span>
-              <h4 class="text-sm font-bold text-white">Integrated Testing</h4>
-              <p class="text-[11px] text-neutral-300 leading-snug">Automated in-house biochemistry &amp; digital ECG.</p>
-            </div>
-            <div class="img-card-shine"></div>
+          <div class="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant/70 shadow-sm flex flex-col gap-2 hover:border-[#D91A2A]/40 hover:-translate-y-1 transition-all">
+            <span class="material-symbols-outlined text-[#D91A2A] text-[26px]">biotech</span>
+            <h4 class="text-sm font-bold text-[#111c2d]">Integrated Testing</h4>
+            <p class="body-copy text-secondary text-xs">Automated in-house biochemistry, blood work, and digital ECG readouts.</p>
           </div>
-          <div class="img-card relative overflow-hidden rounded-xl border border-outline-variant/70 shadow-sm group cursor-pointer h-44">
-            <img src="image/RCB cabin.webp" alt="Sterile Protocols" class="absolute inset-0 w-full h-full object-cover"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/95 via-emerald-900/55 to-transparent"></div>
-            <div class="relative z-10 p-4 flex flex-col gap-1.5 h-full justify-end">
-              <span class="material-symbols-outlined text-emerald-300 text-[24px]">health_and_safety</span>
-              <h4 class="text-sm font-bold text-white">Sterile Protocols</h4>
-              <p class="text-[11px] text-neutral-300 leading-snug">Rigorous daily sanitization across wards &amp; rooms.</p>
-            </div>
-            <div class="img-card-shine"></div>
+          <div class="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant/70 shadow-sm flex flex-col gap-2 hover:border-emerald-500/40 hover:-translate-y-1 transition-all">
+            <span class="material-symbols-outlined text-emerald-700 text-[26px]">health_and_safety</span>
+            <h4 class="text-sm font-bold text-[#111c2d]">Sterile Protocols</h4>
+            <p class="body-copy text-secondary text-xs">Rigorous daily sanitization schedules across wards and examination rooms.</p>
           </div>
         </div>
 
-        <!-- CTA -->
-        <div class="pt-4">
-          <a href="appointment.html" class="btn-lift inline-flex items-center gap-2 bg-[#111c2d] text-white text-sm font-bold px-6 py-3.5 rounded-md hover:bg-[#D91A2A] shadow-sm">
-            <span class="material-symbols-outlined text-[18px]">info</span>
-            <span>Know More &amp; Visit Us</span>
+        <!-- BUTTON -->
+        <div class="pt-3">
+          <a href="appointment.html" class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-sm font-bold px-6 py-3.5 rounded-md shadow-[0_8px_20px_rgba(217,26,42,0.25)] hover:bg-[#b0001a]">
+            <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+            <span>Book a Consultation</span>
             <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
           </a>
         </div>
       </div>
 
-      <div class="lg:col-span-5 flex flex-col gap-4 reveal-el" style="transition-delay: 150ms;">
+      <div class="lg:col-span-5 flex flex-col gap-4 reveal-el" style="transition-delay:150ms;">
         <div class="relative rounded-2xl overflow-hidden shadow-xl bg-surface-container group border border-outline-variant/70 reveal-img-wrap">
-          <img alt="Main Reception Desk" class="w-full h-[390px] sm:h-[450px] object-cover" src="image/dami doctor image.png"/>
+          <img alt="Main Reception" class="w-full h-[390px] sm:h-[450px] object-cover" src="image/dami doctor image.png"/>
           <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/85 via-transparent to-transparent"></div>
           <div class="absolute bottom-5 left-5 right-5 text-white">
             <span class="px-2.5 py-1 rounded bg-[#D91A2A] text-white text-[10px] font-bold uppercase tracking-wider">Patient Services</span>
             <h3 class="text-base sm:text-lg font-bold mt-1 text-white">Main Reception &amp; Help Desk</h3>
-            <p class="body-copy text-neutral-200 text-xs">Dedicated assistance for appointments, billing &amp; OPD queries.</p>
+            <p class="body-copy text-neutral-200 text-xs">Dedicated assistance for appointments, billing transparency, and OPD queries.</p>
           </div>
         </div>
         <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/70 flex items-center justify-between">
@@ -475,7 +357,7 @@
           Integrated diagnostics and <span class="font-bold text-[#111c2d]">speciality clinical care</span>.
         </h2>
         <p class="body-copy text-secondary">
-          High-reliability diagnoses alongside experienced general &amp; specialized physicians.
+          Delivering high-reliability medical diagnoses alongside experienced general and specialized physicians.
         </p>
       </div>
       <a href="appointment.html" class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-sm font-bold px-6 py-3.5 rounded-md shadow-[0_8px_20px_rgba(217,26,42,0.25)] hover:bg-[#b0001a] shrink-0">
@@ -484,7 +366,7 @@
       </a>
     </div>
 
-    <!-- Flagship Lab Banner -->
+    <!-- LAB BANNER -->
     <div class="rounded-2xl overflow-hidden bg-[#111315] text-white shadow-2xl border border-neutral-800 reveal-el">
       <div class="grid grid-cols-1 lg:grid-cols-12 items-stretch">
         <div class="lg:col-span-7 p-6 sm:p-10 lg:p-12 flex flex-col justify-between gap-8">
@@ -493,41 +375,40 @@
               <span class="material-symbols-outlined text-[16px]">biotech</span>
               <span>Flagship Diagnostic Facility</span>
             </div>
-            <h3 class="text-2xl sm:text-3xl font-bold text-white">
-              Clinical Pathology &amp; Diagnostic Laboratory
-            </h3>
+            <h3 class="text-2xl sm:text-3xl font-bold text-white">Clinical Pathology &amp; Diagnostic Laboratory</h3>
             <p class="body-copy text-neutral-300 leading-relaxed">
-              Our certified in-house diagnostic laboratory performs automated hematology, liver &amp; kidney function panels, hormonal testing, diabetes monitoring (HbA1c), and lipid profiles — all under qualified supervision with swift turnaround.
+              Our certified in-house laboratory performs automated hematology, liver &amp; kidney panels, hormonal testing, diabetes monitoring (HbA1c), and lipid profiles — supervised by qualified technicians with swift turnaround.
             </p>
           </div>
           <div class="grid grid-cols-3 gap-4 pt-6 border-t border-neutral-800">
             <div>
               <span class="stat-display text-xl sm:text-2xl font-bold text-red-400 block">100%</span>
-              <span class="text-[11px] text-neutral-400 uppercase tracking-wider">In-House Testing</span>
+              <span class="text-[11px] text-neutral-400 uppercase tracking-wider">In-House</span>
             </div>
             <div>
               <span class="stat-display text-xl sm:text-2xl font-bold text-red-400 block">Same-Day</span>
-              <span class="text-[11px] text-neutral-400 uppercase tracking-wider">Routine Reports</span>
+              <span class="text-[11px] text-neutral-400 uppercase tracking-wider">Reports</span>
             </div>
             <div>
               <span class="stat-display text-xl sm:text-2xl font-bold text-red-400 block">Sterile</span>
-              <span class="text-[11px] text-neutral-400 uppercase tracking-wider">Sampling Bay</span>
+              <span class="text-[11px] text-neutral-400 uppercase tracking-wider">Sampling</span>
             </div>
           </div>
         </div>
         <div class="lg:col-span-5 relative min-h-[320px] lg:min-h-full reveal-img-wrap">
-          <img alt="Diagnostic Lab Interior" class="w-full h-full object-cover" src="image/lab dami.webp"/>
+          <img alt="Diagnostic Lab" class="w-full h-full object-cover" src="image/lab dami.webp"/>
           <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/80 via-transparent to-transparent lg:bg-gradient-to-r lg:from-[#111315]/95 lg:via-transparent"></div>
         </div>
       </div>
     </div>
 
-    <!-- Departments cards with images -->
+    <!-- 4 DEPARTMENT CARDS WITH UNIQUE IMAGES -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <!-- Card 1 -->
-      <div class="reveal-el img-card relative overflow-hidden rounded-2xl shadow-lg group cursor-pointer h-[420px] border border-outline-variant/60">
-        <img src="image/dami doctor image.png" alt="General Medicine" class="absolute inset-0 w-full h-full object-cover"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/55 to-transparent"></div>
+
+      <!-- Card 1: dami patient and doctor.jpg -->
+      <div class="reveal-el group relative rounded-2xl overflow-hidden shadow-md border border-outline-variant/60 h-[380px] hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500">
+        <img src="image/dami patient and doctor.jpg" alt="General Medicine" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/97 via-[#111315]/70 to-[#111315]/15"></div>
         <div class="relative z-10 p-6 flex flex-col justify-between h-full text-white">
           <div class="flex items-center justify-between">
             <span class="text-[10px] font-bold text-red-300 uppercase tracking-wider">01 / MEDICINE</span>
@@ -544,13 +425,12 @@
             </a>
           </div>
         </div>
-        <div class="img-card-shine"></div>
       </div>
 
-      <!-- Card 2 -->
-      <div class="reveal-el img-card relative overflow-hidden rounded-2xl shadow-lg group cursor-pointer h-[420px] border border-outline-variant/60" style="transition-delay: 100ms;">
-        <img src="image/RCB main door.webp" alt="Emergency &amp; Trauma" class="absolute inset-0 w-full h-full object-cover"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/55 to-transparent"></div>
+      <!-- Card 2: RCB counter.webp -->
+      <div class="reveal-el group relative rounded-2xl overflow-hidden shadow-md border border-outline-variant/60 h-[380px] hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500" style="transition-delay:100ms;">
+        <img src="image/RCB counter.webp" alt="Emergency &amp; Trauma" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/97 via-[#111315]/70 to-[#111315]/15"></div>
         <div class="relative z-10 p-6 flex flex-col justify-between h-full text-white">
           <div class="flex items-center justify-between">
             <span class="text-[10px] font-bold text-red-300 uppercase tracking-wider">02 / EMERGENCY</span>
@@ -560,20 +440,19 @@
           </div>
           <div class="flex flex-col gap-3">
             <h4 class="text-xl font-bold text-white">Emergency &amp; Trauma</h4>
-            <p class="text-xs text-neutral-200 leading-relaxed">24/7 casualty triage, wound dressing, trauma stabilization, IV hydration &amp; critical first-response.</p>
+            <p class="text-xs text-neutral-200 leading-relaxed">24/7 casualty triage, wound dressing, trauma stabilization &amp; critical first-response care.</p>
             <a class="inline-flex items-center gap-1.5 text-xs font-bold text-red-300 group-hover:translate-x-1 transition-transform" href="tel:+919801010314">
               <span>Emergency Help Desk</span>
               <span class="material-symbols-outlined text-[16px]">call</span>
             </a>
           </div>
         </div>
-        <div class="img-card-shine"></div>
       </div>
 
-      <!-- Card 3 -->
-      <div class="reveal-el img-card relative overflow-hidden rounded-2xl shadow-lg group cursor-pointer h-[420px] border border-outline-variant/60" style="transition-delay: 200ms;">
-        <img src="image/dami patient and doctor.jpg" alt="Maternal &amp; Pediatric" class="absolute inset-0 w-full h-full object-cover"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/55 to-transparent"></div>
+      <!-- Card 3: RCB cabin.webp -->
+      <div class="reveal-el group relative rounded-2xl overflow-hidden shadow-md border border-outline-variant/60 h-[380px] hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500" style="transition-delay:200ms;">
+        <img src="image/RCB cabin.webp" alt="Maternal &amp; Pediatric" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/97 via-[#111315]/70 to-[#111315]/15"></div>
         <div class="relative z-10 p-6 flex flex-col justify-between h-full text-white">
           <div class="flex items-center justify-between">
             <span class="text-[10px] font-bold text-red-300 uppercase tracking-wider">03 / MATERNAL</span>
@@ -590,13 +469,12 @@
             </a>
           </div>
         </div>
-        <div class="img-card-shine"></div>
       </div>
 
-      <!-- Card 4 -->
-      <div class="reveal-el img-card relative overflow-hidden rounded-2xl shadow-lg group cursor-pointer h-[420px] border border-outline-variant/60" style="transition-delay: 300ms;">
-        <img src="image/lab dami.webp" alt="Diagnostic Pathology" class="absolute inset-0 w-full h-full object-cover"/>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/55 to-transparent"></div>
+      <!-- Card 4: RCB website image.webp -->
+      <div class="reveal-el group relative rounded-2xl overflow-hidden shadow-md border border-outline-variant/60 h-[380px] hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500" style="transition-delay:300ms;">
+        <img src="image/RCB website image.webp" alt="Diagnostic Pathology" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/97 via-[#111315]/70 to-[#111315]/15"></div>
         <div class="relative z-10 p-6 flex flex-col justify-between h-full text-white">
           <div class="flex items-center justify-between">
             <span class="text-[10px] font-bold text-red-300 uppercase tracking-wider">04 / PATHOLOGY</span>
@@ -606,25 +484,31 @@
           </div>
           <div class="flex flex-col gap-3">
             <h4 class="text-xl font-bold text-white">Diagnostic Pathology</h4>
-            <p class="text-xs text-neutral-200 leading-relaxed">Complete blood count, blood sugar, lipid profiles, renal panels &amp; computerized urine analytics.</p>
+            <p class="text-xs text-neutral-200 leading-relaxed">Complete blood count, blood sugar, lipid profiles, renal panels &amp; urine analytics.</p>
             <a class="inline-flex items-center gap-1.5 text-xs font-bold text-red-300 group-hover:translate-x-1 transition-transform" href="appointment.html">
               <span>Schedule Lab Test</span>
               <span class="material-symbols-outlined text-[16px]">chevron_right</span>
             </a>
           </div>
         </div>
-        <div class="img-card-shine"></div>
       </div>
+    </div>
+
+    <!-- BUTTON -->
+    <div class="text-center reveal-el">
+      <a href="appointment.html" class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-sm font-bold px-7 py-3.5 rounded-md shadow-[0_8px_20px_rgba(217,26,42,0.25)] hover:bg-[#b0001a]">
+        <span class="material-symbols-outlined text-[19px]">event_available</span>
+        <span>Book Your Appointment</span>
+        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+      </a>
     </div>
 
   </div>
 </section>
 
-<!-- ============ 7. JOURNEY ============ -->
+<!-- ============ 7. JOURNEY (CLEAN CARDS) ============ -->
 <section class="w-full bg-surface py-16 lg:py-24 border-b border-outline-variant/60 relative overflow-hidden" id="journey">
   <div class="absolute -top-20 right-0 w-80 h-80 bg-red-100/40 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="absolute bottom-0 left-0 w-72 h-72 bg-neutral-200/30 rounded-full blur-3xl pointer-events-none"></div>
-
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col gap-14 relative z-10">
 
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal-el">
@@ -647,107 +531,81 @@
       </a>
     </div>
 
-    <div class="relative">
-      <div class="hidden lg:block absolute top-[60px] left-[12%] right-[12%] h-0.5 bg-gradient-to-r from-[#D91A2A]/20 via-[#D91A2A]/50 to-emerald-500/40"></div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
-
-        <!-- Step 1 -->
-        <div class="reveal-el fade-from-right img-card relative overflow-hidden rounded-2xl border border-outline-variant/60 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500 h-[380px] group cursor-pointer">
-          <img src="image/RCB counter.webp" alt="Reception &amp; Triage" class="absolute inset-0 w-full h-full object-cover"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/97 via-[#111315]/70 to-[#111315]/20"></div>
-          <div class="relative z-10 p-6 flex flex-col justify-between h-full text-white">
-            <div class="flex items-center justify-between">
-              <span class="step-num text-5xl text-[#D91A2A] leading-none">01</span>
-              <div class="w-12 h-12 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center">
-                <span class="material-symbols-outlined text-[24px] text-white">how_to_reg</span>
-              </div>
-            </div>
-            <div class="flex flex-col gap-2">
-              <h3 class="text-lg font-bold text-white">Reception &amp; Triage</h3>
-              <p class="text-xs text-neutral-200 leading-relaxed">Warm reception at our Aliganj front desk. Immediate vitals assessment by nursing personnel.</p>
-              <div class="pt-2 mt-2 border-t border-white/20 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-red-300">
-                <span class="material-symbols-outlined text-[14px]">schedule</span>
-                <span>Walk-in Ready</span>
-              </div>
-            </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Step 1 -->
+      <div class="reveal-el p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col gap-4 hover:border-[#D91A2A]/60 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-500">
+        <div class="flex items-center justify-between">
+          <span class="step-num text-4xl text-[#D91A2A]">01</span>
+          <div class="w-12 h-12 rounded-full bg-red-50 border border-red-100 flex items-center justify-center text-[#D91A2A]">
+            <span class="material-symbols-outlined text-[24px]">how_to_reg</span>
           </div>
-          <div class="img-card-shine"></div>
         </div>
+        <h3 class="text-base font-bold text-[#111c2d]">Reception &amp; Triage</h3>
+        <p class="body-copy text-secondary leading-relaxed text-sm">
+          Warm reception at our Aliganj front desk. Immediate vitals assessment by nursing personnel to identify urgent or acute patient needs.
+        </p>
+        <div class="pt-2 mt-auto border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-secondary">
+          <span class="material-symbols-outlined text-[14px]">schedule</span>
+          <span>Walk-in Ready</span>
+        </div>
+      </div>
 
-        <!-- Step 2 -->
-        <div class="reveal-el fade-from-right img-card relative overflow-hidden rounded-2xl border border-outline-variant/60 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500 h-[380px] group cursor-pointer" style="transition-delay: 100ms;">
-          <img src="image/lab dami.webp" alt="Advanced Diagnostics" class="absolute inset-0 w-full h-full object-cover"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/97 via-[#111315]/70 to-[#111315]/20"></div>
-          <div class="relative z-10 p-6 flex flex-col justify-between h-full text-white">
-            <div class="flex items-center justify-between">
-              <span class="step-num text-5xl text-[#D91A2A] leading-none">02</span>
-              <div class="w-12 h-12 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center">
-                <span class="material-symbols-outlined text-[24px] text-white">biotech</span>
-              </div>
-            </div>
-            <div class="flex flex-col gap-2">
-              <h3 class="text-lg font-bold text-white">Advanced Diagnostics</h3>
-              <p class="text-xs text-neutral-200 leading-relaxed">On-premise blood collection and testing without third-party referrals.</p>
-              <div class="pt-2 mt-2 border-t border-white/20 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-red-300">
-                <span class="material-symbols-outlined text-[14px]">science</span>
-                <span>In-House Lab</span>
-              </div>
-            </div>
+      <!-- Step 2 -->
+      <div class="reveal-el p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col gap-4 hover:border-[#D91A2A]/60 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-500" style="transition-delay:100ms;">
+        <div class="flex items-center justify-between">
+          <span class="step-num text-4xl text-[#D91A2A]">02</span>
+          <div class="w-12 h-12 rounded-full bg-red-50 border border-red-100 flex items-center justify-center text-[#D91A2A]">
+            <span class="material-symbols-outlined text-[24px]">biotech</span>
           </div>
-          <div class="img-card-shine"></div>
         </div>
+        <h3 class="text-base font-bold text-[#111c2d]">Advanced Diagnostics</h3>
+        <p class="body-copy text-secondary leading-relaxed text-sm">
+          Prompt on-premise blood sample collection and testing without sending patients to distant third-party pathology centers.
+        </p>
+        <div class="pt-2 mt-auto border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-secondary">
+          <span class="material-symbols-outlined text-[14px]">science</span>
+          <span>In-House Lab</span>
+        </div>
+      </div>
 
-        <!-- Step 3 -->
-        <div class="reveal-el fade-from-right img-card relative overflow-hidden rounded-2xl border border-outline-variant/60 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500 h-[380px] group cursor-pointer" style="transition-delay: 200ms;">
-          <img src="image/dami patient and doctor.jpg" alt="Physician Consultation" class="absolute inset-0 w-full h-full object-cover"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/97 via-[#111315]/70 to-[#111315]/20"></div>
-          <div class="relative z-10 p-6 flex flex-col justify-between h-full text-white">
-            <div class="flex items-center justify-between">
-              <span class="step-num text-5xl text-[#D91A2A] leading-none">03</span>
-              <div class="w-12 h-12 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center">
-                <span class="material-symbols-outlined text-[24px] text-white">clinical_notes</span>
-              </div>
-            </div>
-            <div class="flex flex-col gap-2">
-              <h3 class="text-lg font-bold text-white">Physician Consultation</h3>
-              <p class="text-xs text-neutral-200 leading-relaxed">Unhurried evaluation inside sanitized cabins with clear explanation of results.</p>
-              <div class="pt-2 mt-2 border-t border-white/20 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-red-300">
-                <span class="material-symbols-outlined text-[14px]">verified_user</span>
-                <span>Expert Doctors</span>
-              </div>
-            </div>
+      <!-- Step 3 -->
+      <div class="reveal-el p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col gap-4 hover:border-[#D91A2A]/60 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-500" style="transition-delay:200ms;">
+        <div class="flex items-center justify-between">
+          <span class="step-num text-4xl text-[#D91A2A]">03</span>
+          <div class="w-12 h-12 rounded-full bg-red-50 border border-red-100 flex items-center justify-center text-[#D91A2A]">
+            <span class="material-symbols-outlined text-[24px]">clinical_notes</span>
           </div>
-          <div class="img-card-shine"></div>
         </div>
+        <h3 class="text-base font-bold text-[#111c2d]">Physician Consultation</h3>
+        <p class="body-copy text-secondary leading-relaxed text-sm">
+          Thorough, unhurried evaluation inside sanitized doctor cabins with clear explanation of diagnostic results and prescriptions.
+        </p>
+        <div class="pt-2 mt-auto border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-secondary">
+          <span class="material-symbols-outlined text-[14px]">verified_user</span>
+          <span>Expert Doctors</span>
+        </div>
+      </div>
 
-        <!-- Step 4 -->
-        <div class="reveal-el fade-from-right img-card relative overflow-hidden rounded-2xl border border-outline-variant/60 shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-500 h-[380px] group cursor-pointer" style="transition-delay: 300ms;">
-          <img src="image/dami pat and doc.jpg" alt="Continued Care" class="absolute inset-0 w-full h-full object-cover"/>
-          <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/97 via-emerald-900/70 to-emerald-950/20"></div>
-          <div class="relative z-10 p-6 flex flex-col justify-between h-full text-white">
-            <div class="flex items-center justify-between">
-              <span class="step-num text-5xl text-emerald-300 leading-none">04</span>
-              <div class="w-12 h-12 rounded-full bg-white/15 backdrop-blur border border-white/30 flex items-center justify-center">
-                <span class="material-symbols-outlined text-[24px] text-white">health_and_safety</span>
-              </div>
-            </div>
-            <div class="flex flex-col gap-2">
-              <h3 class="text-lg font-bold text-white">Continued Care &amp; Follow-up</h3>
-              <p class="text-xs text-neutral-200 leading-relaxed">Daycare observation, medication monitoring, follow-up &amp; telephonic support.</p>
-              <div class="pt-2 mt-2 border-t border-white/20 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-emerald-300">
-                <span class="material-symbols-outlined text-[14px]">support_agent</span>
-                <span>24/7 Support</span>
-              </div>
-            </div>
+      <!-- Step 4 -->
+      <div class="reveal-el p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm flex flex-col gap-4 hover:border-emerald-500/60 hover:shadow-lg hover:-translate-y-1.5 transition-all duration-500" style="transition-delay:300ms;">
+        <div class="flex items-center justify-between">
+          <span class="step-num text-4xl text-emerald-700">04</span>
+          <div class="w-12 h-12 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-700">
+            <span class="material-symbols-outlined text-[24px]">health_and_safety</span>
           </div>
-          <div class="img-card-shine"></div>
         </div>
-
+        <h3 class="text-base font-bold text-[#111c2d]">Continued Care &amp; Follow-up</h3>
+        <p class="body-copy text-secondary leading-relaxed text-sm">
+          Daycare observation, monitored medication administration, follow-up scheduling, and direct telephonic helpline support.
+        </p>
+        <div class="pt-2 mt-auto border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-emerald-700">
+          <span class="material-symbols-outlined text-[14px]">support_agent</span>
+          <span>24/7 Support</span>
+        </div>
       </div>
     </div>
 
-    <!-- Bottom CTA strip -->
+    <!-- BOTTOM CTA -->
     <div class="reveal-el rounded-2xl bg-surface-container-lowest border border-outline-variant/60 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-sm">
       <div class="flex items-center gap-4">
         <div class="w-12 h-12 rounded-xl bg-red-100 text-[#D91A2A] flex items-center justify-center shrink-0">
@@ -785,6 +643,9 @@
         <p class="body-copy text-secondary leading-relaxed mt-7 max-w-xl">
           Take a visual tour through our sanitized corridors, dedicated laboratory rooms, and modern consultation cabins in Aliganj, Bhagalpur.
         </p>
+        <p class="text-sm text-secondary leading-relaxed mt-5 max-w-lg">
+          Explore our hospital environment and discover spaces designed around patient comfort, safety, and clinical care.
+        </p>
         <div class="flex flex-wrap gap-3 mt-7">
           <span class="px-4 py-2 rounded-full bg-white border border-outline-variant/60 text-xs font-bold text-[#111c2d] shadow-sm hover:-translate-y-1 hover:shadow-md transition-all">Clinical Safety</span>
           <span class="px-4 py-2 rounded-full bg-white border border-outline-variant/60 text-xs font-bold text-[#111c2d] shadow-sm hover:-translate-y-1 hover:shadow-md transition-all">Modern Facilities</span>
@@ -799,44 +660,38 @@
         </div>
       </div>
 
-      <div class="reveal-el" style="transition-delay: 200ms;">
+      <!-- 3 UNIQUE IMAGE GRID (dami pat and doc.jpg, RCB front.webp already footer logo, so use icon card) -->
+      <div class="reveal-el" style="transition-delay:200ms;">
         <div class="grid grid-cols-2 gap-4">
-          <div class="img-card relative rounded-2xl overflow-hidden shadow-lg group aspect-[4/3] border border-outline-variant/60 cursor-pointer">
-            <img src="image/RCB cabin.webp" alt="Consultation" class="w-full h-full object-cover"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/85 via-transparent to-transparent"></div>
-            <div class="absolute bottom-3 left-3 right-3">
-              <span class="inline-block px-2.5 py-1 rounded bg-[#D91A2A] text-white text-[10px] font-bold uppercase tracking-wider">Consultation</span>
-              <h3 class="text-sm font-bold text-white mt-1">Doctor Cabin</h3>
-            </div>
-            <div class="img-card-shine"></div>
-          </div>
-          <div class="img-card relative rounded-2xl overflow-hidden shadow-lg group aspect-[4/3] border border-outline-variant/60 cursor-pointer mt-8">
-            <img src="image/RCB counter.webp" alt="Reception" class="w-full h-full object-cover"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/85 via-transparent to-transparent"></div>
-            <div class="absolute bottom-3 left-3 right-3">
-              <span class="inline-block px-2.5 py-1 rounded bg-[#D91A2A] text-white text-[10px] font-bold uppercase tracking-wider">Reception</span>
-              <h3 class="text-sm font-bold text-white mt-1">Help Desk</h3>
-            </div>
-            <div class="img-card-shine"></div>
-          </div>
-          <div class="img-card relative rounded-2xl overflow-hidden shadow-lg group aspect-[4/3] border border-outline-variant/60 cursor-pointer -mt-4">
-            <img src="image/dami patient and doctor.jpg" alt="Patient Care" class="w-full h-full object-cover"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/85 via-transparent to-transparent"></div>
+
+          <div class="group relative rounded-2xl overflow-hidden shadow-lg aspect-[4/3] border border-outline-variant/60 cursor-pointer">
+            <img src="image/dami pat and doc.jpg" alt="Patient Care" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/90 via-transparent to-transparent"></div>
             <div class="absolute bottom-3 left-3 right-3">
               <span class="inline-block px-2.5 py-1 rounded bg-[#D91A2A] text-white text-[10px] font-bold uppercase tracking-wider">Patient Care</span>
-              <h3 class="text-sm font-bold text-white mt-1">Consultation</h3>
+              <h3 class="text-sm font-bold text-white mt-1">Compassionate Care</h3>
             </div>
-            <div class="img-card-shine"></div>
           </div>
-          <div class="img-card relative rounded-2xl overflow-hidden shadow-lg group aspect-[4/3] border border-outline-variant/60 cursor-pointer mt-4">
-            <img src="image/lab dami.webp" alt="Laboratory" class="w-full h-full object-cover"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/85 via-transparent to-transparent"></div>
-            <div class="absolute bottom-3 left-3 right-3">
-              <span class="inline-block px-2.5 py-1 rounded bg-[#D91A2A] text-white text-[10px] font-bold uppercase tracking-wider">Diagnostics</span>
-              <h3 class="text-sm font-bold text-white mt-1">Laboratory</h3>
-            </div>
-            <div class="img-card-shine"></div>
+
+          <!-- Icon-based card (no image) -->
+          <div class="rounded-2xl border border-outline-variant/60 bg-white p-5 flex flex-col justify-center gap-2 mt-8 shadow-md hover:-translate-y-1 transition-all">
+            <span class="material-symbols-outlined text-[#D91A2A] text-[34px]">cleaning_services</span>
+            <h3 class="text-sm font-bold text-[#111c2d]">Sterile Corridors</h3>
+            <p class="text-[11px] text-secondary">Sanitized daily with hospital-grade disinfectants.</p>
           </div>
+
+          <div class="rounded-2xl border border-outline-variant/60 bg-white p-5 flex flex-col justify-center gap-2 -mt-4 shadow-md hover:-translate-y-1 transition-all">
+            <span class="material-symbols-outlined text-emerald-700 text-[34px]">bed</span>
+            <h3 class="text-sm font-bold text-[#111c2d]">Observation Beds</h3>
+            <p class="text-[11px] text-secondary">Comfortable monitored beds with 24/7 nursing.</p>
+          </div>
+
+          <div class="rounded-2xl border border-outline-variant/60 bg-white p-5 flex flex-col justify-center gap-2 mt-4 shadow-md hover:-translate-y-1 transition-all">
+            <span class="material-symbols-outlined text-[#D91A2A] text-[34px]">vaccines</span>
+            <h3 class="text-sm font-bold text-[#111c2d]">Modern Equipment</h3>
+            <p class="text-[11px] text-secondary">Latest diagnostic and monitoring devices.</p>
+          </div>
+
         </div>
       </div>
 
@@ -844,7 +699,7 @@
   </div>
 </section>
 
-<!-- ============ 9. QUALITY ============ -->
+<!-- ============ 9. QUALITY (CLEAN) ============ -->
 <section class="w-full bg-surface py-16 lg:py-24 border-b border-outline-variant/60" id="quality">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -860,7 +715,7 @@
         <p class="body-copy text-secondary leading-relaxed">
           At RCB Hospital, we prioritize verified clinical quality, standardized treatment procedures, and ethical medical administration over commercial interests. Every patient is treated with empathy, clarity, and respect.
         </p>
-        <div class="space-y-4 pt-2">
+        <div class="space-y-3 pt-2">
           <div class="flex items-start gap-3.5 p-3 rounded-lg hover:bg-surface-container-low transition-colors">
             <div class="w-9 h-9 rounded-full bg-red-100 text-[#D91A2A] flex items-center justify-center shrink-0">
               <span class="material-symbols-outlined text-[18px]">verified</span>
@@ -876,7 +731,7 @@
             </div>
             <div>
               <h4 class="text-sm font-bold text-[#111c2d]">Transparent Prescriptions &amp; Billing</h4>
-              <p class="body-copy text-secondary text-xs mt-0.5">Complete clarity on diagnostic costs, consultations, and prescribed medicines.</p>
+              <p class="body-copy text-secondary text-xs mt-0.5">Complete clarity on diagnostic costs, consultations &amp; prescribed medicines.</p>
             </div>
           </div>
           <div class="flex items-start gap-3.5 p-3 rounded-lg hover:bg-surface-container-low transition-colors">
@@ -890,7 +745,7 @@
           </div>
         </div>
         <div class="pt-3">
-          <a href="appointment.html" class="btn-lift inline-flex items-center gap-2 bg-[#111c2d] text-white text-sm font-bold px-6 py-3.5 rounded-md hover:bg-[#D91A2A]">
+          <a href="appointment.html" class="btn-lift inline-flex items-center gap-2 bg-[#D91A2A] text-white text-sm font-bold px-6 py-3.5 rounded-md shadow-[0_8px_20px_rgba(217,26,42,0.25)] hover:bg-[#b0001a]">
             <span class="material-symbols-outlined text-[18px]">verified_user</span>
             <span>Experience Quality Care</span>
             <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
@@ -898,53 +753,36 @@
         </div>
       </div>
 
-      <!-- Quality matrix with images -->
-      <div class="lg:col-span-6 reveal-el" style="transition-delay: 150ms;">
-        <div class="grid grid-cols-2 gap-4 sm:gap-5">
-          <div class="img-card relative overflow-hidden rounded-2xl shadow-md border border-outline-variant/60 h-48 group cursor-pointer">
-            <img src="image/dami patient and doctor.jpg" alt="Observation Wards" class="absolute inset-0 w-full h-full object-cover"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/60 to-transparent"></div>
-            <div class="relative z-10 p-4 flex flex-col justify-end h-full">
-              <span class="stat-display text-2xl font-bold text-red-300">24 / 7</span>
-              <p class="text-xs font-semibold text-white mt-1">Observation Wards</p>
-              <p class="text-[10px] text-neutral-300">Constant nursing readiness</p>
+      <!-- Quality Matrix: clean icon cards -->
+      <div class="lg:col-span-6 reveal-el" style="transition-delay:150ms;">
+        <div class="bg-surface-container-low p-6 sm:p-8 rounded-2xl border border-outline-variant/60 flex flex-col gap-6">
+          <h3 class="text-xl font-bold text-[#111c2d]">Institutional Clinical Highlights</h3>
+          <div class="grid grid-cols-2 gap-4 sm:gap-6">
+            <div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm hover:-translate-y-1 transition-all">
+              <span class="stat-display text-3xl font-bold text-[#D91A2A]">24 / 7</span>
+              <p class="text-xs font-semibold text-[#111c2d] mt-1">Observation Wards</p>
+              <p class="body-copy text-[11px] text-secondary mt-0.5">Constant nursing and emergency readiness</p>
             </div>
-            <div class="img-card-shine"></div>
-          </div>
-          <div class="img-card relative overflow-hidden rounded-2xl shadow-md border border-outline-variant/60 h-48 group cursor-pointer">
-            <img src="image/lab dami.webp" alt="Emergency Blood Counts" class="absolute inset-0 w-full h-full object-cover"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/60 to-transparent"></div>
-            <div class="relative z-10 p-4 flex flex-col justify-end h-full">
-              <span class="stat-display text-2xl font-bold text-red-300">&lt; 30 min</span>
-              <p class="text-xs font-semibold text-white mt-1">Emergency Blood Counts</p>
-              <p class="text-[10px] text-neutral-300">Stat lab turnaround</p>
+            <div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm hover:-translate-y-1 transition-all">
+              <span class="stat-display text-3xl font-bold text-[#D91A2A]">&lt; 30 min</span>
+              <p class="text-xs font-semibold text-[#111c2d] mt-1">Emergency Blood Counts</p>
+              <p class="body-copy text-[11px] text-secondary mt-0.5">Stat lab turnaround for urgent cases</p>
             </div>
-            <div class="img-card-shine"></div>
-          </div>
-          <div class="img-card relative overflow-hidden rounded-2xl shadow-md border border-outline-variant/60 h-48 group cursor-pointer">
-            <img src="image/RCB cabin.webp" alt="Sterilized Equipment" class="absolute inset-0 w-full h-full object-cover"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/60 to-transparent"></div>
-            <div class="relative z-10 p-4 flex flex-col justify-end h-full">
-              <span class="stat-display text-2xl font-bold text-red-300">100%</span>
-              <p class="text-xs font-semibold text-white mt-1">Sterilized Equipment</p>
-              <p class="text-[10px] text-neutral-300">Autoclaved instruments</p>
+            <div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm hover:-translate-y-1 transition-all">
+              <span class="stat-display text-3xl font-bold text-[#D91A2A]">100%</span>
+              <p class="text-xs font-semibold text-[#111c2d] mt-1">Sterilized Equipment</p>
+              <p class="body-copy text-[11px] text-secondary mt-0.5">Autoclaved instruments and single-use kits</p>
             </div>
-            <div class="img-card-shine"></div>
-          </div>
-          <div class="img-card relative overflow-hidden rounded-2xl shadow-md border border-outline-variant/60 h-48 group cursor-pointer">
-            <img src="image/RCB main door.webp" alt="Central Bhagalpur" class="absolute inset-0 w-full h-full object-cover"/>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/60 to-transparent"></div>
-            <div class="relative z-10 p-4 flex flex-col justify-end h-full">
-              <span class="stat-display text-2xl font-bold text-red-300">Aliganj</span>
-              <p class="text-xs font-semibold text-white mt-1">Central Bhagalpur</p>
-              <p class="text-[10px] text-neutral-300">Accessible road network</p>
+            <div class="p-4 rounded-xl bg-surface-container-lowest border border-outline-variant/60 shadow-sm hover:-translate-y-1 transition-all">
+              <span class="stat-display text-3xl font-bold text-[#D91A2A]">Aliganj</span>
+              <p class="text-xs font-semibold text-[#111c2d] mt-1">Central Bhagalpur</p>
+              <p class="body-copy text-[11px] text-secondary mt-0.5">Easily accessible road network</p>
             </div>
-            <div class="img-card-shine"></div>
           </div>
-        </div>
-        <div class="mt-5 p-4 rounded-xl bg-surface-container-low border border-outline-variant/60 flex items-center gap-3">
-          <span class="material-symbols-outlined text-[#D91A2A] text-[24px]">support_agent</span>
-          <p class="body-copy text-secondary text-xs">Our care coordinators assist patients in local dialects for complete clarity.</p>
+          <div class="p-4 rounded-xl bg-surface-container border border-outline-variant/60 flex items-center gap-3">
+            <span class="material-symbols-outlined text-[#D91A2A] text-[24px]">support_agent</span>
+            <p class="body-copy text-secondary text-xs">Our care coordinators assist patients in local dialects to ensure instructions are understood clearly.</p>
+          </div>
         </div>
       </div>
 
@@ -1019,7 +857,7 @@
         </div>
       </div>
 
-      <div class="lg:col-span-6 relative rounded-2xl overflow-hidden shadow-sm bg-surface-container min-h-[350px] border border-outline-variant/60 flex flex-col justify-end reveal-img-wrap" style="transition-delay: 150ms;">
+      <div class="lg:col-span-6 relative rounded-2xl overflow-hidden shadow-sm bg-surface-container min-h-[350px] border border-outline-variant/60 flex flex-col justify-end reveal-img-wrap" style="transition-delay:150ms;">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.475604364994!2d86.97097887538257!3d25.220901177695705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f04b047d916863%3A0x9ec4e840ea2bc0d2!2sRCB%20HOSPITAL!5e0!3m2!1sen!2sin!4v1790935797054!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
         <div class="absolute inset-0 bg-gradient-to-t from-[#111315]/95 via-[#111315]/45 to-transparent pointer-events-none"></div>
         <div class="relative z-10 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-white">
@@ -1149,14 +987,14 @@
 
 <!-- BACK TO TOP -->
 <button id="backToTop" type="button" aria-label="Back to top"
-  class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-[#D91A2A] text-white shadow-lg flex items-center justify-center opacity-0 invisible translate-y-4 transition-all duration-500 hover:bg-[#111315] hover:-translate-y-1 hover:shadow-[0_8px_25px_rgba(217,26,42,0.35)] active:scale-90">
+  class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-[#D91A2A] text-white shadow-lg flex items-center justify-center opacity-0 invisible translate-y-4 transition-all duration-500 hover:bg-[#111315] hover:-translate-y-1 active:scale-90">
   <span class="material-symbols-outlined text-[22px]">keyboard_arrow_up</span>
 </button>
 
-<!-- ============ SCROLL REVEAL SCRIPT ============ -->
+<!-- SCROLL REVEAL + BACK TO TOP -->
 <script>
 (function(){
-  const els = document.querySelectorAll('.reveal-el, .reveal-img-wrap, .fade-from-right, .fade-from-left');
+  const els = document.querySelectorAll('.reveal-el, .reveal-img-wrap');
   if (!('IntersectionObserver' in window)) {
     els.forEach(el => el.classList.add('is-visible'));
     return;
@@ -1169,10 +1007,8 @@
       }
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-
   els.forEach(el => io.observe(el));
 
-  // Back to top
   const btn = document.getElementById('backToTop');
   if (btn) {
     const onScroll = () => {
