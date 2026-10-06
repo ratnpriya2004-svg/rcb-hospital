@@ -64,12 +64,6 @@
   /* Fade-in on scroll */
   .reveal-el, .reveal-img-wrap { opacity: 0; transform: translateY(35px); transition: opacity 900ms cubic-bezier(0.22,1,0.36,1), transform 900ms cubic-bezier(0.22,1,0.36,1); }
   .reveal-el.is-visible, .reveal-img-wrap.is-visible { opacity: 1; transform: translateY(0); }
-  .fade-right { opacity: 0; transform: translateX(40px); transition: opacity 900ms cubic-bezier(0.22,1,0.36,1), transform 900ms cubic-bezier(0.22,1,0.36,1); }
-  .fade-right.is-visible { opacity: 1; transform: translateX(0); }
-  .fade-left { opacity: 0; transform: translateX(-40px); transition: opacity 900ms cubic-bezier(0.22,1,0.36,1), transform 900ms cubic-bezier(0.22,1,0.36,1); }
-  .fade-left.is-visible { opacity: 1; transform: translateX(0); }
-  .zoom-in { opacity: 0; transform: scale(0.9); transition: opacity 900ms cubic-bezier(0.22,1,0.36,1), transform 900ms cubic-bezier(0.22,1,0.36,1); }
-  .zoom-in.is-visible { opacity: 1; transform: scale(1); }
 
   /* Button lift */
   .btn-lift { transition: transform 250ms ease, box-shadow 250ms ease, background-color 250ms ease, color 250ms ease; }
@@ -89,28 +83,16 @@
   .card-hover { transition: transform 400ms cubic-bezier(0.22,1,0.36,1), box-shadow 400ms cubic-bezier(0.22,1,0.36,1), border-color 400ms ease; }
   .card-hover:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(17,28,45,0.10); }
 
-  /* Timeline pulse ring */
-  @keyframes ringPulse {
-    0% { transform: scale(1); opacity: 0.6; }
-    100% { transform: scale(1.4); opacity: 0; }
-  }
-  .ring-pulse::after {
-    content: ''; position: absolute; inset: -8px;
-    border-radius: 9999px; border: 2px solid #D91A2A;
-    animation: ringPulse 2400ms cubic-bezier(0.22,1,0.36,1) infinite;
-  }
-
   /* Icon float */
   @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
   .icon-float { animation: floatY 3200ms ease-in-out infinite; }
 
-  /* Sticky header shadow on scroll */
-  .header-scrolled { box-shadow: 0 6px 24px rgba(17,28,45,0.08) !important; background: rgba(248,249,252,0.95) !important; }
-
-  /* Pattern background utility */
-  .dot-pattern {
-    background-image: radial-gradient(circle, rgba(217,26,42,0.12) 1px, transparent 1px);
-    background-size: 28px 28px;
+  /* STICKY HEADER — force */
+  .sticky-header {
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 999 !important;
   }
 </style>
 </head>
@@ -118,7 +100,7 @@
 <body class="bg-surface text-on-surface antialiased selection:bg-[#D91A2A] selection:text-white">
 
 <!-- 1. TOP UTILITY STRIP -->
-<aside class="w-full bg-[#111315] border-b border-neutral-800 text-neutral-300 text-xs relative z-50">
+<aside class="w-full bg-[#111315] border-b border-neutral-800 text-neutral-300 text-xs relative z-40">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-10 flex items-center justify-between">
     <div class="flex items-center gap-4 sm:gap-6">
       <div class="flex items-center gap-1.5 text-neutral-200">
@@ -143,8 +125,8 @@
   </div>
 </aside>
 
-<!-- 2. STICKY NAV -->
-<header id="mainHeader" class="sticky top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl border-b border-outline-variant/60 shadow-[0_2px_15px_rgba(0,0,0,0.03)] transition-all duration-300">
+<!-- 2. STICKY NAV — always pinned top -->
+<header class="sticky-header w-full bg-surface border-b border-outline-variant/60 shadow-[0_2px_15px_rgba(0,0,0,0.05)]">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-20 flex items-center justify-between gap-4">
     <a class="flex items-center gap-3" href="#hero">
       <div class="logo-icon w-11 h-11 rounded-lg bg-[#D91A2A] text-white flex items-center justify-center text-2xl shadow-md">+</div>
@@ -513,14 +495,9 @@
   </div>
 </section>
 
-<!-- ============ 7. PATIENT JOURNEY (ANIMATED TIMELINE) ============ -->
-<section class="w-full bg-gradient-to-b from-surface to-surface-container-low py-16 lg:py-24 border-b border-outline-variant/60 relative overflow-hidden" id="journey">
-  <!-- Dot pattern background -->
-  <div class="absolute inset-0 dot-pattern opacity-40 pointer-events-none"></div>
-  <div class="absolute -top-24 -right-24 w-96 h-96 bg-red-100/40 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="absolute bottom-0 left-0 w-80 h-80 bg-emerald-100/30 rounded-full blur-3xl pointer-events-none"></div>
-
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-10 flex flex-col gap-16">
+<!-- ============ 7. PATIENT JOURNEY (CLEAN & SIMPLE) ============ -->
+<section class="w-full bg-surface py-16 lg:py-24 border-b border-outline-variant/60" id="journey">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col gap-12">
 
     <!-- Header + CTA -->
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 reveal-el">
@@ -543,113 +520,90 @@
       </a>
     </div>
 
-    <!-- Timeline -->
+    <!-- Clean 4-step grid -->
     <div class="relative">
-      <!-- Horizontal connecting line (desktop) -->
-      <div class="hidden lg:block absolute top-[72px] left-[10%] right-[10%] h-[2px] bg-gradient-to-r from-transparent via-[#D91A2A]/40 to-transparent z-0"></div>
+      <!-- Connector line (desktop) -->
+      <div class="hidden lg:block absolute top-10 left-[10%] right-[10%] h-px bg-gradient-to-r from-[#D91A2A]/30 via-[#D91A2A]/40 to-emerald-500/30"></div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
 
         <!-- Step 1 -->
-        <div class="reveal-el fade-left group flex flex-col items-center lg:items-start text-center lg:text-left">
-          <div class="relative w-32 h-32 mb-6 flex items-center justify-center">
-            <!-- Rotating dashed ring -->
-            <div class="absolute inset-0 rounded-full border-2 border-dashed border-[#D91A2A]/30 group-hover:border-[#D91A2A]/60 transition-all duration-500" style="animation: spin 24s linear infinite;"></div>
-            <!-- Main circle -->
-            <div class="relative w-24 h-24 rounded-full bg-gradient-to-br from-white to-surface-container flex items-center justify-center border-4 border-white shadow-xl group-hover:scale-110 group-hover:shadow-2xl transition-all duration-500 ring-pulse">
-              <span class="step-num text-4xl text-[#D91A2A]">01</span>
+        <div class="reveal-el card-hover p-6 rounded-2xl bg-white border border-outline-variant/60 shadow-sm hover:border-[#D91A2A]/40 flex flex-col gap-4 h-full">
+          <div class="flex items-center justify-between">
+            <div class="w-14 h-14 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center text-[#D91A2A]">
+              <span class="material-symbols-outlined text-[26px]">how_to_reg</span>
             </div>
-            <!-- Icon badge -->
-            <div class="absolute -bottom-1 -right-1 w-11 h-11 rounded-full bg-[#D91A2A] text-white flex items-center justify-center shadow-lg border-4 border-white group-hover:rotate-12 transition-transform duration-500">
-              <span class="material-symbols-outlined text-[20px]">how_to_reg</span>
-            </div>
+            <span class="step-num text-5xl text-[#D91A2A]/25 leading-none">01</span>
           </div>
-          <div class="card-hover w-full p-6 rounded-2xl bg-white border border-outline-variant/60 shadow-sm group-hover:border-[#D91A2A]/40 group-hover:shadow-xl">
-            <h3 class="text-lg font-bold text-[#111c2d] mb-2">Reception &amp; Triage</h3>
-            <p class="body-copy text-secondary text-sm leading-relaxed">
-              Warm reception at our Aliganj front desk. Immediate vitals assessment by nursing personnel.
-            </p>
-            <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#D91A2A]">
-              <span class="material-symbols-outlined text-[14px]">schedule</span>
-              <span>Walk-in Ready</span>
-            </div>
+          <h3 class="text-lg font-bold text-[#111c2d]">Reception &amp; Triage</h3>
+          <p class="body-copy text-secondary text-sm leading-relaxed">
+            Warm reception at our Aliganj front desk with immediate vitals assessment by nursing personnel.
+          </p>
+          <div class="mt-auto pt-3 border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#D91A2A]">
+            <span class="material-symbols-outlined text-[14px]">schedule</span>
+            <span>Walk-in Ready</span>
           </div>
         </div>
 
         <!-- Step 2 -->
-        <div class="reveal-el fade-left group flex flex-col items-center lg:items-start text-center lg:text-left" style="transition-delay:150ms;">
-          <div class="relative w-32 h-32 mb-6 flex items-center justify-center">
-            <div class="absolute inset-0 rounded-full border-2 border-dashed border-[#D91A2A]/30 group-hover:border-[#D91A2A]/60 transition-all duration-500" style="animation: spin 24s linear infinite;"></div>
-            <div class="relative w-24 h-24 rounded-full bg-gradient-to-br from-white to-surface-container flex items-center justify-center border-4 border-white shadow-xl group-hover:scale-110 group-hover:shadow-2xl transition-all duration-500 ring-pulse">
-              <span class="step-num text-4xl text-[#D91A2A]">02</span>
+        <div class="reveal-el card-hover p-6 rounded-2xl bg-white border border-outline-variant/60 shadow-sm hover:border-[#D91A2A]/40 flex flex-col gap-4 h-full" style="transition-delay:100ms;">
+          <div class="flex items-center justify-between">
+            <div class="w-14 h-14 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center text-[#D91A2A]">
+              <span class="material-symbols-outlined text-[26px]">biotech</span>
             </div>
-            <div class="absolute -bottom-1 -right-1 w-11 h-11 rounded-full bg-[#D91A2A] text-white flex items-center justify-center shadow-lg border-4 border-white group-hover:rotate-12 transition-transform duration-500">
-              <span class="material-symbols-outlined text-[20px]">biotech</span>
-            </div>
+            <span class="step-num text-5xl text-[#D91A2A]/25 leading-none">02</span>
           </div>
-          <div class="card-hover w-full p-6 rounded-2xl bg-white border border-outline-variant/60 shadow-sm group-hover:border-[#D91A2A]/40 group-hover:shadow-xl">
-            <h3 class="text-lg font-bold text-[#111c2d] mb-2">Advanced Diagnostics</h3>
-            <p class="body-copy text-secondary text-sm leading-relaxed">
-              Prompt on-premise blood sample collection and testing without third-party referrals.
-            </p>
-            <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#D91A2A]">
-              <span class="material-symbols-outlined text-[14px]">science</span>
-              <span>In-House Lab</span>
-            </div>
+          <h3 class="text-lg font-bold text-[#111c2d]">Advanced Diagnostics</h3>
+          <p class="body-copy text-secondary text-sm leading-relaxed">
+            Prompt on-premise blood sample collection and testing without third-party referrals.
+          </p>
+          <div class="mt-auto pt-3 border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#D91A2A]">
+            <span class="material-symbols-outlined text-[14px]">science</span>
+            <span>In-House Lab</span>
           </div>
         </div>
 
         <!-- Step 3 -->
-        <div class="reveal-el fade-left group flex flex-col items-center lg:items-start text-center lg:text-left" style="transition-delay:300ms;">
-          <div class="relative w-32 h-32 mb-6 flex items-center justify-center">
-            <div class="absolute inset-0 rounded-full border-2 border-dashed border-[#D91A2A]/30 group-hover:border-[#D91A2A]/60 transition-all duration-500" style="animation: spin 24s linear infinite;"></div>
-            <div class="relative w-24 h-24 rounded-full bg-gradient-to-br from-white to-surface-container flex items-center justify-center border-4 border-white shadow-xl group-hover:scale-110 group-hover:shadow-2xl transition-all duration-500 ring-pulse">
-              <span class="step-num text-4xl text-[#D91A2A]">03</span>
+        <div class="reveal-el card-hover p-6 rounded-2xl bg-white border border-outline-variant/60 shadow-sm hover:border-[#D91A2A]/40 flex flex-col gap-4 h-full" style="transition-delay:200ms;">
+          <div class="flex items-center justify-between">
+            <div class="w-14 h-14 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center text-[#D91A2A]">
+              <span class="material-symbols-outlined text-[26px]">clinical_notes</span>
             </div>
-            <div class="absolute -bottom-1 -right-1 w-11 h-11 rounded-full bg-[#D91A2A] text-white flex items-center justify-center shadow-lg border-4 border-white group-hover:rotate-12 transition-transform duration-500">
-              <span class="material-symbols-outlined text-[20px]">clinical_notes</span>
-            </div>
+            <span class="step-num text-5xl text-[#D91A2A]/25 leading-none">03</span>
           </div>
-          <div class="card-hover w-full p-6 rounded-2xl bg-white border border-outline-variant/60 shadow-sm group-hover:border-[#D91A2A]/40 group-hover:shadow-xl">
-            <h3 class="text-lg font-bold text-[#111c2d] mb-2">Physician Consultation</h3>
-            <p class="body-copy text-secondary text-sm leading-relaxed">
-              Unhurried evaluation inside sanitized cabins with clear explanation of results.
-            </p>
-            <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#D91A2A]">
-              <span class="material-symbols-outlined text-[14px]">verified_user</span>
-              <span>Expert Doctors</span>
-            </div>
+          <h3 class="text-lg font-bold text-[#111c2d]">Physician Consultation</h3>
+          <p class="body-copy text-secondary text-sm leading-relaxed">
+            Unhurried evaluation inside sanitized cabins with clear explanation of results and prescriptions.
+          </p>
+          <div class="mt-auto pt-3 border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-[#D91A2A]">
+            <span class="material-symbols-outlined text-[14px]">verified_user</span>
+            <span>Expert Doctors</span>
           </div>
         </div>
 
         <!-- Step 4 -->
-        <div class="reveal-el fade-left group flex flex-col items-center lg:items-start text-center lg:text-left" style="transition-delay:450ms;">
-          <div class="relative w-32 h-32 mb-6 flex items-center justify-center">
-            <div class="absolute inset-0 rounded-full border-2 border-dashed border-emerald-500/30 group-hover:border-emerald-500/60 transition-all duration-500" style="animation: spin 24s linear infinite;"></div>
-            <div class="relative w-24 h-24 rounded-full bg-gradient-to-br from-white to-emerald-50 flex items-center justify-center border-4 border-white shadow-xl group-hover:scale-110 group-hover:shadow-2xl transition-all duration-500">
-              <span class="step-num text-4xl text-emerald-700">04</span>
+        <div class="reveal-el card-hover p-6 rounded-2xl bg-white border border-outline-variant/60 shadow-sm hover:border-emerald-500/40 flex flex-col gap-4 h-full" style="transition-delay:300ms;">
+          <div class="flex items-center justify-between">
+            <div class="w-14 h-14 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-700">
+              <span class="material-symbols-outlined text-[26px]">health_and_safety</span>
             </div>
-            <div class="absolute -bottom-1 -right-1 w-11 h-11 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-lg border-4 border-white group-hover:rotate-12 transition-transform duration-500">
-              <span class="material-symbols-outlined text-[20px]">health_and_safety</span>
-            </div>
+            <span class="step-num text-5xl text-emerald-700/25 leading-none">04</span>
           </div>
-          <div class="card-hover w-full p-6 rounded-2xl bg-white border border-outline-variant/60 shadow-sm group-hover:border-emerald-500/40 group-hover:shadow-xl">
-            <h3 class="text-lg font-bold text-[#111c2d] mb-2">Continued Care</h3>
-            <p class="body-copy text-secondary text-sm leading-relaxed">
-              Daycare observation, medication monitoring, follow-up &amp; telephonic support.
-            </p>
-            <div class="mt-4 pt-3 border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-emerald-700">
-              <span class="material-symbols-outlined text-[14px]">support_agent</span>
-              <span>24/7 Support</span>
-            </div>
+          <h3 class="text-lg font-bold text-[#111c2d]">Continued Care</h3>
+          <p class="body-copy text-secondary text-sm leading-relaxed">
+            Daycare observation, medication monitoring, follow-up scheduling &amp; telephonic support.
+          </p>
+          <div class="mt-auto pt-3 border-t border-outline-variant/60 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-wider text-emerald-700">
+            <span class="material-symbols-outlined text-[14px]">support_agent</span>
+            <span>24/7 Support</span>
           </div>
         </div>
 
       </div>
     </div>
 
-    <!-- Bottom CTA -->
-    <div class="reveal-el rounded-2xl bg-white border border-outline-variant/60 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-md">
+    <!-- Bottom CTA strip -->
+    <div class="reveal-el rounded-2xl bg-surface-container-lowest border border-outline-variant/60 p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-sm">
       <div class="flex items-center gap-4">
         <div class="w-14 h-14 rounded-xl bg-red-100 text-[#D91A2A] flex items-center justify-center shrink-0">
           <span class="material-symbols-outlined text-[28px] icon-float">volunteer_activism</span>
@@ -700,7 +654,6 @@
         </div>
       </div>
 
-      <!-- 3 image grid -->
       <div class="reveal-el" style="transition-delay:200ms;">
         <div class="grid grid-cols-2 gap-4">
           <div class="card-hover group relative rounded-2xl overflow-hidden shadow-lg aspect-[4/3] border border-outline-variant/60 cursor-pointer">
@@ -742,7 +695,7 @@
   </div>
 </section>
 
-<!-- ============ 9. QUALITY (WITH BG IMAGE ON RIGHT CARD) ============ -->
+<!-- ============ 9. QUALITY (LIGHT THEME CARD) ============ -->
 <section class="w-full bg-surface py-16 lg:py-24 border-b border-outline-variant/60" id="quality">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -796,50 +749,48 @@
         </div>
       </div>
 
-      <!-- RIGHT CARD WITH BG IMAGE -->
+      <!-- RIGHT: LIGHT CARD with subtle image bg -->
       <div class="lg:col-span-6 reveal-el" style="transition-delay:150ms;">
-        <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-outline-variant/60 min-h-[520px]">
-          <!-- Background image -->
-          <img src="image/RCB website image.webp" alt="Quality Care Background" class="absolute inset-0 w-full h-full object-cover"/>
-          <div class="absolute inset-0 bg-gradient-to-br from-[#111315]/95 via-[#111315]/85 to-[#111315]/70"></div>
-          <!-- Red accent glow -->
-          <div class="absolute -top-20 -right-20 w-64 h-64 bg-[#D91A2A]/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="relative rounded-2xl overflow-hidden bg-gradient-to-br from-surface-container-low via-white to-surface-container-lowest border border-outline-variant/60 shadow-lg p-8 sm:p-10">
+          <!-- Subtle image background -->
+          <img src="image/RCB website image.webp" alt="" class="absolute inset-0 w-full h-full object-cover opacity-[0.06] pointer-events-none"/>
+          <div class="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-white/30 pointer-events-none"></div>
+          <div class="absolute -top-20 -right-20 w-64 h-64 bg-[#D91A2A]/10 rounded-full blur-3xl pointer-events-none"></div>
 
-          <!-- Content -->
-          <div class="relative z-10 p-8 sm:p-10 flex flex-col gap-6 h-full">
+          <div class="relative z-10 flex flex-col gap-6">
             <div class="flex items-center justify-between">
-              <h3 class="text-xl sm:text-2xl font-bold text-white">Institutional Clinical Highlights</h3>
-              <div class="w-12 h-12 rounded-full bg-[#D91A2A] text-white flex items-center justify-center shadow-lg">
+              <h3 class="text-xl sm:text-2xl font-bold text-[#111c2d]">Institutional Clinical Highlights</h3>
+              <div class="w-12 h-12 rounded-full bg-[#D91A2A] text-white flex items-center justify-center shadow-md">
                 <span class="material-symbols-outlined text-[24px]">workspace_premium</span>
               </div>
             </div>
 
             <div class="grid grid-cols-2 gap-4">
-              <div class="card-hover p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 shadow-sm">
-                <span class="stat-display text-3xl font-bold text-red-300">24 / 7</span>
-                <p class="text-xs font-semibold text-white mt-1">Observation Wards</p>
-                <p class="text-[11px] text-neutral-300 mt-0.5">Constant nursing &amp; emergency readiness</p>
+              <div class="card-hover p-4 rounded-xl bg-white border border-outline-variant/60 shadow-sm">
+                <span class="stat-display text-3xl font-bold text-[#D91A2A]">24 / 7</span>
+                <p class="text-xs font-semibold text-[#111c2d] mt-1">Observation Wards</p>
+                <p class="text-[11px] text-secondary mt-0.5">Constant nursing &amp; emergency readiness</p>
               </div>
-              <div class="card-hover p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 shadow-sm">
-                <span class="stat-display text-3xl font-bold text-red-300">&lt; 30 min</span>
-                <p class="text-xs font-semibold text-white mt-1">Emergency Blood Counts</p>
-                <p class="text-[11px] text-neutral-300 mt-0.5">Stat lab turnaround for urgent cases</p>
+              <div class="card-hover p-4 rounded-xl bg-white border border-outline-variant/60 shadow-sm">
+                <span class="stat-display text-3xl font-bold text-[#D91A2A]">&lt; 30 min</span>
+                <p class="text-xs font-semibold text-[#111c2d] mt-1">Emergency Blood Counts</p>
+                <p class="text-[11px] text-secondary mt-0.5">Stat lab turnaround for urgent cases</p>
               </div>
-              <div class="card-hover p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 shadow-sm">
-                <span class="stat-display text-3xl font-bold text-red-300">100%</span>
-                <p class="text-xs font-semibold text-white mt-1">Sterilized Equipment</p>
-                <p class="text-[11px] text-neutral-300 mt-0.5">Autoclaved instruments &amp; single-use kits</p>
+              <div class="card-hover p-4 rounded-xl bg-white border border-outline-variant/60 shadow-sm">
+                <span class="stat-display text-3xl font-bold text-[#D91A2A]">100%</span>
+                <p class="text-xs font-semibold text-[#111c2d] mt-1">Sterilized Equipment</p>
+                <p class="text-[11px] text-secondary mt-0.5">Autoclaved instruments &amp; single-use kits</p>
               </div>
-              <div class="card-hover p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 shadow-sm">
-                <span class="stat-display text-3xl font-bold text-red-300">Aliganj</span>
-                <p class="text-xs font-semibold text-white mt-1">Central Bhagalpur</p>
-                <p class="text-[11px] text-neutral-300 mt-0.5">Easily accessible road network</p>
+              <div class="card-hover p-4 rounded-xl bg-white border border-outline-variant/60 shadow-sm">
+                <span class="stat-display text-3xl font-bold text-[#D91A2A]">Aliganj</span>
+                <p class="text-xs font-semibold text-[#111c2d] mt-1">Central Bhagalpur</p>
+                <p class="text-[11px] text-secondary mt-0.5">Easily accessible road network</p>
               </div>
             </div>
 
-            <div class="p-4 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center gap-3">
-              <span class="material-symbols-outlined text-red-300 text-[24px] icon-float">support_agent</span>
-              <p class="body-copy text-neutral-200 text-xs">Our care coordinators assist patients in local dialects to ensure instructions are understood clearly.</p>
+            <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/60 flex items-center gap-3">
+              <span class="material-symbols-outlined text-[#D91A2A] text-[24px] icon-float">support_agent</span>
+              <p class="body-copy text-secondary text-xs">Our care coordinators assist patients in local dialects to ensure instructions are understood clearly.</p>
             </div>
           </div>
         </div>
@@ -1050,11 +1001,9 @@
   <span class="material-symbols-outlined text-[22px]">keyboard_arrow_up</span>
 </button>
 
-<!-- ============ SCRIPTS ============ -->
 <script>
 (function(){
-  // Scroll reveal
-  const els = document.querySelectorAll('.reveal-el, .reveal-img-wrap, .fade-right, .fade-left, .zoom-in');
+  const els = document.querySelectorAll('.reveal-el, .reveal-img-wrap');
   if (!('IntersectionObserver' in window)) {
     els.forEach(el => el.classList.add('is-visible'));
   } else {
@@ -1069,17 +1018,6 @@
     els.forEach(el => io.observe(el));
   }
 
-  // Sticky header scroll shadow
-  const header = document.getElementById('mainHeader');
-  const onScrollHeader = () => {
-    if (!header) return;
-    if (window.scrollY > 20) header.classList.add('header-scrolled');
-    else header.classList.remove('header-scrolled');
-  };
-  window.addEventListener('scroll', onScrollHeader, { passive: true });
-  onScrollHeader();
-
-  // Back to top
   const btn = document.getElementById('backToTop');
   if (btn) {
     const onScroll = () => {
@@ -1096,11 +1034,6 @@
   }
 })();
 </script>
-
-<!-- Spin keyframe (for dashed rings) -->
-<style>
-  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-</style>
 
 <script src="supabase.js"></script>
 <script src="script.js"></script>
