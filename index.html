@@ -1530,15 +1530,93 @@ h2.display-heading {
         </address>
       </div>
     </div>
-    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
-      <p>© RCB Hospital. All rights reserved. Registered Multi-Speciality Hospital &amp; Diagnostic Centre, Bhagalpur.</p>
-      <div class="flex items-center gap-6">
+
+    <!-- BOTTOM BAR -->
+    <div class="pt-8 flex flex-col lg:flex-row items-center justify-between gap-6">
+      <p class="text-xs text-neutral-500 text-center lg:text-left">
+        © RCB Hospital. All rights reserved. Registered Multi-Speciality Hospital &amp; Diagnostic Centre, Bhagalpur.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-5 text-xs text-neutral-500">
         <a class="hover:text-neutral-300 transition-colors" href="#location">Emergency Protocol</a>
         <a class="hover:text-neutral-300 transition-colors" href="#location">Patient Privacy Policy</a>
+
+        <!-- ============ NEXOVA X CREDIT BADGE ============ -->
+        <a
+          href="https://www.nexovax.in/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="nexova-credit group inline-flex items-center gap-3 pl-2.5 pr-4 py-1.5 rounded-full bg-white border border-neutral-200 hover:border-[#D91A2A] transition-all duration-300 hover:shadow-[0_8px_24px_rgba(217,26,42,0.18)] hover:-translate-y-0.5"
+          aria-label="Design and Developed by Nexova X — visit nexovax.in"
+        >
+          <!-- Nexova X Logo Mark -->
+          <span class="nexova-logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="26" height="26">
+              <defs>
+                <linearGradient id="nxRed" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#ef4444"/>
+                  <stop offset="100%" stop-color="#b0001a"/>
+                </linearGradient>
+              </defs>
+              <!-- Stylized X -->
+              <path d="M8 6 L16 6 L24 18 L32 6 L40 6 L28 24 L40 38 L32 38 L24 26 L16 38 L8 38 L20 22 Z"
+                    fill="url(#nxRed)"/>
+              <!-- Small offset accent -->
+              <path d="M4 20 L8 20 L12 28 L8 34 Z" fill="#b0001a" opacity="0.85"/>
+            </svg>
+          </span>
+
+          <!-- Text Stack -->
+          <span class="nexova-credit-text flex flex-col leading-none text-left">
+            <span class="text-[8px] font-bold tracking-[0.18em] text-neutral-500 uppercase">
+              Design &amp; Developed by
+            </span>
+            <span class="text-[13px] font-bold text-[#111315] tracking-tight mt-1 group-hover:text-[#D91A2A] transition-colors">
+              Nexova <span class="font-black">X</span>
+            </span>
+          </span>
+
+          <!-- External Link Icon -->
+          <span class="nexova-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#111315" stroke-width="2.2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 4h6v6"/>
+              <path d="M20 4 10 14"/>
+              <path d="M20 14v6H4V4h6"/>
+            </svg>
+          </span>
+        </a>
       </div>
     </div>
   </div>
 </footer>
+
+<!-- ============ NEXOVA CREDIT — HOVER STYLES ============ -->
+<style>
+  .nexova-credit {
+    text-decoration: none;
+    box-shadow: 0 2px 10px rgba(17, 28, 45, 0.06);
+  }
+  .nexova-credit:hover .nexova-arrow svg {
+    stroke: #D91A2A;
+    transform: translate(1px, -1px);
+    transition: transform 250ms ease, stroke 250ms ease;
+  }
+  .nexova-credit .nexova-arrow svg {
+    transition: transform 250ms ease, stroke 250ms ease;
+  }
+  .nexova-credit .nexova-logo-mark svg {
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .nexova-credit:hover .nexova-logo-mark svg {
+    transform: scale(1.08) rotate(-4deg);
+  }
+  @media (max-width: 640px) {
+    .nexova-credit { padding-left: 8px; padding-right: 12px; gap: 8px; }
+    .nexova-credit-text .text-\[13px\] { font-size: 12px; }
+    .nexova-credit-text .text-\[8px\]  { font-size: 7px; letter-spacing: 0.14em; }
+  }
+</style>
 
 <!-- BACK TO TOP -->
 <button id="backToTop" type="button" aria-label="Back to top"
